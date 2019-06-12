@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardEditChangeStackWidget);
     connect(ui->actionCreateNewFileLibrary, &QAction::triggered, this, &MainWindow::newFileLibraryChangeStackWidget);
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
+    connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
+    connect(newFileLibraryForm, &NewFileLibraryForm::signalCardEditChangeStackWidget, this, &MainWindow::cardEditChangeStackWidget);
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +48,11 @@ void MainWindow::slotChangeStackWidget(int index)
         QApplication::exit();
     ui->stackedWidget->setCurrentIndex(index);
 
+}
+
+void MainWindow::slotStatusBarOutput(QString str, int timeOutput)
+{
+    ui->statusBar->showMessage(str, timeOutput);
 }
 
 void MainWindow::cardEditChangeStackWidget()

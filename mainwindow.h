@@ -18,6 +18,7 @@ public:
 
 private slots:
     void slotChangeStackWidget(int index);
+    void slotStatusBarOutput(QString str, int timeOutput);
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();
