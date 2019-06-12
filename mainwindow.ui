@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="page"/>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuBarFileLibrary">
+    <property name="title">
+     <string>Архив</string>
+    </property>
+    <addaction name="actionOpenFileLibrary"/>
+    <addaction name="actionCreateNewFileLibrary"/>
+    <addaction name="actionBackupFileLibrary"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuBarCardRedactor">
+    <property name="title">
+     <string>Карточка</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionAddCard"/>
+    <addaction name="actionEditCard"/>
+    <addaction name="actionDelCard"/>
+   </widget>
+   <widget class="QMenu" name="menuBarSearch">
+    <property name="title">
+     <string>Поиск</string>
+    </property>
+    <addaction name="actionSearch"/>
+   </widget>
+   <widget class="QMenu" name="menuBarView">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <addaction name="actionListCard_2"/>
+    <addaction name="actionViewCard"/>
+   </widget>
+   <addaction name="menuBarFileLibrary"/>
+   <addaction name="menuBarView"/>
+   <addaction name="menuBarCardRedactor"/>
+   <addaction name="menuBarSearch"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_3">
+   <property name="text">
+    <string>Карточки</string>
+   </property>
+  </action>
+  <action name="actionEditCard">
+   <property name="text">
+    <string>Редактировать</string>
+   </property>
+  </action>
+  <action name="actionAddCard">
+   <property name="text">
+    <string>Новая</string>
+   </property>
+  </action>
+  <action name="actionDelCard">
+   <property name="text">
+    <string>Удалить</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Поиск</string>
+   </property>
+  </action>
+  <action name="actionListCard">
+   <property name="text">
+    <string>Список</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="actionListCard_2">
+   <property name="text">
+    <string>Список</string>
+   </property>
+  </action>
+  <action name="actionViewCard">
+   <property name="text">
+    <string>Карточка</string>
+   </property>
+  </action>
+  <action name="actionCreateNewFileLibrary">
+   <property name="text">
+    <string>Создать</string>
+   </property>
+  </action>
+  <action name="actionOpenFileLibrary">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+  </action>
+  <action name="actionBackupFileLibrary">
+   <property name="text">
+    <string>Резервное хранилище</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
