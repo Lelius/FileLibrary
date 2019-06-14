@@ -4,5 +4,9 @@
 
 CardInformation::CardInformation()
 {
+        inventoryNumber = 0;
+        receiptDate = QDate::currentDate();
+        designation = "";
+        name = "";
 
 }

@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
-    connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardEditChangeStackWidget);
+    connect(ui->actionEditCard, &QAction::triggered, this, &MainWindow::cardEditChangeStackWidget);
     connect(ui->actionCreateNewFileLibrary, &QAction::triggered, this, &MainWindow::newFileLibraryChangeStackWidget);
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
