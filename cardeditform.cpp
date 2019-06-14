@@ -9,6 +9,8 @@ CardEditForm::CardEditForm(QWidget *parent) :
     ui->setupUi(this);
 
     CardInformation *cardInformation = new CardInformation();
+
+
 }
 
 CardEditForm::~CardEditForm()

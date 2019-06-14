@@ -17,6 +17,33 @@ class CardInformation
 public:
     CardInformation();
 
+    int getInventoryNumber() const;
+    void setInventoryNumber(int value);
+
+    QDate getReceiptDate() const;
+    void setReceiptDate(const QDate &value);
+
+    QString getDesignation() const;
+    void setDesignation(const QString &value);
+
+    QString getName() const;
+    void setName(const QString &value);
+
+    QMap<QString, int> getSheetFormat() const;
+    void setSheetFormat(const QMap<QString, int> &value);
+
+    QVector<ApplicabilityCard> getApplicability() const;
+    void setApplicability(const QVector<ApplicabilityCard> &value);
+
+    QVector<ChangeAccountingCard> getChangeAccounting() const;
+    void setChangeAccounting(const QVector<ChangeAccountingCard> &value);
+
+    QVector<CopyAccounting> getCopyAccounting() const;
+    void setCopyAccounting(const QVector<CopyAccounting> &value);
+
+    QVector<IssuanceOfCopies> getIssuanceOfCopies() const;
+    void setIssuanceOfCopies(const QVector<IssuanceOfCopies> &value);
+
 private:
     int inventoryNumber;                            //инвентарный номер
     QDate receiptDate;                              //дата поступления
