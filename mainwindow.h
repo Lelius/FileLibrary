@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QScreen>
 
+#include "cardviewform.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -25,6 +27,7 @@ private slots:
     void exitChangeStackWidget();
     void exitBackChangeStackWidget();
     void newFileLibraryChangeStackWidget();
+    void cardViewChangeStackWidget();
 
 private:
     Ui::MainWindow *ui;

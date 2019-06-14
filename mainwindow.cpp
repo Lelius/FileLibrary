@@ -4,6 +4,7 @@
 #include "cardeditform.h"
 #include "exitform.h"
 #include "newfilelibraryform.h"
+#include "cardviewform.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,11 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     CardEditForm *cardEditForm = new CardEditForm(this);
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
+    CardViewForm *cardViewForm = new CardViewForm(this);
 
     ui->stackedWidget->insertWidget(0, listForm);
     ui->stackedWidget->insertWidget(1, cardEditForm);
     ui->stackedWidget->insertWidget(2, exitForm);
     ui->stackedWidget->insertWidget(3, newFileLibraryForm);
+    ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
 
@@ -35,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalCardEditChangeStackWidget, this, &MainWindow::cardEditChangeStackWidget);
+    connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardViewChangeStackWidget);
+
 }
 
 MainWindow::~MainWindow()
@@ -82,4 +87,10 @@ void MainWindow::newFileLibraryChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(3);
+}
+
+void MainWindow::cardViewChangeStackWidget()
+{
+    previousIndex = ui->stackedWidget->currentIndex();
+    slotChangeStackWidget(4);
 }

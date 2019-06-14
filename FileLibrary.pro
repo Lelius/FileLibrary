@@ -35,7 +35,8 @@ SOURCES += \
     changeaccountingcard.cpp \
     copyaccounting.cpp \
     issuanceofcopies.cpp \
-    newfilelibraryform.cpp
+    newfilelibraryform.cpp \
+    cardviewform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,14 +48,16 @@ HEADERS += \
     changeaccountingcard.h \
     copyaccounting.h \
     issuanceofcopies.h \
-    newfilelibraryform.h
+    newfilelibraryform.h \
+    cardviewform.h
 
 FORMS += \
         mainwindow.ui \
     listform.ui \
     cardeditform.ui \
     exitform.ui \
-    newfilelibraryform.ui
+    newfilelibraryform.ui \
+    cardviewform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
