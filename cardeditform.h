@@ -14,6 +14,7 @@ class CardEditForm : public QWidget
 
 public:
     explicit CardEditForm(QWidget *parent = nullptr);
+    explicit CardEditForm(CardInformation *ci, QWidget *parent = nullptr);
     ~CardEditForm();
 
 private slots:

@@ -16,6 +16,7 @@ class CardInformation
 {
 public:
     CardInformation();
+    CardInformation(CardInformation &ci);
 
     int getInventoryNumber() const;
     void setInventoryNumber(int value);
@@ -29,8 +30,8 @@ public:
     QString getName() const;
     void setName(const QString &value);
 
-    QMap<QString, int> getSheetFormat() const;
-    void setSheetFormat(const QMap<QString, int> &value);
+    int getKitFormat(const QString &str) const;
+    void setKitFormat(const QString &str, const int &value);
 
     QVector<ApplicabilityCard> getApplicability() const;
     void setApplicability(const QVector<ApplicabilityCard> &value);
@@ -44,12 +45,16 @@ public:
     QVector<IssuanceOfCopies> getIssuanceOfCopies() const;
     void setIssuanceOfCopies(const QVector<IssuanceOfCopies> &value);
 
+    QString getComment() const;
+    void setComment(const QString &value);
+
 private:
     int inventoryNumber;                            //инвентарный номер
     QDate receiptDate;                              //дата поступления
     QString designation;                            //обозначение
     QString name;                                   //наименование
-    QMap<QString, int> sheetFormat;                 //формат и количество листов
+    QString comment;                                //комментарий
+    QMap<QString, int> kitFormat;                   //формат и количество листов
     QVector<ApplicabilityCard> applicability;       //применяемость
     QVector<ChangeAccountingCard> changeAccounting; //учет изменений
     QVector<CopyAccounting> copyAccounting;         //учет копий

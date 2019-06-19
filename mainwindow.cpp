@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::resize(rect.width()/2, rect.height()/2);
 
     ListForm *listForm = new ListForm(this);
-    CardEditForm *cardEditForm = new CardEditForm(this);
+    /*CardEditForm*/ cardEditForm = new CardEditForm(this);
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
     CardViewForm *cardViewForm = new CardViewForm(this);
@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalCardEditChangeStackWidget, this, &MainWindow::cardEditChangeStackWidget);
     connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardViewChangeStackWidget);
-
+    connect(ui->actionNewCard, &QAction::triggered, this, &MainWindow::cardNewChangeStackWidget);
 }
 
 MainWindow::~MainWindow()
@@ -93,4 +93,12 @@ void MainWindow::cardViewChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(4);
+}
+
+void MainWindow::cardNewChangeStackWidget()
+{
+    previousIndex = ui->stackedWidget->currentIndex();
+    cardEditForm = new CardEditForm(this);
+    ui->stackedWidget->insertWidget(1, cardEditForm);
+    ui->stackedWidget->setCurrentIndex(1);
 }

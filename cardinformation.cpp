@@ -1,14 +1,38 @@
 //Идентификационная карта
 
 #include "cardinformation.h"
+#include "applicabilitycard.h"
 
 CardInformation::CardInformation()
 {
-        inventoryNumber = 0;
-        receiptDate = QDate::currentDate();
-        designation = "";
-        name = "";
 
+}
+
+CardInformation::CardInformation(CardInformation &ci)
+{
+    setInventoryNumber(ci.getInventoryNumber());
+    setReceiptDate(ci.getReceiptDate());
+    setDesignation(ci.getDesignation());
+    setName(ci.getName());
+    setComment(ci.getComment());
+
+    setKitFormat("А1", ci.getKitFormat("A1"));
+    setKitFormat("А2", ci.getKitFormat("A2"));
+    setKitFormat("А3", ci.getKitFormat("A3"));
+    setKitFormat("А4", ci.getKitFormat("A4"));
+
+    for (int i = 0; i < ci.applicability.length(); i++){
+        applicability.push_back(ci.applicability[i]);
+    }
+    for (int i = 0; i < ci.changeAccounting.length(); i++){
+        changeAccounting.push_back(ci.changeAccounting[i]);
+    }
+    for (int i = 0; i < ci.copyAccounting.length(); i++){
+        copyAccounting.push_back(ci.copyAccounting[i]);
+    }
+    for (int i = 0; i < ci.issuanceOfCopies.length(); i++){
+        issuanceOfCopies.push_back(ci.issuanceOfCopies[i]);
+    }
 }
 
 int CardInformation::getInventoryNumber() const
@@ -51,14 +75,14 @@ void CardInformation::setName(const QString &value)
     name = value;
 }
 
-QMap<QString, int> CardInformation::getSheetFormat() const
+int CardInformation::getKitFormat(const QString &str) const
 {
-    return sheetFormat;
+    return kitFormat.value(str, 0);
 }
 
-void CardInformation::setSheetFormat(const QMap<QString, int> &value)
+void CardInformation::setKitFormat(const QString &str, const int &value)
 {
-    sheetFormat = value;
+    kitFormat.insert(str, value);
 }
 
 QVector<ApplicabilityCard> CardInformation::getApplicability() const
@@ -99,4 +123,14 @@ QVector<IssuanceOfCopies> CardInformation::getIssuanceOfCopies() const
 void CardInformation::setIssuanceOfCopies(const QVector<IssuanceOfCopies> &value)
 {
     issuanceOfCopies = value;
+}
+
+QString CardInformation::getComment() const
+{
+    return comment;
+}
+
+void CardInformation::setComment(const QString &value)
+{
+    comment = value;
 }

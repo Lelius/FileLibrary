@@ -5,6 +5,7 @@
 #include <QScreen>
 
 #include "cardviewform.h"
+#include "cardeditform.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,10 +29,13 @@ private slots:
     void exitBackChangeStackWidget();
     void newFileLibraryChangeStackWidget();
     void cardViewChangeStackWidget();
+    void cardNewChangeStackWidget();
 
 private:
     Ui::MainWindow *ui;
     int previousIndex;
+
+    CardEditForm *cardEditForm;
 };
 
 #endif // MAINWINDOW_H
