@@ -23,7 +23,6 @@ CardEditForm::CardEditForm(CardInformation *ci, QWidget *parent) :
 CardEditForm::~CardEditForm()
 {
     delete ui;
-    delete newci;
 }
 
 void CardEditForm::on_pushButtonSaveCard_clicked()
@@ -37,6 +36,8 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
     newci->setKitFormat("А3", ui->spinBoxA3->value());
     newci->setKitFormat("А4", ui->spinBoxA4->value());
 
-    newci->setName(ui->lineName->text());
+    newci->setName(ui->textEditName->toPlainText());
     newci->setComment(ui->textEditComment->toPlainText());
+
+    emit signalSaveCard(newci);
 }

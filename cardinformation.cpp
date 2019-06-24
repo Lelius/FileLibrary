@@ -5,7 +5,16 @@
 
 CardInformation::CardInformation()
 {
+    setInventoryNumber(0);
+    setReceiptDate(QDate());
+    setDesignation("");
+    setName("");
+    setComment("");
 
+    setKitFormat("А1", 0);
+    setKitFormat("А2", 0);
+    setKitFormat("А3", 0);
+    setKitFormat("А4", 0);
 }
 
 CardInformation::CardInformation(CardInformation &ci)
@@ -16,10 +25,10 @@ CardInformation::CardInformation(CardInformation &ci)
     setName(ci.getName());
     setComment(ci.getComment());
 
-    setKitFormat("А1", ci.getKitFormat("A1"));
-    setKitFormat("А2", ci.getKitFormat("A2"));
-    setKitFormat("А3", ci.getKitFormat("A3"));
-    setKitFormat("А4", ci.getKitFormat("A4"));
+    setKitFormat("А1", ci.getKitFormat("А1"));
+    setKitFormat("А2", ci.getKitFormat("А2"));
+    setKitFormat("А3", ci.getKitFormat("А3"));
+    setKitFormat("А4", ci.getKitFormat("А4"));
 
     for (int i = 0; i < ci.applicability.length(); i++){
         applicability.push_back(ci.applicability[i]);
@@ -52,7 +61,11 @@ QDate CardInformation::getReceiptDate() const
 
 void CardInformation::setReceiptDate(const QDate &value)
 {
-    receiptDate = value;
+    if (value.isValid())
+        receiptDate = value;
+    else{
+        receiptDate = QDate();
+    }
 }
 
 QString CardInformation::getDesignation() const

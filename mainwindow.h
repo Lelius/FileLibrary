@@ -6,6 +6,7 @@
 
 #include "cardviewform.h"
 #include "cardeditform.h"
+#include "cardinformation.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,7 @@ public:
 private slots:
     void slotChangeStackWidget(int index);
     void slotStatusBarOutput(QString str, int timeOutput);
+    void slotCardViewChangeStackWidget(CardInformation *saveci);
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();
@@ -36,6 +38,7 @@ private:
     int previousIndex;
 
     CardEditForm *cardEditForm;
+    CardViewForm *cardViewForm;
 };
 
 #endif // MAINWINDOW_H

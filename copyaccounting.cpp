@@ -5,9 +5,9 @@
 CopyAccounting::CopyAccounting()
 {
     setCopyNumberOfCopy(0);
-    setReceiptDate(QDate(0, 0, 0));
-    setDateOfWriteOff(QDate(0, 0, 0));
-    setReplacementDate(QDate(0, 0, 0));
+    setReceiptDate(QDate());
+    setDateOfWriteOff(QDate());
+    setReplacementDate(QDate());
 }
 
 CopyAccounting::CopyAccounting(const int n, const QDate &receipt, const QDate &dowo, const QDate &replacment)

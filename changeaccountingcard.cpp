@@ -6,7 +6,7 @@ ChangeAccountingCard::ChangeAccountingCard()
 {
     setChange("");
     setNotificationNumber(0);
-    setDateOfEntry(QDate(0, 0, 0));
+    setDateOfEntry(QDate());
 }
 
 ChangeAccountingCard::ChangeAccountingCard(const QString &str, const int n, const QDate &date)

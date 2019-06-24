@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::resize(rect.width()/2, rect.height()/2);
 
     ListForm *listForm = new ListForm(this);
-    /*CardEditForm*/ cardEditForm = new CardEditForm(this);
+    /*CardEditForm*/ cardEditForm = new CardEditForm();
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
-    CardViewForm *cardViewForm = new CardViewForm(this);
+    /*CardViewForm*/ cardViewForm = new CardViewForm();
 
     ui->stackedWidget->insertWidget(0, listForm);
     ui->stackedWidget->insertWidget(1, cardEditForm);
@@ -40,11 +40,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newFileLibraryForm, &NewFileLibraryForm::signalCardEditChangeStackWidget, this, &MainWindow::cardEditChangeStackWidget);
     connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardViewChangeStackWidget);
     connect(ui->actionNewCard, &QAction::triggered, this, &MainWindow::cardNewChangeStackWidget);
+    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete cardEditForm;
+    delete cardViewForm;
 }
 
 void MainWindow::slotChangeStackWidget(int index)
@@ -58,6 +61,16 @@ void MainWindow::slotChangeStackWidget(int index)
 void MainWindow::slotStatusBarOutput(QString str, int timeOutput)
 {
     ui->statusBar->showMessage(str, timeOutput);
+}
+
+void MainWindow::slotCardViewChangeStackWidget(CardInformation *saveci)
+{
+    previousIndex = ui->stackedWidget->currentIndex();
+    ui->stackedWidget->removeWidget(cardViewForm);
+    delete cardViewForm;
+    cardViewForm = new CardViewForm(saveci);
+    ui->stackedWidget->insertWidget(4, cardViewForm);
+    slotChangeStackWidget(4);
 }
 
 void MainWindow::cardEditChangeStackWidget()
@@ -98,7 +111,10 @@ void MainWindow::cardViewChangeStackWidget()
 void MainWindow::cardNewChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
+    ui->stackedWidget->removeWidget(cardEditForm);
+    delete cardEditForm;
     cardEditForm = new CardEditForm(this);
+    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     ui->stackedWidget->insertWidget(1, cardEditForm);
     ui->stackedWidget->setCurrentIndex(1);
 }
