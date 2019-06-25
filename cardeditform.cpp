@@ -1,4 +1,5 @@
 #include <QDate>
+#include<QIntValidator>
 
 #include "cardeditform.h"
 #include "ui_cardeditform.h"
@@ -10,6 +11,11 @@ CardEditForm::CardEditForm(QWidget *parent) :
 {
     ui->setupUi(this);
     newci = new CardInformation();
+    newci->setReceiptDate(QDate::currentDate());
+    ui->dateEditReceiptDate->setDate(newci->getReceiptDate());
+
+    QIntValidator *intValidator = new QIntValidator(1, 1000000, this);
+    ui->lineEditInventoryNumber->setValidator(intValidator);
 }
 
 CardEditForm::CardEditForm(CardInformation *ci, QWidget *parent) :
@@ -18,6 +24,9 @@ CardEditForm::CardEditForm(CardInformation *ci, QWidget *parent) :
 {
     ui->setupUi(this);
     newci = new CardInformation(*ci);
+
+    QIntValidator *intValidator = new QIntValidator(1, 1000000, this);
+    ui->lineEditInventoryNumber->setValidator(intValidator);
 }
 
 CardEditForm::~CardEditForm()

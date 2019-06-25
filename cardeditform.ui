@@ -220,6 +220,9 @@
              <pointsize>10</pointsize>
             </font>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
         </layout>

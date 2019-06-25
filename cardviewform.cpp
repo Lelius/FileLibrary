@@ -17,7 +17,7 @@ CardViewForm::CardViewForm(CardInformation *ci, QWidget *parent) :
     viewci = new CardInformation(*ci);
 
     ui->labelInventoryNumberValue->setText(QString::number(viewci->getInventoryNumber()));
-    ui->labelReceiptDateValue->setText(viewci->getReceiptDate().toString());
+    ui->labelReceiptDateValue->setText(viewci->getReceiptDate().toString("dd.MM.yyyy"));
     ui->labelDesignationValue->setText(viewci->getDesignation());
 
     ui->labelKitA1Value->setText(QString::number(viewci->getKitFormat("А1")));
