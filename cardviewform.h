@@ -18,6 +18,8 @@ public:
     explicit CardViewForm(CardInformation *ci, QWidget *parent = nullptr);
     ~CardViewForm();
 
+    void cardViewInit();
+
 private:
     Ui::CardViewForm *ui;
     CardInformation *viewci;

@@ -15,6 +15,11 @@ CardInformation::CardInformation()
     setKitFormat("А2", 0);
     setKitFormat("А3", 0);
     setKitFormat("А4", 0);
+
+    setApplicability(QVector<ApplicabilityCard>(0));
+    setChangeAccounting(QVector<ChangeAccountingCard>(0));
+    setCopyAccounting(QVector<CopyAccounting>(0));
+    setIssuanceOfCopies(QVector<IssuanceOfCopies>(0));
 }
 
 CardInformation::CardInformation(CardInformation &ci)
