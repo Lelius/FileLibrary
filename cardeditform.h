@@ -17,11 +17,15 @@ public:
     explicit CardEditForm(CardInformation *ci, QWidget *parent = nullptr);
     ~CardEditForm();
 
+    void cardEditInit();
+
 signals:
     void signalSaveCard(CardInformation *ci);
 
 private slots:
     void on_pushButtonSaveCard_clicked();
+
+    void on_pushButtonApplicabilityAdd_clicked();
 
 private:
     Ui::CardEditForm *ui;
