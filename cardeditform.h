@@ -24,12 +24,14 @@ signals:
 
 private slots:
     void on_pushButtonSaveCard_clicked();
-
     void on_pushButtonApplicabilityAdd_clicked();
+    void ApplicabilityMiniFormClose();
+    void ApplicabilityMiniFormAdd(ApplicabilityCard &a);
 
 private:
     Ui::CardEditForm *ui;
     CardInformation *newci;
+    QWidget *newWindow;
 };
 
 #endif // CARDEDITFORM_H

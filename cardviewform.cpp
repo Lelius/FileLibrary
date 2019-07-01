@@ -50,15 +50,24 @@ void CardViewForm::cardViewInit()
     lst << " Дата введения " << " Обозначение ";
     ui->tableWidgetApplicability->setHorizontalHeaderLabels(lst);
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerApplicability = ui->tableWidgetApplicability->horizontalHeader();
     headerApplicability->setSectionResizeMode(QHeaderView::Stretch);
 
     if (!(viewci->getApplicability().isEmpty())){
         for (int i = 0; i < applicability.size();i++){
-            ui->tableWidgetApplicability->setItem(i + 1, 1, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
-            ui->tableWidgetApplicability->setItem(i +1, 2, new QTableWidgetItem(applicability.at(i).getDesignation()));
+            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
+            ui->tableWidgetApplicability->setItem(i, 1, new QTableWidgetItem(applicability.at(i).getDesignation()));
         }
     }
+
+    QItemSelectionModel *selectionModel = ui->tableWidgetApplicability->selectionModel();
+    QModelIndex topLeft, bottomRight;
+    topLeft = ui->tableWidgetApplicability->model()->index(0, 0, QModelIndex());
+    bottomRight = ui->tableWidgetApplicability->model()->index(ui->tableWidgetApplicability->rowCount() - 1,
+                                                               ui->tableWidgetApplicability->columnCount() - 1, QModelIndex());
+    QItemSelection selection(topLeft, bottomRight);
+    selectionModel->select(selection, QItemSelectionModel::NoUpdate);
 
     //ChangeAccounting (Учет изменений)
     QVector<ChangeAccountingCard> changeAccountingCard = viewci->getChangeAccounting();
@@ -68,14 +77,15 @@ void CardViewForm::cardViewInit()
     lst << " Изменение " << " N извещения " << " Дата внесения ";
     ui->tableWidgetChangeAccounting->setHorizontalHeaderLabels(lst);
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
     if (!(viewci->getChangeAccounting().isEmpty())){
         for (int i = 0; i < changeAccountingCard.size(); i++){
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 1, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 2, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 3, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
+            ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
+            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
+            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
         }
     }
 
@@ -87,15 +97,16 @@ void CardViewForm::cardViewInit()
     lst << " N экз. копии " << " Дата поступ. " << " списания " << " замены ";
     ui->tableWidgetCopyAccounting->setHorizontalHeaderLabels(lst);
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerCopyAccounting = ui->tableWidgetCopyAccounting->horizontalHeader();
     headerCopyAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
     if (!(viewci->getCopyAccounting().isEmpty())){
         for (int i = 0; i < copyAccounting.size(); i++){
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 1, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 2, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 3, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 4, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
+            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
         }
     }
 
@@ -107,15 +118,16 @@ void CardViewForm::cardViewInit()
     lst << " Абоненты " << " Дата выдачи "  << " N экземпляра " << " Списано ";
     ui->tableWidgetIssuanceOfCopies->setHorizontalHeaderLabels(lst);
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerIssuanceOfCopies = ui->tableWidgetIssuanceOfCopies->horizontalHeader();
     headerIssuanceOfCopies->setSectionResizeMode(QHeaderView::Stretch);
 
     if (!(viewci->getIssuanceOfCopies().isEmpty())){
         for (int i = 0; i < issuanceOfCopies.size(); i++){
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 4, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 0, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
         }
     }
 }

@@ -1,9 +1,10 @@
 #include <QDate>
-#include<QIntValidator>
+#include <QIntValidator>
 
 #include "cardeditform.h"
 #include "ui_cardeditform.h"
 #include "cardinformation.h"
+#include "applicabilityminiform.h"
 
 CardEditForm::CardEditForm(QWidget *parent) :
     QWidget(parent),
@@ -82,8 +83,8 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getApplicability().isEmpty())){
         for (int i = 0; i < applicability.size();i++){
-            ui->tableWidgetApplicability->setItem(i + 1, 1, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
-            ui->tableWidgetApplicability->setItem(i +1, 2, new QTableWidgetItem(applicability.at(i).getDesignation()));
+            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
+            ui->tableWidgetApplicability->setItem(i, 1, new QTableWidgetItem(applicability.at(i).getDesignation()));
         }
     }
 
@@ -100,9 +101,9 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getChangeAccounting().isEmpty())){
         for (int i = 0; i < changeAccountingCard.size(); i++){
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 1, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 2, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
-            ui->tableWidgetChangeAccounting->setItem(i + 1, 3, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
+            ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
+            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
+            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
         }
     }
 
@@ -119,10 +120,10 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getCopyAccounting().isEmpty())){
         for (int i = 0; i < copyAccounting.size(); i++){
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 1, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 2, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 3, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i + 1, 4, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
+            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
         }
     }
 
@@ -139,16 +140,45 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getIssuanceOfCopies().isEmpty())){
         for (int i = 0; i < issuanceOfCopies.size(); i++){
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i + 1, 4, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 0, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
         }
     }
 }
 
 void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
 {
-    QWidget *newWindow = new QWidget();
+    newWindow = new QWidget();
+    ApplicabilityMiniForm *mini = new ApplicabilityMiniForm();
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    layout->addWidget(mini);
+    newWindow->setLayout(layout);
+    newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
+
+    QPoint point = QCursor::pos();
+    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+
     newWindow->show();
+    connect(mini, &ApplicabilityMiniForm::ApplicabilityMiniFormClose, this, &CardEditForm::ApplicabilityMiniFormClose);
+    connect(mini, &ApplicabilityMiniForm::ApplicabilityMiniFormAdd, this, &CardEditForm::ApplicabilityMiniFormAdd);
 }
+
+void CardEditForm::ApplicabilityMiniFormClose()
+{
+    CardEditForm::newWindow->close();
+}
+
+void CardEditForm::ApplicabilityMiniFormAdd(ApplicabilityCard &a)
+{
+    QVector<ApplicabilityCard> v = newci->getApplicability();
+    v.push_back(a);
+    newci->setApplicability(v);
+
+    CardEditForm::newWindow->close();
+
+    cardEditInit();
+}
+
