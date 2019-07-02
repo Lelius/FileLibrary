@@ -18,8 +18,8 @@ public:
     ~ApplicabilityMiniForm();
 
 signals:
-    void ApplicabilityMiniFormClose();
-    void ApplicabilityMiniFormAdd(ApplicabilityCard &a);
+    void signalApplicabilityMiniFormClose();
+    void signalApplicabilityMiniFormAdd(ApplicabilityCard &a);
 
 private slots:
     void on_pushButtonBack_clicked();

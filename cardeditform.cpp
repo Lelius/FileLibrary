@@ -5,6 +5,7 @@
 #include "ui_cardeditform.h"
 #include "cardinformation.h"
 #include "applicabilityminiform.h"
+#include "changeaccountingminiform.h"
 
 CardEditForm::CardEditForm(QWidget *parent) :
     QWidget(parent),
@@ -95,14 +96,14 @@ void CardEditForm::cardEditInit()
     lst.clear();
     lst << " Изменение " << " N извещения " << " Дата внесения ";
     ui->tableWidgetChangeAccounting->setHorizontalHeaderLabels(lst);
-    ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetChangeAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
     if (!(newci->getChangeAccounting().isEmpty())){
         for (int i = 0; i < changeAccountingCard.size(); i++){
             ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
-            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
+            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(QString::number(changeAccountingCard.at(i).getNotificationNumber())));
             ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
         }
     }
@@ -162,23 +163,106 @@ void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
     newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
 
     newWindow->show();
-    connect(mini, &ApplicabilityMiniForm::ApplicabilityMiniFormClose, this, &CardEditForm::ApplicabilityMiniFormClose);
-    connect(mini, &ApplicabilityMiniForm::ApplicabilityMiniFormAdd, this, &CardEditForm::ApplicabilityMiniFormAdd);
+    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormClose, this, &CardEditForm::slotApplicabilityMiniFormClose);
+    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormAdd, this, &CardEditForm::slotApplicabilityMiniFormAdd);
 }
 
-void CardEditForm::ApplicabilityMiniFormClose()
+//реакция на нажатие кнопки
+void CardEditForm::slotApplicabilityMiniFormClose()
 {
     CardEditForm::newWindow->close();
+    delete newWindow;
 }
 
-void CardEditForm::ApplicabilityMiniFormAdd(ApplicabilityCard &a)
+//реакция на нажатие кнопки
+void CardEditForm::slotApplicabilityMiniFormAdd(ApplicabilityCard &a)
 {
     QVector<ApplicabilityCard> v = newci->getApplicability();
     v.push_back(a);
     newci->setApplicability(v);
 
-    CardEditForm::newWindow->close();
+    slotApplicabilityMiniFormClose();
 
     cardEditInit();
 }
 
+void CardEditForm::on_lineEditInventoryNumber_textChanged(const QString &arg1)
+{
+    newci->setInventoryNumber(arg1.toInt());
+}
+
+void CardEditForm::on_dateEditReceiptDate_dateChanged(const QDate &date)
+{
+    newci->setReceiptDate(date);
+}
+
+void CardEditForm::on_lineEditDesignation_textChanged(const QString &arg1)
+{
+    newci->setDesignation(arg1);
+}
+
+void CardEditForm::on_textEditName_textChanged()
+{
+    newci->setName(ui->textEditName->toPlainText());
+}
+
+void CardEditForm::on_textEditComment_textChanged()
+{
+    newci->setComment(ui->textEditComment->toPlainText());
+}
+
+void CardEditForm::on_spinBoxA1_valueChanged(int arg1)
+{
+    newci->setKitFormat("А1", arg1);
+}
+
+void CardEditForm::on_spinBoxA2_valueChanged(int arg1)
+{
+    newci->setKitFormat("А2", arg1);
+}
+
+void CardEditForm::on_spinBoxA3_valueChanged(int arg1)
+{
+    newci->setKitFormat("А3", arg1);
+}
+
+void CardEditForm::on_spinBoxA4_valueChanged(int arg1)
+{
+    newci->setKitFormat("А4", arg1);
+}
+
+void CardEditForm::on_pushButtonChangeAccountingAdd_clicked()
+{
+    newWindow = new QWidget();
+    ChangeAccountingMiniForm *mini = new ChangeAccountingMiniForm();
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    layout->addWidget(mini);
+    newWindow->setLayout(layout);
+    newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
+
+    QPoint point = QCursor::pos();
+    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+
+    newWindow->show();
+
+    connect(mini, &ChangeAccountingMiniForm::signalChangeAccountingMiniFormAdd, this, &CardEditForm::slotChangeAccountingMiniFormAdd);
+    connect(mini, &ChangeAccountingMiniForm::signalChangeAccountingMiniFormClose, this, &CardEditForm::slotChangeAccountingMiniFormClose);
+}
+
+void CardEditForm::slotChangeAccountingMiniFormAdd(ChangeAccountingCard &arg)
+{
+    QVector<ChangeAccountingCard> v = newci->getChangeAccounting();
+    v.push_back(arg);
+    newci->setChangeAccounting(v);
+
+    slotChangeAccountingMiniFormClose();
+
+    cardEditInit();
+}
+
+void CardEditForm::slotChangeAccountingMiniFormClose()
+{
+    newWindow->close();
+    delete newWindow;
+}

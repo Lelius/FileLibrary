@@ -84,7 +84,7 @@ void CardViewForm::cardViewInit()
     if (!(viewci->getChangeAccounting().isEmpty())){
         for (int i = 0; i < changeAccountingCard.size(); i++){
             ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
-            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(changeAccountingCard.at(i).getNotificationNumber()));
+            ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(QString::number(changeAccountingCard.at(i).getNotificationNumber())));
             ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
         }
     }

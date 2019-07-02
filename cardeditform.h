@@ -25,8 +25,32 @@ signals:
 private slots:
     void on_pushButtonSaveCard_clicked();
     void on_pushButtonApplicabilityAdd_clicked();
-    void ApplicabilityMiniFormClose();
-    void ApplicabilityMiniFormAdd(ApplicabilityCard &a);
+
+    void slotApplicabilityMiniFormClose();
+    void slotApplicabilityMiniFormAdd(ApplicabilityCard &a);
+
+    void slotChangeAccountingMiniFormAdd(ChangeAccountingCard &arg);
+    void slotChangeAccountingMiniFormClose();
+
+    void on_lineEditInventoryNumber_textChanged(const QString &arg1);
+
+    void on_dateEditReceiptDate_dateChanged(const QDate &date);
+
+    void on_lineEditDesignation_textChanged(const QString &arg1);
+
+    void on_textEditName_textChanged();
+
+    void on_textEditComment_textChanged();
+
+    void on_spinBoxA1_valueChanged(int arg1);
+
+    void on_spinBoxA2_valueChanged(int arg1);
+
+    void on_spinBoxA3_valueChanged(int arg1);
+
+    void on_spinBoxA4_valueChanged(int arg1);
+
+    void on_pushButtonChangeAccountingAdd_clicked();
 
 private:
     Ui::CardEditForm *ui;

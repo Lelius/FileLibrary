@@ -7,6 +7,7 @@ ApplicabilityMiniForm::ApplicabilityMiniForm(QWidget *parent) :
     ui(new Ui::ApplicabilityMiniForm)
 {
     ui->setupUi(this);
+    ui->dateEditIntroductionDate->setDate(QDate::currentDate());
 }
 
 ApplicabilityMiniForm::~ApplicabilityMiniForm()
@@ -16,7 +17,7 @@ ApplicabilityMiniForm::~ApplicabilityMiniForm()
 
 void ApplicabilityMiniForm::on_pushButtonBack_clicked()
 {
-    emit ApplicabilityMiniFormClose();
+    emit signalApplicabilityMiniFormClose();
 }
 
 void ApplicabilityMiniForm::on_pushButtonAdd_clicked()
@@ -24,5 +25,5 @@ void ApplicabilityMiniForm::on_pushButtonAdd_clicked()
     ApplicabilityCard a;
     a.setIntroductionDate(ui->dateEditIntroductionDate->date());
     a.setDesignation(ui->lineEditDesignation->text());
-    emit ApplicabilityMiniFormAdd(a);
+    emit signalApplicabilityMiniFormAdd(a);
 }
