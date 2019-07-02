@@ -38,7 +38,8 @@ SOURCES += \
     newfilelibraryform.cpp \
     cardviewform.cpp \
     applicabilityminiform.cpp \
-    changeaccountingminiform.cpp
+    changeaccountingminiform.cpp \
+    copyaccountingminiform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +54,8 @@ HEADERS += \
     newfilelibraryform.h \
     cardviewform.h \
     applicabilityminiform.h \
-    changeaccountingminiform.h
+    changeaccountingminiform.h \
+    copyaccountingminiform.h
 
 FORMS += \
         mainwindow.ui \
@@ -63,7 +65,8 @@ FORMS += \
     newfilelibraryform.ui \
     cardviewform.ui \
     applicabilityminiform.ui \
-    changeaccountingminiform.ui
+    changeaccountingminiform.ui \
+    copyaccountingminiform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ApplicabilityMiniForm</class>
- <widget class="QWidget" name="ApplicabilityMiniForm">
+ <class>CopyAccountingMiniForm</class>
+ <widget class="QWidget" name="CopyAccountingMiniForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>218</width>
+    <width>430</width>
     <height>132</height>
    </rect>
   </property>
@@ -21,37 +21,37 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QLabel" name="labelApplicability">
+      <widget class="QLabel" name="labelCopyAccounting">
        <property name="font">
         <font>
          <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Применяемость</string>
+        <string>Учет копий</string>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="labelIntroductionDate">
+          <widget class="QLabel" name="labelCopyNumberOfCopy">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Дата введения</string>
+            <string>N экз. копии</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDateEdit" name="dateEditIntroductionDate">
+          <widget class="QLineEdit" name="lineEditCopyNumberOfCopy">
            <property name="font">
             <font>
              <pointsize>11</pointsize>
@@ -62,21 +62,71 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLabel" name="labelDesignation">
+          <widget class="QLabel" name="labelReceiptDate">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Обозначение</string>
+            <string>Поступление</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEditDesignation">
+          <widget class="QDateEdit" name="dateEditReceiptDate">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="labelDateOfWriteOff">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Списание</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateEditDateOfWriteOff">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="labelReplacementDate">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Замена</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateEditReplacementDate">
            <property name="font">
             <font>
              <pointsize>11</pointsize>
@@ -89,7 +139,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="pushButtonAdd">
          <property name="font">
