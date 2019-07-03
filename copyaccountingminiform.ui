@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>132</height>
+    <height>140</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -64,7 +64,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLabel" name="labelReceiptDate">
+          <widget class="QPushButton" name="pushButtonReceiptDate">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -89,7 +89,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QLabel" name="labelDateOfWriteOff">
+          <widget class="QPushButton" name="pushButtonDateOfWriteOff">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -114,7 +114,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="QLabel" name="labelReplacementDate">
+          <widget class="QPushButton" name="pushButtonReplacementDate">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
