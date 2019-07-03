@@ -6,6 +6,7 @@
 #include "cardinformation.h"
 #include "applicabilityminiform.h"
 #include "changeaccountingminiform.h"
+#include "copyaccountingminiform.h"
 
 CardEditForm::CardEditForm(QWidget *parent) :
     QWidget(parent),
@@ -171,7 +172,6 @@ void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
 void CardEditForm::slotApplicabilityMiniFormClose()
 {
     CardEditForm::newWindow->close();
-    delete newWindow;
 }
 
 //реакция на нажатие кнопки
@@ -231,6 +231,7 @@ void CardEditForm::on_spinBoxA4_valueChanged(int arg1)
     newci->setKitFormat("А4", arg1);
 }
 
+//-----------------------------------------------------------------
 void CardEditForm::on_pushButtonChangeAccountingAdd_clicked()
 {
     newWindow = new QWidget();
@@ -264,5 +265,33 @@ void CardEditForm::slotChangeAccountingMiniFormAdd(ChangeAccountingCard &arg)
 void CardEditForm::slotChangeAccountingMiniFormClose()
 {
     newWindow->close();
-    delete newWindow;
+}
+
+//----------------------------------------------------------------------
+void CardEditForm::on_pushButtonCopyAccountingAdd_clicked()
+{
+    newWindow = new QWidget();
+    CopyAccountingMiniForm *mini = new CopyAccountingMiniForm();
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    layout->addWidget(mini);
+    newWindow->setLayout(layout);
+    newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
+
+    QPoint point = QCursor::pos();
+    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+
+    newWindow->show();
+
+    connect(mini, &CopyAccountingMiniForm::signalCopyAccounteMiniFormClose, this, &CardEditForm::slotCopyAccountingMiniFormClose);
+}
+
+void CardEditForm::slotCopyAccountingMiniFormAdd(CopyAccounting &arg)
+{
+
+}
+
+void CardEditForm::slotCopyAccountingMiniFormClose()
+{
+    newWindow->close();
 }
