@@ -143,8 +143,8 @@ void CardEditForm::cardEditInit()
     if (!(newci->getIssuanceOfCopies().isEmpty())){
         for (int i = 0; i < issuanceOfCopies.size(); i++){
             ui->tableWidgetIssuanceOfCopies->setItem(i, 0, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString("dd.MM.yyyy")));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(QString::number(issuanceOfCopies.at(i).getInstanceNumber())));
             ui->tableWidgetIssuanceOfCopies->setItem(i, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
         }
     }
@@ -302,3 +302,5 @@ void CardEditForm::slotCopyAccountingMiniFormClose()
 {
     newWindow->close();
 }
+
+//---------------------------------------------------------------------
