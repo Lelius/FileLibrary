@@ -85,7 +85,7 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getApplicability().isEmpty())){
         for (int i = 0; i < applicability.size();i++){
-            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
+            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString("dd.MM.yyyy")));
             ui->tableWidgetApplicability->setItem(i, 1, new QTableWidgetItem(applicability.at(i).getDesignation()));
         }
     }
@@ -105,7 +105,7 @@ void CardEditForm::cardEditInit()
         for (int i = 0; i < changeAccountingCard.size(); i++){
             ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
             ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(QString::number(changeAccountingCard.at(i).getNotificationNumber())));
-            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
+            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString("dd.MM.yyy")));
         }
     }
 
@@ -122,10 +122,10 @@ void CardEditForm::cardEditInit()
 
     if (!(newci->getCopyAccounting().isEmpty())){
         for (int i = 0; i < copyAccounting.size(); i++){
-            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
-            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(QString::number(copyAccounting.at(i).getCopyNumberOfCopy())));
+            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString("dd.MM.yyyy")));
+            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString("dd.MM.yyyy")));
         }
     }
 
@@ -284,11 +284,18 @@ void CardEditForm::on_pushButtonCopyAccountingAdd_clicked()
     newWindow->show();
 
     connect(mini, &CopyAccountingMiniForm::signalCopyAccounteMiniFormClose, this, &CardEditForm::slotCopyAccountingMiniFormClose);
+    connect(mini, &CopyAccountingMiniForm::signalCopyAccountMiniFormAdd, this, &CardEditForm::slotCopyAccountingMiniFormAdd);
 }
 
 void CardEditForm::slotCopyAccountingMiniFormAdd(CopyAccounting &arg)
 {
+    QVector<CopyAccounting> v = newci->getCopyAccounting();
+    v.push_back(arg);
+    newci->setCopyAccounting(v);
 
+    slotCopyAccountingMiniFormClose();
+
+    cardEditInit();
 }
 
 void CardEditForm::slotCopyAccountingMiniFormClose()
