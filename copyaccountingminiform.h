@@ -32,6 +32,8 @@ private slots:
 
     void on_pushButtonReplacementDate_clicked();
 
+    void on_pushButtonAdd_clicked();
+
 private:
     Ui::CopyAccountingMiniForm *ui;
 

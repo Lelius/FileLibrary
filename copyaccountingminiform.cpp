@@ -11,6 +11,9 @@ CopyAccountingMiniForm::CopyAccountingMiniForm(QWidget *parent) :
     viewDateEditDateOfWriteOff = false;
     viewDateEditReplacementDate = false;
 
+    QIntValidator *intValidator = new QIntValidator(1, 1000000, this);
+    ui->lineEditCopyNumberOfCopy->setValidator(intValidator);
+
     toShowDateEdit();
 }
 
@@ -47,4 +50,19 @@ void CopyAccountingMiniForm::on_pushButtonReplacementDate_clicked()
 {
     viewDateEditReplacementDate ? viewDateEditReplacementDate = false : viewDateEditReplacementDate = true;
     toShowDateEdit();
+}
+
+void CopyAccountingMiniForm::on_pushButtonAdd_clicked()
+{
+    CopyAccounting copyAccounting;
+
+    copyAccounting.setCopyNumberOfCopy(ui->lineEditCopyNumberOfCopy->text().toInt());
+    if (viewDateEditReceiptDate)
+        copyAccounting.setReceiptDate(ui->dateEditReceiptDate->date().isNull() ? QDate() : ui->dateEditReceiptDate->date());
+    if (viewDateEditDateOfWriteOff)
+        copyAccounting.setDateOfWriteOff(ui->dateEditDateOfWriteOff->date().isNull() ? QDate() : ui->dateEditDateOfWriteOff->date());
+    if (viewDateEditReplacementDate)
+        copyAccounting.setReplacementDate(ui->dateEditReplacementDate->date().isNull() ? QDate() : ui->dateEditReplacementDate->date());
+
+    emit signalCopyAccountMiniFormAdd(copyAccounting);
 }
