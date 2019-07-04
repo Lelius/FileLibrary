@@ -5,7 +5,7 @@
 IssuanceOfCopies::IssuanceOfCopies()
 {
     setSubscriber("");
-    setDateOfIssue(QDate(0, 0, 0));
+    setDateOfIssue(QDate());
     setInstanceNumber(0);
     setWrittenOff("");
 }

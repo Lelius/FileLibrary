@@ -56,7 +56,7 @@ void CardViewForm::cardViewInit()
 
     if (!(viewci->getApplicability().isEmpty())){
         for (int i = 0; i < applicability.size();i++){
-            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString()));
+            ui->tableWidgetApplicability->setItem(i, 0, new QTableWidgetItem(applicability.at(i).getIntroductionDate().toString("dd.MM.yyyy")));
             ui->tableWidgetApplicability->setItem(i, 1, new QTableWidgetItem(applicability.at(i).getDesignation()));
         }
     }
@@ -85,7 +85,7 @@ void CardViewForm::cardViewInit()
         for (int i = 0; i < changeAccountingCard.size(); i++){
             ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
             ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(QString::number(changeAccountingCard.at(i).getNotificationNumber())));
-            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString()));
+            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString("dd.MM.yyyy")));
         }
     }
 
@@ -103,10 +103,10 @@ void CardViewForm::cardViewInit()
 
     if (!(viewci->getCopyAccounting().isEmpty())){
         for (int i = 0; i < copyAccounting.size(); i++){
-            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(copyAccounting.at(i).getCopyNumberOfCopy()));
-            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString()));
-            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString()));
+            ui->tableWidgetCopyAccounting->setItem(i, 0, new QTableWidgetItem(QString::number(copyAccounting.at(i).getCopyNumberOfCopy())));
+            ui->tableWidgetCopyAccounting->setItem(i, 1, new QTableWidgetItem(copyAccounting.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+            ui->tableWidgetCopyAccounting->setItem(i, 2, new QTableWidgetItem(copyAccounting.at(i).getDateOfWriteOff().toString("dd.MM.yyyy")));
+            ui->tableWidgetCopyAccounting->setItem(i, 3, new QTableWidgetItem(copyAccounting.at(i).getReplacementDate().toString("dd.MM.yyyy")));
         }
     }
 
@@ -125,8 +125,8 @@ void CardViewForm::cardViewInit()
     if (!(viewci->getIssuanceOfCopies().isEmpty())){
         for (int i = 0; i < issuanceOfCopies.size(); i++){
             ui->tableWidgetIssuanceOfCopies->setItem(i, 0, new QTableWidgetItem(issuanceOfCopies.at(i).getSubscriber()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString()));
-            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(issuanceOfCopies.at(i).getInstanceNumber()));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 1, new QTableWidgetItem(issuanceOfCopies.at(i).getDateOfIssue().toString("dd.MM.yyyy")));
+            ui->tableWidgetIssuanceOfCopies->setItem(i, 2, new QTableWidgetItem(QString::number(issuanceOfCopies.at(i).getInstanceNumber())));
             ui->tableWidgetIssuanceOfCopies->setItem(i, 3, new QTableWidgetItem(issuanceOfCopies.at(i).getWrittenOff()));
         }
     }

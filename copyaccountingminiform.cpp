@@ -15,6 +15,10 @@ CopyAccountingMiniForm::CopyAccountingMiniForm(QWidget *parent) :
     ui->lineEditCopyNumberOfCopy->setValidator(intValidator);
 
     toShowDateEdit();
+
+    ui->dateEditReceiptDate->setDate(QDate::currentDate());
+    ui->dateEditDateOfWriteOff->setDate(QDate::currentDate());
+    ui->dateEditReplacementDate->setDate(QDate::currentDate());
 }
 
 CopyAccountingMiniForm::~CopyAccountingMiniForm()

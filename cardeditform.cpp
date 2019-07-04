@@ -7,6 +7,7 @@
 #include "applicabilityminiform.h"
 #include "changeaccountingminiform.h"
 #include "copyaccountingminiform.h"
+#include "issuanceofcopiesminiform.h"
 
 CardEditForm::CardEditForm(QWidget *parent) :
     QWidget(parent),
@@ -60,7 +61,8 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
 
 void CardEditForm::cardEditInit()
 {
-    ui->lineEditInventoryNumber->setText(QString::number(newci->getInventoryNumber()));
+    if (newci->getInventoryNumber() > 0)
+        ui->lineEditInventoryNumber->setText(QString::number(newci->getInventoryNumber()));
     ui->dateEditReceiptDate->setDate(newci->getReceiptDate());
     ui->lineEditDesignation->setText(newci->getDesignation());
 
@@ -105,7 +107,7 @@ void CardEditForm::cardEditInit()
         for (int i = 0; i < changeAccountingCard.size(); i++){
             ui->tableWidgetChangeAccounting->setItem(i, 0, new QTableWidgetItem(changeAccountingCard.at(i).getChange()));
             ui->tableWidgetChangeAccounting->setItem(i, 1, new QTableWidgetItem(QString::number(changeAccountingCard.at(i).getNotificationNumber())));
-            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString("dd.MM.yyy")));
+            ui->tableWidgetChangeAccounting->setItem(i, 2, new QTableWidgetItem(changeAccountingCard.at(i).getDateOfEntry().toString("dd.MM.yyyy")));
         }
     }
 
@@ -304,3 +306,38 @@ void CardEditForm::slotCopyAccountingMiniFormClose()
 }
 
 //---------------------------------------------------------------------
+
+void CardEditForm::on_pushButtonIssuanceOfCopiesAdd_clicked()
+{
+    newWindow = new QWidget();
+    IssuanceOfCopiesMiniForm *mini = new IssuanceOfCopiesMiniForm();
+    QHBoxLayout *layout = new QHBoxLayout();
+
+    layout->addWidget(mini);
+    newWindow->setLayout(layout);
+    newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
+
+    QPoint point = QCursor::pos();
+    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+
+    newWindow->show();
+
+    connect(mini, &IssuanceOfCopiesMiniForm::signalIssuanceOfCopiesMiniFormClose, this, &CardEditForm::slotIssuanceOfCopiesMiniFormClose);
+    connect(mini, &IssuanceOfCopiesMiniForm::signalIssuanceOfCopiesMiniFormAdd, this, &CardEditForm::slotIssuanceOfCopiesMiniFormAdd);
+}
+
+void CardEditForm::slotIssuanceOfCopiesMiniFormAdd(IssuanceOfCopies &arg)
+{
+    QVector<IssuanceOfCopies> v = newci->getIssuanceOfCopies();
+    v.push_back(arg);
+    newci->setIssuanceOfCopies(v);
+
+    slotIssuanceOfCopiesMiniFormClose();
+
+    cardEditInit();
+}
+
+void CardEditForm::slotIssuanceOfCopiesMiniFormClose()
+{
+    newWindow->close();
+}

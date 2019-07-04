@@ -35,6 +35,9 @@ private slots:
     void slotCopyAccountingMiniFormAdd(CopyAccounting &arg);
     void slotCopyAccountingMiniFormClose();
 
+    void slotIssuanceOfCopiesMiniFormAdd(IssuanceOfCopies &arg);
+    void slotIssuanceOfCopiesMiniFormClose();
+
     void on_lineEditInventoryNumber_textChanged(const QString &arg1);
 
     void on_dateEditReceiptDate_dateChanged(const QDate &date);
@@ -56,6 +59,8 @@ private slots:
     void on_pushButtonChangeAccountingAdd_clicked();
 
     void on_pushButtonCopyAccountingAdd_clicked();
+
+    void on_pushButtonIssuanceOfCopiesAdd_clicked();
 
 private:
     Ui::CardEditForm *ui;

@@ -2,6 +2,7 @@
 #define ISSUANCEOFCOPIESMINIFORM_H
 
 #include <QWidget>
+#include "issuanceofcopies.h"
 
 namespace Ui {
 class IssuanceOfCopiesMiniForm;
@@ -14,6 +15,15 @@ class IssuanceOfCopiesMiniForm : public QWidget
 public:
     explicit IssuanceOfCopiesMiniForm(QWidget *parent = nullptr);
     ~IssuanceOfCopiesMiniForm();
+
+signals:
+    void signalIssuanceOfCopiesMiniFormAdd(IssuanceOfCopies &arg);
+    void signalIssuanceOfCopiesMiniFormClose();
+
+private slots:
+    void on_pushButtonAdd_clicked();
+
+    void on_pushButtonBack_clicked();
 
 private:
     Ui::IssuanceOfCopiesMiniForm *ui;
