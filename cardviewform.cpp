@@ -76,8 +76,8 @@ void CardViewForm::cardViewInit()
     lst.clear();
     lst << " Изменение " << " N извещения " << " Дата внесения ";
     ui->tableWidgetChangeAccounting->setHorizontalHeaderLabels(lst);
-    ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->tableWidgetChangeAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetChangeAccounting->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -96,8 +96,8 @@ void CardViewForm::cardViewInit()
     lst.clear();
     lst << " N экз. копии " << " Дата поступ. " << " списания " << " замены ";
     ui->tableWidgetCopyAccounting->setHorizontalHeaderLabels(lst);
-    ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->tableWidgetCopyAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetCopyAccounting->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerCopyAccounting = ui->tableWidgetCopyAccounting->horizontalHeader();
     headerCopyAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -117,8 +117,8 @@ void CardViewForm::cardViewInit()
     lst.clear();
     lst << " Абоненты " << " Дата выдачи "  << " N экземпляра " << " Списано ";
     ui->tableWidgetIssuanceOfCopies->setHorizontalHeaderLabels(lst);
-    ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->tableWidgetIssuanceOfCopies->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetIssuanceOfCopies->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerIssuanceOfCopies = ui->tableWidgetIssuanceOfCopies->horizontalHeader();
     headerIssuanceOfCopies->setSectionResizeMode(QHeaderView::Stretch);
 
