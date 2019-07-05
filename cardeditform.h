@@ -62,6 +62,14 @@ private slots:
 
     void on_pushButtonIssuanceOfCopiesAdd_clicked();
 
+    void on_pushButtonApplicabilityDel_clicked();
+
+    void on_pushButtonChangeAccountingDel_clicked();
+
+    void on_pushButtonCopyAccountingDel_clicked();
+
+    void on_pushButtonIssuanceOfCopiesDel_clicked();
+
 private:
     Ui::CardEditForm *ui;
     CardInformation *newci;

@@ -84,6 +84,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetApplicability->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::SingleSelection);
+    //ui->tableWidgetApplicability->verticalHeader()->setVisible(false);
     QHeaderView *headerApplicability = ui->tableWidgetApplicability->horizontalHeader();
     headerApplicability->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -104,6 +105,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetChangeAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetChangeAccounting->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetChangeAccounting->setSelectionMode(QAbstractItemView::SingleSelection);
+    //ui->tableWidgetChangeAccounting->verticalHeader()->setVisible(false);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -125,6 +127,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetCopyAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetCopyAccounting->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetCopyAccounting->setSelectionMode(QAbstractItemView::SingleSelection);
+    //ui->tableWidgetCopyAccounting->verticalHeader()->setVisible(false);
     QHeaderView *headerCopyAccounting = ui->tableWidgetCopyAccounting->horizontalHeader();
     headerCopyAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -147,6 +150,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetIssuanceOfCopies->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetIssuanceOfCopies->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetIssuanceOfCopies->setSelectionMode(QAbstractItemView::SingleSelection);
+    //ui->tableWidgetIssuanceOfCopies->verticalHeader()->setVisible(false);
     QHeaderView *headerIssuanceOfCopies = ui->tableWidgetIssuanceOfCopies->horizontalHeader();
     headerIssuanceOfCopies->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -160,6 +164,7 @@ void CardEditForm::cardEditInit()
     }
 }
 
+//------------------------------------------------------------------------
 void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
 {
     newWindow = new QWidget();
@@ -348,4 +353,80 @@ void CardEditForm::slotIssuanceOfCopiesMiniFormAdd(IssuanceOfCopies &arg)
 void CardEditForm::slotIssuanceOfCopiesMiniFormClose()
 {
     newWindow->close();
+}
+
+void CardEditForm::on_pushButtonApplicabilityDel_clicked()
+{
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetApplicability->selectedRanges();
+
+    if (listSelected.size() != 0){
+        QVector<ApplicabilityCard> v = newci->getApplicability();
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                v.remove(i);
+            }
+
+        }
+        newci->setApplicability(v);
+
+        cardEditInit();
+    }
+}
+
+void CardEditForm::on_pushButtonChangeAccountingDel_clicked()
+{
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetChangeAccounting->selectedRanges();
+
+    if (listSelected.size() != 0){
+        QVector<ChangeAccountingCard> v = newci->getChangeAccounting();
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                v.remove(i);
+            }
+
+        }
+        newci->setChangeAccounting(v);
+
+        cardEditInit();
+    }
+}
+
+void CardEditForm::on_pushButtonCopyAccountingDel_clicked()
+{
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetCopyAccounting->selectedRanges();
+
+    if (listSelected.size() != 0){
+        QVector<CopyAccounting> v = newci->getCopyAccounting();
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                v.remove(i);
+            }
+
+        }
+        newci->setCopyAccounting(v);
+
+        cardEditInit();
+    }
+}
+
+void CardEditForm::on_pushButtonIssuanceOfCopiesDel_clicked()
+{
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetIssuanceOfCopies->selectedRanges();
+
+    if (listSelected.size() != 0){
+        QVector<IssuanceOfCopies> v = newci->getIssuanceOfCopies();
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                v.remove(i);
+            }
+
+        }
+        newci->setIssuanceOfCopies(v);
+
+        cardEditInit();
+    }
 }
