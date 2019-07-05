@@ -40,7 +40,8 @@ SOURCES += \
     applicabilityminiform.cpp \
     changeaccountingminiform.cpp \
     copyaccountingminiform.cpp \
-    issuanceofcopiesminiform.cpp
+    issuanceofcopiesminiform.cpp \
+    workwithdatabase.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS += \
     applicabilityminiform.h \
     changeaccountingminiform.h \
     copyaccountingminiform.h \
-    issuanceofcopiesminiform.h
+    issuanceofcopiesminiform.h \
+    workwithdatabase.h
 
 FORMS += \
         mainwindow.ui \

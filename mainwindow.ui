@@ -61,6 +61,7 @@
      <string>Архив</string>
     </property>
     <addaction name="actionOpenFileLibrary"/>
+    <addaction name="action"/>
     <addaction name="actionCreateNewFileLibrary"/>
     <addaction name="actionBackupFileLibrary"/>
     <addaction name="actionExit"/>
@@ -220,6 +221,11 @@
     <font>
      <pointsize>10</pointsize>
     </font>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Закрыть</string>
    </property>
   </action>
  </widget>

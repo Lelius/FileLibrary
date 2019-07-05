@@ -5,6 +5,7 @@
 #include "exitform.h"
 #include "newfilelibraryform.h"
 #include "cardviewform.h"
+#include "workwithdatabase.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QRect rect = scr->geometry();
     MainWindow::resize(rect.width()/2, rect.height()/2);
 
+    WorkWithDatabase *workWithDatabase = new WorkWithDatabase();
     ListForm *listForm = new ListForm(this);
     /*CardEditForm*/ cardEditForm = new CardEditForm();
     ExitForm *exitForm = new ExitForm(this);
