@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
 
 #include "cardinformation.h"
 
@@ -13,7 +14,7 @@ public:
 
     bool OpenDatabase(QString &str);
     void CloseDatabase();
-    bool CreateNewDatabase(QString &str);
+    bool CreateNewDatabase();
     bool CreateBuckupCurrentDatabase();
     bool OpenBuckupDatabase(QString &str);
     bool InsertNewCard(CardInformation &ci);
