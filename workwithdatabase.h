@@ -4,6 +4,8 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+#include <QtDebug>
 
 #include "cardinformation.h"
 
@@ -23,7 +25,7 @@ public:
     QList<CardInformation> SearchCard(QMap<QString, QString> &map);
 
 private:
-    QSqlDatabase db;
+    QSqlDatabase *db;
 };
 
 #endif // WORKWITHDATABASE_H
