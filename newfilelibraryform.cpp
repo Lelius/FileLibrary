@@ -1,5 +1,6 @@
 #include "newfilelibraryform.h"
 #include "ui_newfilelibraryform.h"
+#include "workwithdatabase.h"
 
 #include <QTimer>
 #include <QDebug>
@@ -60,6 +61,12 @@ void NewFileLibraryForm::on_lineEditNameFileLibrary_returnPressed()
         else {
             file->open(QIODevice::WriteOnly);
             file->close();
+
+            WorkWithDatabase wwd;
+            if (!wwd.openDatabase(nameNewFileLibrary))
+                qDebug() << "Создание: не открылась база данных";
+            if (!wwd.createNewDatabase())
+                qDebug() << "Создание: не создалась таблица";
 
             emit signalStatusBarOutput("Новая картотека создана", 5000);
             ui->lineEditNameFileLibrary->clear();

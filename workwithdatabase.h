@@ -14,18 +14,15 @@ class WorkWithDatabase
 public:
     WorkWithDatabase();
 
-    bool OpenDatabase(QString &str);
-    void CloseDatabase();
-    bool CreateNewDatabase();
-    bool CreateBuckupCurrentDatabase();
-    bool OpenBuckupDatabase(QString &str);
-    bool InsertNewCard(CardInformation &ci);
-    bool EditCard(CardInformation &ci);
-    bool DeleteCard(CardInformation &ci);
-    QList<CardInformation> SearchCard(QMap<QString, QString> &map);
-
-private:
-    QSqlDatabase *db;
+    bool openDatabase(QString &str);
+    void removeDatabase();
+    bool createNewDatabase();
+    bool createBuckupCurrentDatabase();
+    bool openBuckupDatabase(QString &str);
+    bool insertNewCard(CardInformation &ci);
+    bool editCard(CardInformation &ci);
+    bool deleteCard(CardInformation &ci);
+    QList<CardInformation> searchCard(QMap<QString, QString> &map);
 };
 
 #endif // WORKWITHDATABASE_H

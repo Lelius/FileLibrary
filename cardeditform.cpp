@@ -8,6 +8,7 @@
 #include "changeaccountingminiform.h"
 #include "copyaccountingminiform.h"
 #include "issuanceofcopiesminiform.h"
+#include "workwithdatabase.h"
 
 CardEditForm::CardEditForm(QWidget *parent) :
     QWidget(parent),
@@ -55,6 +56,9 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
 
     newci->setName(ui->textEditName->toPlainText());
     newci->setComment(ui->textEditComment->toPlainText());
+
+    WorkWithDatabase *wwd = new WorkWithDatabase();
+    wwd->insertNewCard(*newci);
 
     emit signalSaveCard(newci);
 }
