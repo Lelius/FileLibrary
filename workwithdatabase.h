@@ -5,7 +5,10 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
+#include <QtSql/QSqlRecord>
 #include <QtDebug>
+#include <QVector>
+
 
 #include "cardinformation.h"
 
@@ -23,6 +26,7 @@ public:
     bool editCard(CardInformation &ci);
     bool deleteCard(CardInformation &ci);
     QList<CardInformation> searchCard(QMap<QString, QString> &map);
+    QVector<CardInformation> searchCardAll();
 };
 
 #endif // WORKWITHDATABASE_H

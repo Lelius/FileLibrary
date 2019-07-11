@@ -160,3 +160,33 @@ bool WorkWithDatabase::deleteCard(CardInformation &ci)
 
     return true;
 }
+
+QVector<CardInformation> WorkWithDatabase::searchCardAll()
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    QString str = "SELECT * FROM FileLibrary;";
+    if(!query.exec(str))
+        qDebug() << "Не выполнен запрос SELECT * FROM FileLibrary";
+
+    QSqlRecord record = query.record();
+    QVector<CardInformation> vectorci;
+
+    while (query.next()){
+        CardInformation nextci;
+        nextci.setInventoryNumber(query.value(record.indexOf("inventoryNumber")).toInt());
+        nextci.setReceiptDate(query.value(record.indexOf("receiptDate")).toDate());
+        nextci.setDesignation(query.value(record.indexOf("designation")).toString());
+        nextci.setName(query.value(record.indexOf("name")).toString());
+        nextci.setComment(query.value(record.indexOf("comment")).toString());
+        nextci.setKitFormat("А1", query.value(record.indexOf("format1")).toInt());
+        nextci.setKitFormat("А2", query.value(record.indexOf("format2")).toInt());
+        nextci.setKitFormat("А3", query.value(record.indexOf("format3")).toInt());
+        nextci.setKitFormat("А4", query.value(record.indexOf("format4")).toInt());
+
+        vectorci.append(nextci);
+    }
+
+    return vectorci;
+}

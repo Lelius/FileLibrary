@@ -2,6 +2,8 @@
 #define LISTFORM_H
 
 #include <QWidget>
+#include <QList>
+#include <QVector>
 
 namespace Ui {
 class ListForm;
@@ -14,6 +16,8 @@ class ListForm : public QWidget
 public:
     explicit ListForm(QWidget *parent = nullptr);
     ~ListForm();
+
+    void listInit();
 
 private:
     Ui::ListForm *ui;

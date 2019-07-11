@@ -18,6 +18,9 @@ public:
     explicit OpenFileLibraryForm(QWidget *parent = nullptr);
     ~OpenFileLibraryForm();
 
+signals:
+    void signalListChangeStackedWidget();
+
 private slots:
     void on_treeView_activated(const QModelIndex &index);
 
