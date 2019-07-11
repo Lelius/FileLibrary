@@ -1,5 +1,6 @@
 #include "openfilelibraryform.h"
 #include "ui_openfilelibraryform.h"
+#include "workwithdatabase.h"
 
 OpenFileLibraryForm::OpenFileLibraryForm(QWidget *parent) :
     QWidget(parent),
@@ -7,15 +8,15 @@ OpenFileLibraryForm::OpenFileLibraryForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QFileSystemModel *model = new QFileSystemModel(this);
-    model->setRootPath(QDir::currentPath());
+    fileSystemModel = new QFileSystemModel(this);
+    fileSystemModel->setRootPath(QDir::currentPath());
 
     QStringList stringList;
-    model->setNameFilters(stringList << "*.db");
-    model->setNameFilterDisables(false);
+    fileSystemModel->setNameFilters(stringList << "*.db");
+    fileSystemModel->setNameFilterDisables(false);
 
-    ui->treeView->setModel(model);
-    ui->treeView->setRootIndex(model->index(QDir::currentPath()));
+    ui->treeView->setModel(fileSystemModel);
+    ui->treeView->setRootIndex(fileSystemModel->index(QDir::currentPath()));
 
     QHeaderView *headerOpenFileLibrary = ui->treeView->header();
     headerOpenFileLibrary->setSectionResizeMode(QHeaderView::Stretch);
@@ -24,4 +25,15 @@ OpenFileLibraryForm::OpenFileLibraryForm(QWidget *parent) :
 OpenFileLibraryForm::~OpenFileLibraryForm()
 {
     delete ui;
+}
+
+void OpenFileLibraryForm::on_treeView_activated(const QModelIndex &index)
+{
+    QFileInfo fileInfo = fileSystemModel->fileInfo(index);
+    if (fileInfo.isFile()){
+        QString path = fileInfo.filePath();
+        WorkWithDatabase wwd;
+        wwd.removeDatabase();
+        wwd.openDatabase(path);
+    }
 }

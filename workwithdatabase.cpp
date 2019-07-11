@@ -17,6 +17,9 @@ bool WorkWithDatabase::openDatabase(QString &path)
         qDebug() << "Не открылась база данных!";
         return false;
     }
+
+    qDebug() << "Новая база открыта";
+
     return true;
 }
 
