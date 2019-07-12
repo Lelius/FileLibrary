@@ -17,7 +17,7 @@ public:
     explicit ListForm(QWidget *parent = nullptr);
     ~ListForm();
 
-    void listInit();
+    void slotListInit();
 
 private:
     Ui::ListForm *ui;

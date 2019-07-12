@@ -8,7 +8,7 @@ ListForm::ListForm(QWidget *parent) :
     ui(new Ui::ListForm)
 {
     ui->setupUi(this);
-    listInit();
+    slotListInit();
 }
 
 ListForm::~ListForm()
@@ -16,15 +16,22 @@ ListForm::~ListForm()
     delete ui;
 }
 
-void ListForm::listInit()
+void ListForm::slotListInit()
 {
     QVector<CardInformation> cci;
     WorkWithDatabase wwd;
-    QList<QString> list;
+    QStringList list;
 
     cci = wwd.searchCardAll();
-    if (cci.isEmpty())
+    if (cci.isEmpty()){
+        qDebug() << "База данных пуста или отсутствует";
         return;
+    }
+    qDebug() << cci.length();
+    ui->tableWidgetList->setRowCount(cci.length());
+    ui->tableWidgetList->setColumnCount(4);
     list << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
-
+    ui->tableWidgetList->setHorizontalHeaderLabels(list);
+    QHeaderView *header = ui->tableWidgetList->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
 }

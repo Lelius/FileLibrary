@@ -36,5 +36,6 @@ void OpenFileLibraryForm::on_treeView_activated(const QModelIndex &index)
         wwd.removeDatabase();
         wwd.openDatabase(path);
         emit signalListChangeStackedWidget();
+        emit signalListInit();
     }
 }

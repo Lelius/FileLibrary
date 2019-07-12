@@ -20,6 +20,7 @@ public:
 
 signals:
     void signalListChangeStackedWidget();
+    void signalListInit();
 
 private slots:
     void on_treeView_activated(const QModelIndex &index);

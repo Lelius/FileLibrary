@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionNewCard, &QAction::triggered, this, &MainWindow::cardNewChangeStackWidget);
     connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListChangeStackedWidget, this, &MainWindow::listChangeStackWidget);
+    connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
 }
 
 MainWindow::~MainWindow()
