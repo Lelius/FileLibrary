@@ -22,7 +22,7 @@ CardInformation::CardInformation()
     setIssuanceOfCopies(QVector<IssuanceOfCopies>(0));
 }
 
-CardInformation::CardInformation(CardInformation &ci)
+CardInformation::CardInformation(const CardInformation &ci)
 {
     setInventoryNumber(ci.getInventoryNumber());
     setReceiptDate(ci.getReceiptDate());

@@ -1,5 +1,8 @@
 #include "workwithdatabase.h"
 
+#include <QVector>
+
+
 WorkWithDatabase::WorkWithDatabase()
 {
 
@@ -171,7 +174,7 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
         qDebug() << "Не выполнен запрос SELECT * FROM FileLibrary";
 
     QSqlRecord record = query.record();
-    QVector<CardInformation> vectorci;
+    QVector<CardInformation> *cci = new QVector<CardInformation>();
 
     while (query.next()){
         CardInformation nextci;
@@ -185,8 +188,8 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
         nextci.setKitFormat("А3", query.value(record.indexOf("format3")).toInt());
         nextci.setKitFormat("А4", query.value(record.indexOf("format4")).toInt());
 
-        vectorci.append(nextci);
+        cci->append(nextci);
     }
 
-    return vectorci;
+    return *cci;
 }

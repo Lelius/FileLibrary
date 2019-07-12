@@ -8,6 +8,7 @@
 #include <QtSql/QSqlRecord>
 #include <QtDebug>
 #include <QVector>
+#include <QList>
 
 
 #include "cardinformation.h"

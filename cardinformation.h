@@ -16,7 +16,7 @@ class CardInformation
 {
 public:
     CardInformation();
-    CardInformation(CardInformation &ci);
+    CardInformation(const CardInformation &ci);
 
     int getInventoryNumber() const;
     void setInventoryNumber(int value);
