@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
+    connect(ui->actionListCard_2, &QAction::triggered, listForm, &ListForm::slotListInit);
     connect(ui->actionEditCard, &QAction::triggered, this, &MainWindow::cardEditChangeStackWidget);
     connect(ui->actionCreateNewFileLibrary, &QAction::triggered, this, &MainWindow::newFileLibraryChangeStackWidget);
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListChangeStackedWidget, this, &MainWindow::listChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
+    connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
 }
 
 MainWindow::~MainWindow()

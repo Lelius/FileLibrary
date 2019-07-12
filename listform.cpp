@@ -46,3 +46,24 @@ void ListForm::slotListInit()
         ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 }
+
+void ListForm::slotDelCard()
+{
+    WorkWithDatabase wwd;
+
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetList->selectedRanges();
+
+    if (listSelected.size() != 0){
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                CardInformation ci;
+                QTableWidgetItem *it = ui->tableWidgetList->item(i, 0);
+                ci.setInventoryNumber(it->text().toInt());
+                wwd.deleteCard(ci);
+            }
+        }
+
+    }
+    slotListInit();
+}

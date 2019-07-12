@@ -18,6 +18,7 @@ public:
     ~ListForm();
 
     void slotListInit();
+    void slotDelCard();
 
 private:
     Ui::ListForm *ui;
