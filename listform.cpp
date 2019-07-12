@@ -20,18 +20,29 @@ void ListForm::slotListInit()
 {
     QVector<CardInformation> cci;
     WorkWithDatabase wwd;
-    QStringList list;
 
     cci = wwd.searchCardAll();
     if (cci.isEmpty()){
         qDebug() << "База данных пуста или отсутствует";
         return;
     }
-    qDebug() << cci.length();
     ui->tableWidgetList->setRowCount(cci.length());
     ui->tableWidgetList->setColumnCount(4);
+
+    QStringList list;
     list << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
     ui->tableWidgetList->setHorizontalHeaderLabels(list);
     QHeaderView *header = ui->tableWidgetList->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetList->verticalHeader()->hide();
+    ui->tableWidgetList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    for (int i = 0; i < cci.length(); ++i){
+        ui->tableWidgetList->setItem(i, 0, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
+        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(cci.at(i).getDesignation()));
+        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getName()));
+        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+    }
 }

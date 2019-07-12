@@ -87,7 +87,7 @@ bool WorkWithDatabase::insertNewCard(CardInformation &ci)
     QString strF = "INSERT INTO FileLibrary (inventoryNumber, receiptDate, designation, name, comment, format1, format2, format3, format4, applicability, changeAccounting, copyAccounting, issuanceOfCopies) VALUES ( %1, '%2', '%3', '%4', '%5', %6, %7, %8, %9, '%10', '%11', '%12', '%13');";
 
     QString str = strF.arg(ci.getInventoryNumber())
-            .arg(ci.getReceiptDate().toString())
+            .arg(ci.getReceiptDate().toString("dd.MM.yyyy"))
             .arg(ci.getDesignation())
             .arg(ci.getName())
             .arg(ci.getComment())
@@ -124,7 +124,7 @@ bool WorkWithDatabase::editCard(CardInformation &ci)
                   "WHERE inventoryNumber = '" + QString::number(ci.getInventoryNumber()) + "';");
 
     query.bindValue(":inventoryNumber",ci.getInventoryNumber());
-    query.bindValue(":receiptDate", ci.getReceiptDate().toString());
+    query.bindValue(":receiptDate", ci.getReceiptDate().toString("dd.MM.yyyy"));
     query.bindValue(":designation", ci.getDesignation());
     query.bindValue(":name", ci.getName());
     query.bindValue(":comment", ci.getComment());
@@ -179,7 +179,8 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
     while (query.next()){
         CardInformation nextci;
         nextci.setInventoryNumber(query.value(record.indexOf("inventoryNumber")).toInt());
-        nextci.setReceiptDate(query.value(record.indexOf("receiptDate")).toDate());
+        QString strDate = query.value(record.indexOf("receiptDate")).toString();
+        nextci.setReceiptDate(QDate::fromString(strDate, "dd.MM.yyyy"));
         nextci.setDesignation(query.value(record.indexOf("designation")).toString());
         nextci.setName(query.value(record.indexOf("name")).toString());
         nextci.setComment(query.value(record.indexOf("comment")).toString());
@@ -187,6 +188,8 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
         nextci.setKitFormat("А2", query.value(record.indexOf("format2")).toInt());
         nextci.setKitFormat("А3", query.value(record.indexOf("format3")).toInt());
         nextci.setKitFormat("А4", query.value(record.indexOf("format4")).toInt());
+
+
 
         cci->append(nextci);
     }
