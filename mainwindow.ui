@@ -37,7 +37,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="font">
@@ -61,7 +61,7 @@
      <string>Архив</string>
     </property>
     <addaction name="actionOpenFileLibrary"/>
-    <addaction name="action"/>
+    <addaction name="actionCloseFileLibrary"/>
     <addaction name="actionCreateNewFileLibrary"/>
     <addaction name="actionBackupFileLibrary"/>
     <addaction name="actionExit"/>
@@ -223,7 +223,7 @@
     </font>
    </property>
   </action>
-  <action name="action">
+  <action name="actionCloseFileLibrary">
    <property name="text">
     <string>Закрыть</string>
    </property>

@@ -22,10 +22,15 @@ void ListForm::slotListInit()
     WorkWithDatabase wwd;
 
     cci = wwd.searchCardAll();
-    if (cci.isEmpty()){
-        qDebug() << "База данных пуста или отсутствует";
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    if (!db.isOpen()){
+        qDebug() << "База данных отсутствует";
         return;
     }
+
+    ui->labelListFileName->clear();
+    ui->labelListFileName->setText(db.databaseName());
+
     ui->tableWidgetList->setRowCount(cci.length());
     ui->tableWidgetList->setColumnCount(4);
 
@@ -66,4 +71,14 @@ void ListForm::slotDelCard()
 
     }
     slotListInit();
+}
+
+void ListForm::slotCloseFileLibrary()
+{
+    WorkWithDatabase wwd;
+    wwd.removeDatabase();
+    ui->tableWidgetList->clear();
+    ui->tableWidgetList->setRowCount(0);
+    ui->tableWidgetList->setColumnCount(0);
+    ui->labelListFileName->clear();
 }

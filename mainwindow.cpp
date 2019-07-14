@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListChangeStackedWidget, this, &MainWindow::listChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
     connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
+    connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
 }
 
 MainWindow::~MainWindow()
