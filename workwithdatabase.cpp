@@ -64,46 +64,122 @@ bool WorkWithDatabase::insertNewCard(CardInformation &ci)
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
     QSqlQuery query(db);
-    /*query->prepare("INSERT INTO FileLibrary (inventoryNumber, receiptDate, designation,"
+    query.prepare("INSERT INTO FileLibrary (inventoryNumber, receiptDate, designation,"
                   "name, comment, format1, format2, format3, format4, applicability, changeAccounting,"
-                  "copyAccounting, issuanceOfCopies) VALUES (:inventoryNumber, ':receiptDate', ':designation',"
-                  "':name', ':comment', :format1, :format2, :format3, :format4, ':applicability', ':changeAccounting',"
-                  "':copyAccounting', ':issuanceOfCopies');");
+                  "copyAccounting, issuanceOfCopies) VALUES (:inventoryNumber, :receiptDate, :designation,"
+                  ":name, :comment, :format1, :format2, :format3, :format4, :applicability, :changeAccounting,"
+                  ":copyAccounting, :issuanceOfCopies);");
 
-    query->bindValue(":inventoryNumber",ci.getInventoryNumber());
-    query->bindValue(":receiptDate", ci.getReceiptDate().toString());
-    query->bindValue(":designation", ci.getDesignation());
-    query->bindValue(":name", ci.getName());
-    query->bindValue(":comment", ci.getComment());
-    query->bindValue(":format1", ci.getKitFormat("А1"));
-    query->bindValue(":format2", ci.getKitFormat("А2"));
-    query->bindValue(":format3", ci.getKitFormat("А3"));
-    query->bindValue(":format4", ci.getKitFormat("А4"));
-    query->bindValue(":applicability", "applicability" + QString::number(ci.getInventoryNumber()));
-    query->bindValue(":changeAccounting", "changeAccounting" + QString::number(ci.getInventoryNumber()));
-    query->bindValue(":copyAccounting", "copyAccounting" + QString::number(ci.getInventoryNumber()));
-    query->bindValue(":issuanceOfCopies", "issuanceOfCopies" + QString::number(ci.getInventoryNumber()));*/
+    query.bindValue(":inventoryNumber",ci.getInventoryNumber());
+    query.bindValue(":receiptDate", ci.getReceiptDate().toString("dd.MM.yyyy"));
+    query.bindValue(":designation", ci.getDesignation());
+    query.bindValue(":name", ci.getName());
+    query.bindValue(":comment", ci.getComment());
+    query.bindValue(":format1", ci.getKitFormat("А1"));
+    query.bindValue(":format2", ci.getKitFormat("А2"));
+    query.bindValue(":format3", ci.getKitFormat("А3"));
+    query.bindValue(":format4", ci.getKitFormat("А4"));
+    query.bindValue(":applicability", "applicability" + QString::number(ci.getInventoryNumber()));
+    query.bindValue(":changeAccounting", "changeAccounting" + QString::number(ci.getInventoryNumber()));
+    query.bindValue(":copyAccounting", "copyAccounting" + QString::number(ci.getInventoryNumber()));
+    query.bindValue(":issuanceOfCopies", "issuanceOfCopies" + QString::number(ci.getInventoryNumber()));
 
-    QString strF = "INSERT INTO FileLibrary (inventoryNumber, receiptDate, designation, name, comment, format1, format2, format3, format4, applicability, changeAccounting, copyAccounting, issuanceOfCopies) VALUES ( %1, '%2', '%3', '%4', '%5', %6, %7, %8, %9, '%10', '%11', '%12', '%13');";
-
-    QString str = strF.arg(ci.getInventoryNumber())
-            .arg(ci.getReceiptDate().toString("dd.MM.yyyy"))
-            .arg(ci.getDesignation())
-            .arg(ci.getName())
-            .arg(ci.getComment())
-            .arg(ci.getKitFormat("А1"))
-            .arg(ci.getKitFormat("А2"))
-            .arg(ci.getKitFormat("А3"))
-            .arg(ci.getKitFormat("А4"))
-            .arg("applicability" + QString::number(ci.getInventoryNumber()))
-            .arg("changeAccounting" + QString::number(ci.getInventoryNumber()))
-            .arg("copyAccounting" + QString::number(ci.getInventoryNumber()))
-            .arg("issuanceOfCopies" + QString::number(ci.getInventoryNumber()));
-
-    if (!query.exec(str)){
+    if (!query.exec()){
         qDebug() << query.lastError().text();
         qDebug() << "Вставка в таблицу не удалась!";
         return false;
+    }
+
+    //миниформы
+    //applicability
+    QString strPrepare = "CREATE TABLE IF NOT EXISTS applicability" + QString::number(ci.getInventoryNumber()) + "("
+                         "introductionDate TEXT,"
+                         "designation TEXT);";
+    if (!query.exec(strPrepare)){
+        qDebug() << "Не удалось создать таблицу applicability";
+        return false;
+    }
+
+    if (ci.getApplicability().length() != 0){
+        for (int i = 0; i < ci.getApplicability().length(); ++i){
+            query.prepare("INSERT INTO applicability" + QString::number(ci.getInventoryNumber()) + "("
+                          "introductionDate, designation) VALUES ("
+                          ":introductionDate, :designation);");
+            query.bindValue(":introductionDate", ci.getApplicability().at(i).getIntroductionDate().toString("dd.MM.yyyy"));
+            query.bindValue(":designation", ci.getApplicability().at(i).getDesignation());
+            query.exec();
+        }
+    }
+
+    //changeAccounting
+    query.prepare("CREATE TABLE IF NOT EXISTS changeAccounting" + QString::number(ci.getInventoryNumber()) + "("
+                         "change TEXT,"
+                         "notificationNumber INTEGER,"
+                         "dateOfEntry TEXT);");
+    if (!query.exec()){
+        qDebug() << "Не удалось создать таблицу changeAccounting";
+        return false;
+    }
+
+    if (ci.getChangeAccounting().length() != 0){
+        for (int i = 0; i < ci.getChangeAccounting().length(); ++i){
+            query.prepare("INSERT INTO changeAccounting" + QString::number(ci.getInventoryNumber()) + "("
+                          "change, notificationNumber, dateOfEntry) VALUES ("
+                          ":change, :notificationNumber, :dateOfEntry);");
+            query.bindValue(":change", ci.getChangeAccounting().at(i).getChange());
+            query.bindValue(":notificationNumber", ci.getChangeAccounting().at(i).getNotificationNumber());
+            query.bindValue(":dateOfEntry", ci.getChangeAccounting().at(i).getDateOfEntry().toString("dd.MM.yyyy"));
+            query.exec();
+        }
+    }
+
+    //copyAccounting
+    query.prepare("CREATE TABLE IF NOT EXISTS copyAccounting" + QString::number(ci.getInventoryNumber()) + "("
+                         "copyNumberOfCopy INTEGER,"
+                         "receiptDate TEXT,"
+                         "dateOfWriteOff TEXT,"
+                         "replacementDate TEXT);");
+    if (!query.exec()){
+        qDebug() << "Не удалось создать таблицу copyAccounting";
+        return false;
+    }
+
+    if (ci.getCopyAccounting().length() != 0){
+        for (int i = 0; i < ci.getCopyAccounting().length(); ++i){
+            query.prepare("INSERT INTO copyAccounting" + QString::number(ci.getInventoryNumber()) + "("
+                          "copyNumberOfCopy, receiptDate, dateOfWriteOff, replacementDate) VALUES ("
+                          ":copyNumberOfCopy, :receiptDate, :dateOfWriteOff, :replacementDate);");
+            query.bindValue(":copyNumberOfCopy", ci.getCopyAccounting().at(i).getCopyNumberOfCopy());
+            query.bindValue(":receiptDate", ci.getCopyAccounting().at(i).getReceiptDate().toString("dd.MM.yyyy"));
+            query.bindValue(":dateOfWriteOff", ci.getCopyAccounting().at(i).getDateOfWriteOff().toString("dd.MM.yyyy"));
+            query.bindValue(":replacementDate", ci.getCopyAccounting().at(i).getReplacementDate().toString("dd.MM.yyyy"));
+            query.exec();
+        }
+    }
+
+    //issuanceOfCopies
+    query.prepare("CREATE TABLE IF NOT EXISTS issuanceOfCopies" + QString::number(ci.getInventoryNumber()) + "("
+                         "subscriber TEXT,"
+                         "dateOfIssue TEXT,"
+                         "instanceNumber INTEGER,"
+                         "writtenOff TEXT);");
+    if (!query.exec()){
+        qDebug() << "Не удалось создать таблицу issuanceOfCopies";
+        return false;
+    }
+
+    if (ci.getIssuanceOfCopies().length() != 0){
+        for (int i = 0; i < ci.getIssuanceOfCopies().length(); ++i){
+            query.prepare("INSERT INTO issuanceOfCopies" + QString::number(ci.getInventoryNumber()) + "("
+                          "subscriber, dateOfIssue, instanceNumber, writtenOff) VALUES ("
+                          ":subscriber, :dateOfIssue, :instanceNumber, :writtenOff);");
+            query.bindValue(":subscriber", ci.getIssuanceOfCopies().at(i).getSubscriber());
+            query.bindValue(":dateOfIssue", ci.getIssuanceOfCopies().at(i).getDateOfIssue().toString("dd.MM.yyyy"));
+            query.bindValue(":instanceNumber", ci.getIssuanceOfCopies().at(i).getInstanceNumber());
+            query.bindValue(":writtenOff", ci.getIssuanceOfCopies().at(i).getWrittenOff());
+            query.exec();
+        }
+
     }
 
     return true;
