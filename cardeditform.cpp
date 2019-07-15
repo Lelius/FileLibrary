@@ -1,5 +1,6 @@
 #include <QDate>
 #include <QIntValidator>
+#include <QVector>
 
 #include "cardeditform.h"
 #include "ui_cardeditform.h"
@@ -57,7 +58,73 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
     newci->setName(ui->textEditName->toPlainText());
     newci->setComment(ui->textEditComment->toPlainText());
 
+    //сохраняем миниформы
+    // 1
+    QVector<ApplicabilityCard> applicability;
+    for (int i = 0; i < ui->tableWidgetApplicability->rowCount(); i++){
+        QString introductionDateStr = ui->tableWidgetApplicability->item(i, 0)->text();
+        QDate introductionDateCi = QDate::fromString(introductionDateStr, "dd.MM.yyyy");
+        QString designationCi = ui->tableWidgetApplicability->item(i, 1)->text();
+
+        ApplicabilityCard applicabilityCi;
+        applicabilityCi.setIntroductionDate(introductionDateCi);
+        applicabilityCi.setDesignation(designationCi);
+
+        applicability.push_back(applicabilityCi);
+    }
+    newci->setApplicability(applicability);
+
+    // 2
+    QVector<ChangeAccountingCard> changeAccountingCardCi;
+    for (int i = 0; i < ui->tableWidgetChangeAccounting->rowCount(); ++i){
+        QString changeCiStr = ui->tableWidgetChangeAccounting->item(i, 0)->text();
+        int notificationNumberCi = ui->tableWidgetChangeAccounting->item(i, 1)->text().toInt();
+        QDate dateOfEntryCi = QDate::fromString(ui->tableWidgetChangeAccounting->item(i, 2)->text(), "dd.MM.yyyy");
+
+        ChangeAccountingCard changeCi;
+        changeCi.setChange(changeCiStr);
+        changeCi.setNotificationNumber(notificationNumberCi);
+        changeCi.setDateOfEntry(dateOfEntryCi);
+        changeAccountingCardCi.push_back(changeCi);
+    }
+    newci->setChangeAccounting(changeAccountingCardCi);
+
+    // 3
+    QVector<CopyAccounting> copyAccountingCi;
+    for (int i = 0; i < ui->tableWidgetCopyAccounting->rowCount(); ++i){
+        int copyNumberOfCopy = ui->tableWidgetCopyAccounting->item(i, 0)->text().toInt();
+        QDate receiptDate = QDate::fromString(ui->tableWidgetCopyAccounting->item(i, 1)->text(), "dd.MM.yyyy");
+        QDate dateOfWriteOff = QDate::fromString(ui->tableWidgetCopyAccounting->item(i, 2)->text(), "dd.MM.yyyy");
+        QDate replacementDate = QDate::fromString(ui->tableWidgetCopyAccounting->item(i, 3)->text(), "dd.MM.yyyy");
+
+        CopyAccounting copyCi;
+        copyCi.setCopyNumberOfCopy(copyNumberOfCopy);
+        copyCi.setReceiptDate(receiptDate);
+        copyCi.setDateOfWriteOff(dateOfWriteOff);
+        copyCi.setReplacementDate(replacementDate);
+        copyAccountingCi.push_back(copyCi);
+    }
+    newci->setCopyAccounting(copyAccountingCi);
+
+    // 4
+    QVector<IssuanceOfCopies> issuanceOfCopiesCi;
+    for (int i = 0; i < ui->tableWidgetIssuanceOfCopies->rowCount(); ++i){
+        QString subscriber = ui->tableWidgetIssuanceOfCopies->item(i, 0)->text();
+        QDate dateOfIssue = QDate::fromString(ui->tableWidgetIssuanceOfCopies->item(i, 1)->text(), "dd.MM.yyyy");
+        int instanceNumber = ui->tableWidgetIssuanceOfCopies->item(i, 2)->text().toInt();
+        QString writtenOff = ui->tableWidgetIssuanceOfCopies->item(i, 3)->text();
+
+        IssuanceOfCopies issuanceCi;
+        issuanceCi.setSubscriber(subscriber);
+        issuanceCi.setDateOfIssue(dateOfIssue);
+        issuanceCi.setInstanceNumber(instanceNumber);
+        issuanceCi.setWrittenOff(writtenOff);
+        issuanceOfCopiesCi.push_back(issuanceCi);
+    }
+    newci->setIssuanceOfCopies(issuanceOfCopiesCi);
+
     WorkWithDatabase *wwd = new WorkWithDatabase();
+
     wwd->insertNewCard(*newci);
 
     emit signalSaveCard(newci);

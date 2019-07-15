@@ -26,6 +26,7 @@ public:
     bool insertNewCard(CardInformation &ci);
     bool editCard(CardInformation &ci);
     bool deleteCard(CardInformation &ci);
+    CardInformation searchCard(int inventoryNumber);
     QList<CardInformation> searchCard(QMap<QString, QString> &map);
     QVector<CardInformation> searchCardAll();
 };

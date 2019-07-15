@@ -196,3 +196,4 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
 
     return *cci;
 }
+

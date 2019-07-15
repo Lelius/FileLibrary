@@ -29,7 +29,8 @@ void ListForm::slotListInit()
     }
 
     ui->labelListFileName->clear();
-    ui->labelListFileName->setText(db.databaseName());
+    QFileInfo *fileInfo = new QFileInfo(db.databaseName());
+    ui->labelListFileName->setText(fileInfo->fileName());
 
     ui->tableWidgetList->setRowCount(cci.length());
     ui->tableWidgetList->setColumnCount(4);
@@ -81,4 +82,12 @@ void ListForm::slotCloseFileLibrary()
     ui->tableWidgetList->setRowCount(0);
     ui->tableWidgetList->setColumnCount(0);
     ui->labelListFileName->clear();
+}
+
+void ListForm::on_tableWidgetList_cellActivated(int row, int column)
+{
+    QTableWidgetItem *item = new QTableWidgetItem();
+    item = ui->tableWidgetList->item(row, 0);
+    int inventoryNumber = item->text().toInt();
+    qDebug() << inventoryNumber;
 }

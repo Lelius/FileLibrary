@@ -51,7 +51,13 @@
       </layout>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidgetList"/>
+      <widget class="QTableWidget" name="tableWidgetList">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

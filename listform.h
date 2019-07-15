@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QList>
 #include <QVector>
+#include <QFileInfo>
 
 namespace Ui {
 class ListForm;
@@ -20,6 +21,12 @@ public:
     void slotListInit();
     void slotDelCard();
     void slotCloseFileLibrary();
+
+signals:
+    void signalEditCurrentCardInList();
+
+private slots:
+    void on_tableWidgetList_cellActivated(int row, int column);
 
 private:
     Ui::ListForm *ui;
