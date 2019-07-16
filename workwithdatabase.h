@@ -33,6 +33,7 @@ public:
     CardInformation searchCard(int inventoryNumber);
     QList<CardInformation> searchCard(QMap<QString, QString> &map);
     QVector<CardInformation> searchCardAll();
+    int searchMaxInventoryNumber();
 };
 
 #endif // WORKWITHDATABASE_H

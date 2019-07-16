@@ -448,3 +448,20 @@ bool WorkWithDatabase::searchForInventoryNumber(CardInformation &ci)
 {
     return searchForInventoryNumber(ci.getInventoryNumber());
 }
+
+int WorkWithDatabase::searchMaxInventoryNumber()
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    int maxInventoryNumber = (-1);
+
+    query.prepare("SELECT MAX(inventoryNumber) AS maxInventoryNumber FROM FileLibrary;");
+    query.exec();
+
+    QSqlRecord record = query.record();
+    while (query.next()){
+        maxInventoryNumber = query.value(record.indexOf("maxInventoryNumber")).toInt();
+    }
+    return maxInventoryNumber;
+}

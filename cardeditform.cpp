@@ -17,6 +17,11 @@ CardEditForm::CardEditForm(QWidget *parent) :
 {
     ui->setupUi(this);
     newci = new CardInformation();
+
+    WorkWithDatabase wwd;
+    newci->setInventoryNumber(wwd.searchMaxInventoryNumber() > 0 ? wwd.searchMaxInventoryNumber() + 1 : 1);
+    ui->lineEditInventoryNumber->setText(QString::number(newci->getInventoryNumber()));
+
     newci->setReceiptDate(QDate::currentDate());
     ui->dateEditReceiptDate->setDate(newci->getReceiptDate());
 
