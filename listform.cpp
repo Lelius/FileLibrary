@@ -90,4 +90,8 @@ void ListForm::on_tableWidgetList_cellActivated(int row, int column)
     item = ui->tableWidgetList->item(row, 0);
     int inventoryNumber = item->text().toInt();
     qDebug() << inventoryNumber;
+
+    WorkWithDatabase wwd;
+    CardInformation ci = wwd.searchCard(inventoryNumber);
+    emit signalEditSelectedCard(ci);
 }

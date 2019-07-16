@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
     connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
+    connect(listForm, &ListForm::signalEditSelectedCard, this, &MainWindow::slotEditSelectedCard);
 }
 
 MainWindow::~MainWindow()
@@ -133,4 +134,14 @@ void MainWindow::openFileLibraryChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(5);
+}
+
+void MainWindow::slotEditSelectedCard(CardInformation ci)
+{
+    previousIndex = ui->stackedWidget->currentIndex();
+    ui->stackedWidget->removeWidget(cardViewForm);
+    delete cardViewForm;
+    cardViewForm = new CardViewForm(&ci, this);
+    ui->stackedWidget->insertWidget(4, cardViewForm);
+    ui->stackedWidget->setCurrentIndex(4);
 }

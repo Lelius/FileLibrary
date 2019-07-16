@@ -6,6 +6,8 @@
 #include <QVector>
 #include <QFileInfo>
 
+#include "cardinformation.h"
+
 namespace Ui {
 class ListForm;
 }
@@ -24,6 +26,7 @@ public:
 
 signals:
     void signalEditCurrentCardInList();
+    void signalEditSelectedCard(CardInformation &ci);
 
 private slots:
     void on_tableWidgetList_cellActivated(int row, int column);
