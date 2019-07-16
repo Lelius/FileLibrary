@@ -24,8 +24,12 @@ public:
     bool createBuckupCurrentDatabase();
     bool openBuckupDatabase(QString &str);
     bool insertNewCard(CardInformation &ci);
+    bool insertNewCardTablesMiniForm(CardInformation &ci);
     bool editCard(CardInformation &ci);
     bool deleteCard(CardInformation &ci);
+    void deleteCardTablesMiniForm(CardInformation &ci);
+    bool searchForInventoryNumber(int inventoryNumber);
+    bool searchForInventoryNumber(CardInformation &ci);
     CardInformation searchCard(int inventoryNumber);
     QList<CardInformation> searchCard(QMap<QString, QString> &map);
     QVector<CardInformation> searchCardAll();

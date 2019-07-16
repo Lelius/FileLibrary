@@ -123,9 +123,9 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
     }
     newci->setIssuanceOfCopies(issuanceOfCopiesCi);
 
-    WorkWithDatabase *wwd = new WorkWithDatabase();
+    WorkWithDatabase wwd;
 
-    wwd->insertNewCard(*newci);
+    wwd.editCard(*newci);
 
     emit signalSaveCard(newci);
 }

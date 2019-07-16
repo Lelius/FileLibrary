@@ -91,6 +91,19 @@ bool WorkWithDatabase::insertNewCard(CardInformation &ci)
     }
 
     //миниформы
+    if (!insertNewCardTablesMiniForm(ci)){
+        qDebug() << "Сбой в создании таблиц миниформ";
+        return false;
+    }
+
+    return true;
+}
+
+bool WorkWithDatabase::insertNewCardTablesMiniForm(CardInformation &ci)
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
     //applicability
     QString strPrepare = "CREATE TABLE IF NOT EXISTS applicability" + QString::number(ci.getInventoryNumber()) + "("
                          "introductionDate TEXT,"
@@ -190,6 +203,18 @@ bool WorkWithDatabase::editCard(CardInformation &ci)
     QSqlDatabase db = QSqlDatabase::database("FL");
     QSqlQuery query(db);
 
+    if (!deleteCard(ci)){
+        qDebug() << "Ошибка при удалении карточки";
+        return false;
+    }
+
+    if (!insertNewCard(ci)){
+        qDebug() << "Ошибка при вставке карточки";
+        return false;
+    }
+
+    /*deleteCardTablesMiniForm(ci);
+
     query.prepare("UPDATE FileLibrary "
                   "SET inventoryNumber = :inventoryNumber, "
                   "receiptDate = :receiptDate, designation = :designation, "
@@ -219,6 +244,11 @@ bool WorkWithDatabase::editCard(CardInformation &ci)
         return false;
     }
 
+    if(!insertNewCardTablesMiniForm(ci)){
+        qDebug() << "Замена таблиц миниформ не удалась";
+        return false;
+    }*/
+
     return true;
 }
 
@@ -237,7 +267,133 @@ bool WorkWithDatabase::deleteCard(CardInformation &ci)
         return false;
     }
 
+    deleteCardTablesMiniForm(ci);
+
     return true;
+}
+
+void WorkWithDatabase::deleteCardTablesMiniForm(CardInformation &ci)
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    query.prepare("DROP TABLE IF EXISTS applicability" + QString::number(ci.getInventoryNumber()) + ";");
+    query.exec();
+    query.prepare("DROP TABLE IF EXISTS changeAccounting" + QString::number(ci.getInventoryNumber()) + ";");
+    query.exec();
+    query.prepare("DROP TABLE IF EXISTS copyAccounting" + QString::number(ci.getInventoryNumber()) + ";");
+    query.exec();
+    query.prepare("DROP TABLE IF EXISTS issuanceOfCopies" + QString::number(ci.getInventoryNumber()) + ";");
+    query.exec();
+}
+
+CardInformation WorkWithDatabase::searchCard(int inventoryNumber)
+{
+    CardInformation ci;
+
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM FileLibrary WHERE inventoryNumber = :inventoryNumber;");
+    query.bindValue(":inventoryNumber", inventoryNumber);
+    query.exec();
+
+    QSqlRecord record = query.record();
+    if (record.isEmpty()){
+        qDebug() << "Карточка под запрашиваемым номером отсутствует";
+        return ci;
+    }
+
+    while (query.next()){
+        ci.setInventoryNumber(query.value(record.indexOf("inventoryNumber")).toInt());
+        ci.setReceiptDate(QDate::fromString(query.value(record.indexOf("receiptDate")).toString(), "dd.MM.yyyy"));
+        ci.setDesignation(query.value(record.indexOf("designation")).toString());
+        ci.setName(query.value(record.indexOf("name")).toString());
+        ci.setComment(query.value(record.indexOf("comment")).toString());
+        ci.setKitFormat("А1", query.value(record.indexOf("format1")).toInt());
+        ci.setKitFormat("А2", query.value(record.indexOf("format2")).toInt());
+        ci.setKitFormat("А3", query.value(record.indexOf("format3")).toInt());
+        ci.setKitFormat("А4", query.value(record.indexOf("format4")).toInt());
+
+        //-----------------------------------------------------------
+        QVector<ApplicabilityCard> applicability;
+        query.clear();
+        record.clear();
+
+        query.prepare("SELECT * FROM applicability" + QString::number(inventoryNumber) + ";");
+        query.exec();
+        record = query.record();
+
+        while (query.next()){
+            ApplicabilityCard appci;
+            appci.setIntroductionDate(QDate::fromString(query.value(record.indexOf("introductionDate")).toString(), "dd.MM.yyyy"));
+            appci.setDesignation(query.value(record.indexOf("designation")).toString());
+            applicability.push_back(appci);
+        }
+
+        ci.setApplicability(applicability);
+
+        //-------------------------------------------------------------
+        QVector<ChangeAccountingCard> changeAccounting;
+        query.clear();
+        record.clear();
+
+        query.prepare("SELECT * FROM changeAccounting" + QString::number(inventoryNumber) + ";");
+        query.exec();
+        record = query.record();
+
+        while (query.next()){
+            ChangeAccountingCard changeci;
+            changeci.setChange(query.value(record.indexOf("change")).toString());
+            changeci.setNotificationNumber(query.value(record.indexOf("notificationNumber")).toInt());
+            changeci.setDateOfEntry(QDate::fromString(query.value(record.indexOf("dateOfEntry")).toString(), "dd.MM.yyyy"));
+            changeAccounting.push_back(changeci);
+        }
+
+        ci.setChangeAccounting(changeAccounting);
+
+        //----------------------------------------------------
+        QVector<CopyAccounting> copyAccounting;
+        query.clear();
+        record.clear();
+
+        query.prepare("SELECT * FROM copyAccounting" + QString::number(inventoryNumber) + ";");
+        query.exec();
+        record = query.record();
+
+        while (query.next()){
+            CopyAccounting copyci;
+            copyci.setCopyNumberOfCopy(query.value(record.indexOf("copyNumberOfCopy")).toInt());
+            copyci.setReceiptDate(QDate::fromString(query.value(record.indexOf("receiptDate")).toString(), "dd.MM.yyyy"));
+            copyci.setDateOfWriteOff(QDate::fromString(query.value(record.indexOf("dateOfWriteOff")).toString(), "dd.MM.yyyy"));
+            copyci.setReplacementDate(QDate::fromString(query.value(record.indexOf("replacementDate")).toString(), "dd.MM.yyyy"));
+            copyAccounting.push_back(copyci);
+        }
+
+        ci.setCopyAccounting(copyAccounting);
+
+        //------------------------------------------------
+        QVector<IssuanceOfCopies> issuanceOfCopies;
+        query.clear();
+        record.clear();
+
+        query.prepare("SELECT * FROM issuanceOfCopies" + QString::number(inventoryNumber) + ";");
+        query.exec();
+        record = query.record();
+
+        while (query.next()){
+            IssuanceOfCopies issuanceci;
+            issuanceci.setSubscriber(query.value(record.indexOf("subscriber")).toString());
+            issuanceci.setDateOfIssue(QDate::fromString(query.value(record.indexOf("dateOfIssue")).toString(), "dd.MM.yyyy"));
+            issuanceci.setInstanceNumber(query.value(record.indexOf("instanceNumber")).toInt());
+            issuanceci.setWrittenOff(query.value(record.indexOf("writtenOff")).toString());
+            issuanceOfCopies.push_back(issuanceci);
+        }
+
+        ci.setIssuanceOfCopies(issuanceOfCopies);
+    }
+
+    return ci;
 }
 
 QVector<CardInformation> WorkWithDatabase::searchCardAll()
@@ -273,3 +429,22 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
     return *cci;
 }
 
+bool WorkWithDatabase::searchForInventoryNumber(int inventoryNumber)
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    query.prepare("SELECT inventoryNumber FROM FileLybrary WHERE inventoryNumber=:inventoryNumber;");
+    query.bindValue(":inventoryNumber", inventoryNumber);
+    query.exec();
+
+    QSqlRecord record = query.record();
+    if (record.isEmpty())
+        return false;
+    return true;
+}
+
+bool WorkWithDatabase::searchForInventoryNumber(CardInformation &ci)
+{
+    return searchForInventoryNumber(ci.getInventoryNumber());
+}
