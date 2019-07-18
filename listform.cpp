@@ -2,6 +2,7 @@
 #include "ui_listform.h"
 #include "cardinformation.h"
 #include "workwithdatabase.h"
+#include "mainwindow.h"
 
 ListForm::ListForm(QWidget *parent) :
     QWidget(parent),
@@ -93,5 +94,5 @@ void ListForm::on_tableWidgetList_cellActivated(int row, int column)
 
     WorkWithDatabase wwd;
     CardInformation ci = wwd.searchCard(inventoryNumber);
-    emit signalEditSelectedCard(ci);
+    emit signalViewSelectedCard(ci);
 }

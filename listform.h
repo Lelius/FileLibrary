@@ -26,7 +26,7 @@ public:
 
 signals:
     void signalEditCurrentCardInList();
-    void signalEditSelectedCard(CardInformation &ci);
+    void signalViewSelectedCard(CardInformation &ci);
 
 private slots:
     void on_tableWidgetList_cellActivated(int row, int column);

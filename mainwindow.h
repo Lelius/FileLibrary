@@ -24,7 +24,8 @@ private slots:
     void slotChangeStackWidget(int index);
     void slotStatusBarOutput(QString str, int timeOutput);
     void slotCardViewChangeStackWidget(CardInformation *saveci);
-    void slotEditSelectedCard(CardInformation ci);
+    void slotViewSelectedCard(CardInformation ci);
+    void slotActionOnEditCard();
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();

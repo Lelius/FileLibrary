@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, listForm, &ListForm::slotListInit);
-    connect(ui->actionEditCard, &QAction::triggered, this, &MainWindow::cardEditChangeStackWidget);
+    connect(ui->actionEditCard, &QAction::triggered, this, &MainWindow::slotActionOnEditCard);
     connect(ui->actionCreateNewFileLibrary, &QAction::triggered, this, &MainWindow::newFileLibraryChangeStackWidget);
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
     connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
-    connect(listForm, &ListForm::signalEditSelectedCard, this, &MainWindow::slotEditSelectedCard);
+    connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
 }
 
 MainWindow::~MainWindow()
@@ -136,7 +136,7 @@ void MainWindow::openFileLibraryChangeStackWidget()
     slotChangeStackWidget(5);
 }
 
-void MainWindow::slotEditSelectedCard(CardInformation ci)
+void MainWindow::slotViewSelectedCard(CardInformation ci)
 {
     previousIndex = ui->stackedWidget->currentIndex();
     ui->stackedWidget->removeWidget(cardViewForm);
@@ -144,4 +144,17 @@ void MainWindow::slotEditSelectedCard(CardInformation ci)
     cardViewForm = new CardViewForm(&ci, this);
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::slotActionOnEditCard()
+{
+    //listForm
+    if (ui->stackedWidget->currentIndex() == 0){
+
+    }
+
+    //cardViewForm
+    if (ui->stackedWidget->currentIndex() == 4){
+
+    }
 }
