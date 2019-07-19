@@ -20,6 +20,9 @@ public:
 
     void cardViewInit();
 
+    CardInformation *getViewci() const;
+    void setViewci(CardInformation *value);
+
 private:
     Ui::CardViewForm *ui;
     CardInformation *viewci;

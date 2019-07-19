@@ -155,6 +155,12 @@ void MainWindow::slotActionOnEditCard()
 
     //cardViewForm
     if (ui->stackedWidget->currentIndex() == 4){
-
+        previousIndex = ui->stackedWidget->currentIndex();
+        ui->stackedWidget->removeWidget(cardEditForm);
+        delete cardEditForm;
+        cardEditForm = new CardEditForm(cardViewForm->getViewci(), this);
+        ui->stackedWidget->insertWidget(1, cardEditForm);
+        ui->stackedWidget->setCurrentIndex(1);
+        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     }
 }
