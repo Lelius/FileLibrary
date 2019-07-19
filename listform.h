@@ -23,6 +23,7 @@ public:
     void slotListInit();
     void slotDelCard();
     void slotCloseFileLibrary();
+    int getSelectedInventoryNumber();
 
 signals:
     void signalEditCurrentCardInList();

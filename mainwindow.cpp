@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QRect rect = scr->geometry();
     MainWindow::resize(rect.width()/2, rect.height()/2);
 
-    ListForm *listForm = new ListForm(this);
+    listForm = new ListForm();
     cardEditForm = new CardEditForm();
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
@@ -148,8 +148,21 @@ void MainWindow::slotViewSelectedCard(CardInformation ci)
 
 void MainWindow::slotActionOnEditCard()
 {
+    WorkWithDatabase wwd;
+
     //listForm
     if (ui->stackedWidget->currentIndex() == 0){
+
+        int inventoryNumber = listForm->getSelectedInventoryNumber();
+
+        previousIndex = ui->stackedWidget->currentIndex();
+        ui->stackedWidget->removeWidget(cardEditForm);
+        delete cardEditForm;
+        CardInformation ci = wwd.searchCard(inventoryNumber);
+        cardEditForm = new CardEditForm(&ci, this);
+        ui->stackedWidget->insertWidget(1, cardEditForm);
+        ui->stackedWidget->setCurrentIndex(1);
+        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
 
     }
 

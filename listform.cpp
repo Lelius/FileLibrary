@@ -96,3 +96,24 @@ void ListForm::on_tableWidgetList_cellActivated(int row, int column)
     CardInformation ci = wwd.searchCard(inventoryNumber);
     emit signalViewSelectedCard(ci);
 }
+
+int ListForm::getSelectedInventoryNumber()
+{
+    WorkWithDatabase wwd;
+
+    QList<QTableWidgetSelectionRange> listSelected;
+    listSelected = ui->tableWidgetList->selectedRanges();
+
+    if (listSelected.size() != 0){
+        int inventoryNumber = 1;
+        foreach(QTableWidgetSelectionRange r, listSelected){
+            for (int i = r.topRow(); i <= r.bottomRow(); ++i){
+                QTableWidgetItem *it = ui->tableWidgetList->item(i, 0);
+                inventoryNumber = it->text().toInt();
+            }
+        }
+        return inventoryNumber;
+    }
+
+    return wwd.searchMaxInventoryNumber();
+}

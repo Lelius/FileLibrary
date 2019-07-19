@@ -3,10 +3,12 @@
 
 #include <QMainWindow>
 #include <QScreen>
+#include <QTableWidget>
 
 #include "cardviewform.h"
 #include "cardeditform.h"
 #include "cardinformation.h"
+#include "listform.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +44,7 @@ private:
 
     CardEditForm *cardEditForm;
     CardViewForm *cardViewForm;
+    ListForm *listForm;
 };
 
 #endif // MAINWINDOW_H
