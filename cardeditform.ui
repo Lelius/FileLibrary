@@ -28,7 +28,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Инвентарный номер</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Инвентарный номер&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -55,7 +55,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Обозначение</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Обозначение&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -86,7 +86,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Дата поступления</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Дата поступления&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -98,7 +98,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Комплект</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Комплект&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -239,7 +239,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Наименование</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Наименование&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -251,7 +251,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Комментарий</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Комментарий&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -309,7 +309,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Применяемость</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Применяемость&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -349,7 +349,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Учет изменений</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Учет изменений&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -387,6 +387,7 @@
         <widget class="QTableWidget" name="tableWidgetApplicability">
          <property name="font">
           <font>
+           <family>MS Shell Dlg 2</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -396,6 +397,7 @@
         <widget class="QTableWidget" name="tableWidgetChangeAccounting">
          <property name="font">
           <font>
+           <family>MS Shell Dlg 2</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -419,7 +421,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Учет копий</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Учет копий&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -459,7 +461,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Выдача копий</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Выдача копий&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -497,6 +499,7 @@
         <widget class="QTableWidget" name="tableWidgetCopyAccounting">
          <property name="font">
           <font>
+           <family>MS Shell Dlg 2</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -506,6 +509,7 @@
         <widget class="QTableWidget" name="tableWidgetIssuanceOfCopies">
          <property name="font">
           <font>
+           <family>MS Shell Dlg 2</family>
            <pointsize>10</pointsize>
           </font>
          </property>

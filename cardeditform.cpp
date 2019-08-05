@@ -160,7 +160,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetApplicability->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetApplicability->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::SingleSelection);
-    //ui->tableWidgetApplicability->verticalHeader()->setVisible(false);
+    ui->tableWidgetApplicability->verticalHeader()->setVisible(false);
     QHeaderView *headerApplicability = ui->tableWidgetApplicability->horizontalHeader();
     headerApplicability->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -181,7 +181,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetChangeAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetChangeAccounting->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetChangeAccounting->setSelectionMode(QAbstractItemView::SingleSelection);
-    //ui->tableWidgetChangeAccounting->verticalHeader()->setVisible(false);
+    ui->tableWidgetChangeAccounting->verticalHeader()->setVisible(false);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -203,7 +203,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetCopyAccounting->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetCopyAccounting->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetCopyAccounting->setSelectionMode(QAbstractItemView::SingleSelection);
-    //ui->tableWidgetCopyAccounting->verticalHeader()->setVisible(false);
+    ui->tableWidgetCopyAccounting->verticalHeader()->setVisible(false);
     QHeaderView *headerCopyAccounting = ui->tableWidgetCopyAccounting->horizontalHeader();
     headerCopyAccounting->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -226,7 +226,7 @@ void CardEditForm::cardEditInit()
     ui->tableWidgetIssuanceOfCopies->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetIssuanceOfCopies->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidgetIssuanceOfCopies->setSelectionMode(QAbstractItemView::SingleSelection);
-    //ui->tableWidgetIssuanceOfCopies->verticalHeader()->setVisible(false);
+    ui->tableWidgetIssuanceOfCopies->verticalHeader()->setVisible(false);
     QHeaderView *headerIssuanceOfCopies = ui->tableWidgetIssuanceOfCopies->horizontalHeader();
     headerIssuanceOfCopies->setSectionResizeMode(QHeaderView::Stretch);
 

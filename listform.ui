@@ -32,7 +32,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Картотека</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Картотека&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -54,6 +54,7 @@
       <widget class="QTableWidget" name="tableWidgetList">
        <property name="font">
         <font>
+         <family>MS Shell Dlg 2</family>
          <pointsize>11</pointsize>
         </font>
        </property>

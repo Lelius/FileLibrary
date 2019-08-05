@@ -37,7 +37,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Введите название новой картотеки</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Введите название новой картотеки&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

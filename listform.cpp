@@ -4,6 +4,7 @@
 #include "workwithdatabase.h"
 #include "mainwindow.h"
 
+
 ListForm::ListForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ListForm)
@@ -12,22 +13,24 @@ ListForm::ListForm(QWidget *parent) :
     slotListInit();
 }
 
+
 ListForm::~ListForm()
 {
     delete ui;
 }
 
+
 void ListForm::slotListInit()
 {
-    QVector<CardInformation> cci;
-    WorkWithDatabase wwd;
-
-    cci = wwd.searchCardAll();
     QSqlDatabase db = QSqlDatabase::database("FL");
     if (!db.isOpen()){
         qDebug() << "База данных отсутствует";
         return;
     }
+
+    QVector<CardInformation> cci;
+    WorkWithDatabase wwd;
+    cci = wwd.searchCardAll();
 
     ui->labelListFileName->clear();
     QFileInfo *fileInfo = new QFileInfo(db.databaseName());
@@ -41,6 +44,11 @@ void ListForm::slotListInit()
     ui->tableWidgetList->setHorizontalHeaderLabels(list);
     QHeaderView *header = ui->tableWidgetList->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setStyleSheet("color: rgb(0, 0, 127);");
+    QFont font = header->font();
+    font.setPointSize(ui->labelList->fontInfo().pointSize());
+    header->setFont(font);
+
     ui->tableWidgetList->verticalHeader()->hide();
     ui->tableWidgetList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidgetList->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -53,6 +61,7 @@ void ListForm::slotListInit()
         ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 }
+
 
 void ListForm::slotDelCard()
 {
@@ -75,6 +84,7 @@ void ListForm::slotDelCard()
     slotListInit();
 }
 
+
 void ListForm::slotCloseFileLibrary()
 {
     WorkWithDatabase wwd;
@@ -84,6 +94,7 @@ void ListForm::slotCloseFileLibrary()
     ui->tableWidgetList->setColumnCount(0);
     ui->labelListFileName->clear();
 }
+
 
 void ListForm::on_tableWidgetList_cellActivated(int row, int column)
 {
@@ -96,6 +107,7 @@ void ListForm::on_tableWidgetList_cellActivated(int row, int column)
     CardInformation ci = wwd.searchCard(inventoryNumber);
     emit signalViewSelectedCard(ci);
 }
+
 
 int ListForm::getSelectedInventoryNumber()
 {

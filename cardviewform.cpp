@@ -53,6 +53,7 @@ void CardViewForm::cardViewInit()
     ui->tableWidgetApplicability->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerApplicability = ui->tableWidgetApplicability->horizontalHeader();
     headerApplicability->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetApplicability->verticalHeader()->setVisible(false);
 
     if (!(viewci->getApplicability().isEmpty())){
         for (int i = 0; i < applicability.size();i++){
@@ -80,6 +81,7 @@ void CardViewForm::cardViewInit()
     ui->tableWidgetChangeAccounting->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerChangeAccounting = ui->tableWidgetChangeAccounting->horizontalHeader();
     headerChangeAccounting->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetChangeAccounting->verticalHeader()->setVisible(false);
 
     if (!(viewci->getChangeAccounting().isEmpty())){
         for (int i = 0; i < changeAccountingCard.size(); i++){
@@ -100,6 +102,7 @@ void CardViewForm::cardViewInit()
     ui->tableWidgetCopyAccounting->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerCopyAccounting = ui->tableWidgetCopyAccounting->horizontalHeader();
     headerCopyAccounting->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetCopyAccounting->verticalHeader()->setVisible(false);
 
     if (!(viewci->getCopyAccounting().isEmpty())){
         for (int i = 0; i < copyAccounting.size(); i++){
@@ -121,6 +124,7 @@ void CardViewForm::cardViewInit()
     ui->tableWidgetIssuanceOfCopies->setSelectionMode(QAbstractItemView::NoSelection);
     QHeaderView *headerIssuanceOfCopies = ui->tableWidgetIssuanceOfCopies->horizontalHeader();
     headerIssuanceOfCopies->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidgetIssuanceOfCopies->verticalHeader()->setVisible(false);
 
     if (!(viewci->getIssuanceOfCopies().isEmpty())){
         for (int i = 0; i < issuanceOfCopies.size(); i++){
