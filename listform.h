@@ -36,6 +36,11 @@ public:
     QVector<CardInformation> sortListByDesignation(QVector<CardInformation>);
     QVector<CardInformation> sortListByName(QVector<CardInformation>);
     QVector<CardInformation> sortListByReceiptDate(QVector<CardInformation>);
+    void reinitList();
+
+public:
+
+    QVector<CardInformation> cci;
 
 signals:
     void signalEditCurrentCardInList();
@@ -43,6 +48,7 @@ signals:
 
 private slots:
     void on_tableWidgetList_cellActivated(int row, int column);
+    void slotHeaderSectionClicked(int logicalIndex);
 
 private:
 

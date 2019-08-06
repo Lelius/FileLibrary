@@ -406,7 +406,7 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
         qDebug() << "Не выполнен запрос SELECT * FROM FileLibrary";
 
     QSqlRecord record = query.record();
-    QVector<CardInformation> *cci = new QVector<CardInformation>();
+    QVector<CardInformation> cci;
 
     while (query.next()){
         CardInformation nextci;
@@ -423,10 +423,10 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
 
 
 
-        cci->append(nextci);
+        cci.append(nextci);
     }
 
-    return *cci;
+    return cci;
 }
 
 bool WorkWithDatabase::searchForInventoryNumber(int inventoryNumber)

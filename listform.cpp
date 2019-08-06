@@ -11,7 +11,7 @@ ListForm::ListForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    sortMethod = DATE_DES;
+    sortMethod = INVENTORY_NUMBER_ASC;
 
     slotListInit();
 }
@@ -31,7 +31,7 @@ void ListForm::slotListInit()
         return;
     }
 
-    QVector<CardInformation> cci;
+    cci.clear();
     WorkWithDatabase wwd;
     cci = wwd.searchCardAll();
 
@@ -66,6 +66,61 @@ void ListForm::slotListInit()
         ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 
+
+    connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked);
+}
+
+
+void ListForm::slotHeaderSectionClicked(int logicalIndex){
+
+    if (logicalIndex == 0){
+        if (sortMethod == INVENTORY_NUMBER_ASC)
+            sortMethod = INVENTORY_NUMBER_DES;
+        else
+            sortMethod = INVENTORY_NUMBER_ASC;
+    }
+    else if (logicalIndex == 1){
+        if (sortMethod ==DESIGNATION_ASC)
+            sortMethod = DESIGNATION_DES;
+        else
+            sortMethod = DESIGNATION_ASC;
+    }
+    else if (logicalIndex == 2){
+        if (sortMethod == NAME_ASC)
+            sortMethod = NAME_DES;
+        else
+            sortMethod = NAME_ASC;
+    }
+    else if (logicalIndex == 3){
+        if (sortMethod == DATE_ASC)
+            sortMethod = DATE_DES;
+        else
+            sortMethod = DATE_ASC;
+    }
+    else
+        sortMethod = INVENTORY_NUMBER_ASC;
+
+    reinitList();
+}
+
+
+void ListForm::reinitList(){
+
+    cci = sortList(cci);
+
+    ui->tableWidgetList->clearContents();
+
+    ui->tableWidgetList->verticalHeader()->hide();
+    ui->tableWidgetList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    for (int i = 0; i < cci.length(); ++i){
+        ui->tableWidgetList->setItem(i, 0, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
+        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(cci.at(i).getDesignation()));
+        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getName()));
+        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+    }
 }
 
 
