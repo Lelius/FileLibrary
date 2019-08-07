@@ -32,6 +32,8 @@ void ListForm::slotListInit()
     }
 
     cci.clear();
+    ui->tableWidgetList->clear();
+
     WorkWithDatabase wwd;
     cci = wwd.searchCardAll();
 
@@ -40,11 +42,13 @@ void ListForm::slotListInit()
     ui->labelListFileName->clear();
     QFileInfo *fileInfo = new QFileInfo(db.databaseName());
     ui->labelListFileName->setText(fileInfo->fileName());
+    delete fileInfo;
 
     ui->tableWidgetList->setRowCount(cci.length());
     ui->tableWidgetList->setColumnCount(4);
 
     QStringList list;
+    list.clear();
     list << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
     ui->tableWidgetList->setHorizontalHeaderLabels(list);
     QHeaderView *header = ui->tableWidgetList->horizontalHeader();
@@ -67,7 +71,7 @@ void ListForm::slotListInit()
     }
 
 
-    connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked);
+    connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
 }
 
 
@@ -80,7 +84,7 @@ void ListForm::slotHeaderSectionClicked(int logicalIndex){
             sortMethod = INVENTORY_NUMBER_ASC;
     }
     else if (logicalIndex == 1){
-        if (sortMethod ==DESIGNATION_ASC)
+        if (sortMethod == DESIGNATION_ASC)
             sortMethod = DESIGNATION_DES;
         else
             sortMethod = DESIGNATION_ASC;

@@ -59,6 +59,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete cardEditForm;
     delete cardViewForm;
+    delete listForm;
 }
 
 void MainWindow::slotChangeStackWidget(int index)
