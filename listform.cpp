@@ -148,9 +148,9 @@ QVector<CardInformation> ListForm::sortListByReceiptDate(QVector<CardInformation
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (cci[i].getReceiptDate() > cci[i + 1].getReceiptDate()){
-                    QDate v = cci[i].getReceiptDate();
-                    cci[i].setReceiptDate(cci[i + 1].getReceiptDate());
-                    cci[i + 1].setReceiptDate(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -162,9 +162,9 @@ QVector<CardInformation> ListForm::sortListByReceiptDate(QVector<CardInformation
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (cci[i].getReceiptDate() < cci[i + 1].getReceiptDate()){
-                    QDate v = cci[i].getReceiptDate();
-                    cci[i].setReceiptDate(cci[i + 1].getReceiptDate());
-                    cci[i + 1].setReceiptDate(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -184,9 +184,9 @@ QVector<CardInformation> ListForm::sortListByName(QVector<CardInformation> cci){
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (QString::compare(cci[i].getName(), cci[i + 1].getName(), Qt::CaseInsensitive) > 0){
-                    QString v = cci[i].getName();
-                    cci[i].setName(cci[i + 1].getName());
-                    cci[i + 1].setName(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -197,9 +197,9 @@ QVector<CardInformation> ListForm::sortListByName(QVector<CardInformation> cci){
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (QString::compare(cci[i].getName(), cci[i + 1].getName(), Qt::CaseInsensitive) < 0){
-                    QString v = cci[i].getName();
-                    cci[i].setName(cci[i + 1].getName());
-                    cci[i + 1].setName(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -219,9 +219,9 @@ QVector<CardInformation> ListForm::sortListByDesignation(QVector<CardInformation
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (QString::compare(cci[i].getDesignation(), cci[i + 1].getDesignation(), Qt::CaseInsensitive) > 0){
-                    QString v = cci[i].getDesignation();
-                    cci[i].setDesignation(cci[i + 1].getDesignation());
-                    cci[i + 1].setDesignation(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -232,9 +232,9 @@ QVector<CardInformation> ListForm::sortListByDesignation(QVector<CardInformation
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (QString::compare(cci[i].getDesignation(), cci[i + 1].getDesignation(), Qt::CaseInsensitive) < 0){
-                    QString v = cci[i].getDesignation();
-                    cci[i].setDesignation(cci[i + 1].getDesignation());
-                    cci[i + 1].setDesignation(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -254,9 +254,9 @@ QVector<CardInformation> ListForm::sortListByInventoryNumber(QVector<CardInforma
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (cci[i].getInventoryNumber() > cci[i + 1].getInventoryNumber()){
-                    int v = cci[i].getInventoryNumber();
-                    cci[i].setInventoryNumber(cci[i + 1].getInventoryNumber());
-                    cci[i + 1].setInventoryNumber(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
@@ -268,9 +268,9 @@ QVector<CardInformation> ListForm::sortListByInventoryNumber(QVector<CardInforma
             x = 0;
             for (int i = 0; i < cci.length() - 1; ++i){
                 if (cci[i].getInventoryNumber() < cci[i + 1].getInventoryNumber()){
-                    int v = cci[i].getInventoryNumber();
-                    cci[i].setInventoryNumber(cci[i + 1].getInventoryNumber());
-                    cci[i + 1].setInventoryNumber(v);
+                    CardInformation v = cci[i];
+                    cci[i] = cci[i + 1];
+                    cci[i + 1] = v;
                     x = 1;
                 }
             }
