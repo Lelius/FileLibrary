@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
 
+    setActionsEnabled(false);
+
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, listForm, &ListForm::slotListInit);
@@ -51,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
     connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
+    connect(listForm, &ListForm::signalSetActionsEnabled, this, &MainWindow::setActionsEnabled);
     connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
 }
 
@@ -93,6 +96,13 @@ void MainWindow::cardEditChangeStackWidget()
 
 void MainWindow::listChangeStackWidget()
 {
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    if (!db.isOpen()){
+        qDebug() << "База данных отсутствует";
+        setActionsEnabled(false);
+    } else
+        setActionsEnabled(true);
+
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(0);
 }
@@ -177,4 +187,15 @@ void MainWindow::slotActionOnEditCard()
         ui->stackedWidget->setCurrentIndex(1);
         connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     }
+}
+
+
+void MainWindow::setActionsEnabled(bool flag){
+    ui->actionCloseFileLibrary->setEnabled(flag);
+    ui->actionBackupFileLibrary->setEnabled(flag);
+    ui->actionViewCard->setEnabled(flag);
+    ui->actionNewCard->setEnabled(flag);
+    ui->actionEditCard->setEnabled(flag);
+    ui->actionDelCard->setEnabled(flag);
+    ui->actionSearch->setEnabled(flag);
 }

@@ -51,6 +51,12 @@ CardEditForm::~CardEditForm()
 
 void CardEditForm::on_pushButtonSaveCard_clicked()
 {
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    if (!db.isOpen()){
+        qDebug() << "База данных отсутствует";
+        return;
+    }
+
     newci->setInventoryNumber(ui->lineEditInventoryNumber->text().toInt());
     newci->setReceiptDate(ui->dateEditReceiptDate->date());
     newci->setDesignation(ui->lineEditDesignation->text());

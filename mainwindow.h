@@ -37,6 +37,7 @@ private slots:
     void cardViewChangeStackWidget();
     void cardNewChangeStackWidget();
     void openFileLibraryChangeStackWidget();
+    void setActionsEnabled(bool);
 
 private:
     Ui::MainWindow *ui;

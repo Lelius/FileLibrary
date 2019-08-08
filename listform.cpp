@@ -70,7 +70,6 @@ void ListForm::slotListInit()
         ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 
-
     connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
 }
 
@@ -315,6 +314,8 @@ void ListForm::slotCloseFileLibrary()
     ui->tableWidgetList->setRowCount(0);
     ui->tableWidgetList->setColumnCount(0);
     ui->labelListFileName->clear();
+
+    emit signalSetActionsEnabled(false);
 }
 
 
