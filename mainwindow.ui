@@ -37,7 +37,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
@@ -226,6 +226,21 @@
   <action name="actionCloseFileLibrary">
    <property name="text">
     <string>Закрыть</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Поиск по обозначению</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Поиск по имени</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>Поиск по дате</string>
    </property>
   </action>
  </widget>
