@@ -8,6 +8,7 @@ WorkWithDatabase::WorkWithDatabase()
 
 }
 
+
 bool WorkWithDatabase::openDatabase(QString &path)
 {
 
@@ -26,10 +27,12 @@ bool WorkWithDatabase::openDatabase(QString &path)
     return true;
 }
 
+
 void WorkWithDatabase::removeDatabase()
 {
     QSqlDatabase::removeDatabase("FL");
 }
+
 
 bool WorkWithDatabase::createNewDatabase()
 {
@@ -59,6 +62,7 @@ bool WorkWithDatabase::createNewDatabase()
     }
     return true;
 }
+
 
 bool WorkWithDatabase::insertNewCard(CardInformation &ci)
 {
@@ -98,6 +102,7 @@ bool WorkWithDatabase::insertNewCard(CardInformation &ci)
 
     return true;
 }
+
 
 bool WorkWithDatabase::insertNewCardTablesMiniForm(CardInformation &ci)
 {
@@ -198,6 +203,7 @@ bool WorkWithDatabase::insertNewCardTablesMiniForm(CardInformation &ci)
     return true;
 }
 
+
 bool WorkWithDatabase::editCard(CardInformation &ci)
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
@@ -252,6 +258,7 @@ bool WorkWithDatabase::editCard(CardInformation &ci)
     return true;
 }
 
+
 bool WorkWithDatabase::deleteCard(CardInformation &ci)
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
@@ -272,6 +279,7 @@ bool WorkWithDatabase::deleteCard(CardInformation &ci)
     return true;
 }
 
+
 void WorkWithDatabase::deleteCardTablesMiniForm(CardInformation &ci)
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
@@ -286,6 +294,7 @@ void WorkWithDatabase::deleteCardTablesMiniForm(CardInformation &ci)
     query.prepare("DROP TABLE IF EXISTS issuanceOfCopies" + QString::number(ci.getInventoryNumber()) + ";");
     query.exec();
 }
+
 
 CardInformation WorkWithDatabase::searchCard(int inventoryNumber)
 {
@@ -396,6 +405,7 @@ CardInformation WorkWithDatabase::searchCard(int inventoryNumber)
     return ci;
 }
 
+
 QVector<CardInformation> WorkWithDatabase::searchCardAll()
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
@@ -429,6 +439,7 @@ QVector<CardInformation> WorkWithDatabase::searchCardAll()
     return cci;
 }
 
+
 bool WorkWithDatabase::searchForInventoryNumber(int inventoryNumber)
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
@@ -444,10 +455,12 @@ bool WorkWithDatabase::searchForInventoryNumber(int inventoryNumber)
     return true;
 }
 
+
 bool WorkWithDatabase::searchForInventoryNumber(CardInformation &ci)
 {
     return searchForInventoryNumber(ci.getInventoryNumber());
 }
+
 
 int WorkWithDatabase::searchMaxInventoryNumber()
 {
@@ -464,4 +477,18 @@ int WorkWithDatabase::searchMaxInventoryNumber()
         maxInventoryNumber = query.value(record.indexOf("maxInventoryNumber")).toInt();
     }
     return maxInventoryNumber;
+}
+
+
+QVector<CardInformation> WorkWithDatabase::searchCards(QString searchString){
+    QVector<CardInformation> sci;
+
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    QString searchRecuest = "%" + searchString + "%";
+
+    query.prepare("SELECT * FROM FileLibrary WHERE ")
+
+    return sci;
 }
