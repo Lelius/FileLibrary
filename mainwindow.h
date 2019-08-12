@@ -9,6 +9,7 @@
 #include "cardeditform.h"
 #include "cardinformation.h"
 #include "listform.h"
+#include "searchform.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +38,7 @@ private slots:
     void cardViewChangeStackWidget();
     void cardNewChangeStackWidget();
     void openFileLibraryChangeStackWidget();
+    void searchChangeStackWidget();
     void setActionsEnabled(bool);
 
 private:
@@ -46,6 +48,7 @@ private:
     CardEditForm *cardEditForm;
     CardViewForm *cardViewForm;
     ListForm *listForm;
+    SearchForm *searchForm;
 };
 
 #endif // MAINWINDOW_H

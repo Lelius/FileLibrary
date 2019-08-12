@@ -8,6 +8,7 @@
 #include "workwithdatabase.h"
 #include "openfilelibraryform.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
     cardViewForm = new CardViewForm();
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
+    searchForm = new SearchForm();
 
     ui->stackedWidget->insertWidget(0, listForm);
     ui->stackedWidget->insertWidget(1, cardEditForm);
@@ -32,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->insertWidget(3, newFileLibraryForm);
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->insertWidget(5, openFileLibraryForm);
+    ui->stackedWidget->insertWidget(6, searchForm);
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
 
@@ -55,7 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
     connect(listForm, &ListForm::signalSetActionsEnabled, this, &MainWindow::setActionsEnabled);
     connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
+    connect(ui->actionSearch, &QAction::triggered, this, &MainWindow::searchChangeStackWidget);
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -63,20 +68,29 @@ MainWindow::~MainWindow()
     delete cardEditForm;
     delete cardViewForm;
     delete listForm;
+    delete searchForm;
 }
+
+
+void MainWindow::searchChangeStackWidget(){
+    previousIndex = ui->stackedWidget->currentIndex();
+    slotChangeStackWidget(6);
+}
+
 
 void MainWindow::slotChangeStackWidget(int index)
 {
     if (index == -2)
         QApplication::exit();
     ui->stackedWidget->setCurrentIndex(index);
-
 }
+
 
 void MainWindow::slotStatusBarOutput(QString str, int timeOutput)
 {
     ui->statusBar->showMessage(str, timeOutput);
 }
+
 
 void MainWindow::slotCardViewChangeStackWidget(CardInformation *saveci)
 {
@@ -88,11 +102,13 @@ void MainWindow::slotCardViewChangeStackWidget(CardInformation *saveci)
     slotChangeStackWidget(4);
 }
 
+
 void MainWindow::cardEditChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(1);
 }
+
 
 void MainWindow::listChangeStackWidget()
 {
@@ -107,16 +123,19 @@ void MainWindow::listChangeStackWidget()
     slotChangeStackWidget(0);
 }
 
+
 void MainWindow::exitChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(2);
 }
 
+
 void MainWindow::exitBackChangeStackWidget()
 {
     slotChangeStackWidget(previousIndex);
 }
+
 
 void MainWindow::newFileLibraryChangeStackWidget()
 {
@@ -124,11 +143,13 @@ void MainWindow::newFileLibraryChangeStackWidget()
     slotChangeStackWidget(3);
 }
 
+
 void MainWindow::cardViewChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(4);
 }
+
 
 void MainWindow::cardNewChangeStackWidget()
 {
@@ -141,11 +162,13 @@ void MainWindow::cardNewChangeStackWidget()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
+
 void MainWindow::openFileLibraryChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
     slotChangeStackWidget(5);
 }
+
 
 void MainWindow::slotViewSelectedCard(CardInformation ci)
 {
@@ -156,6 +179,7 @@ void MainWindow::slotViewSelectedCard(CardInformation ci)
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(4);
 }
+
 
 void MainWindow::slotActionOnEditCard()
 {
