@@ -18,6 +18,7 @@ class ListForm : public QWidget
 
 public:
     explicit ListForm(QWidget *parent = nullptr);
+    explicit ListForm(QVector<CardInformation> &, QWidget *parent = nullptr);
     ~ListForm();
 
     enum SORT_METHOD {INVENTORY_NUMBER_ASC, INVENTORY_NUMBER_DES,
@@ -28,6 +29,8 @@ public:
     SORT_METHOD sortMethod;
 
     void slotListInit();
+    void listInit();
+    void listInit(QVector<CardInformation> &);
     void slotDelCard();
     void slotCloseFileLibrary();
     int getSelectedInventoryNumber();

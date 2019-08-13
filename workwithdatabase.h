@@ -31,7 +31,6 @@ public:
     bool searchForInventoryNumber(int inventoryNumber);
     bool searchForInventoryNumber(CardInformation &ci);
     CardInformation searchCard(int inventoryNumber);
-    QVector<CardInformation> searchCards(QString);
     QVector<CardInformation> searchCardAll();
     int searchMaxInventoryNumber();
 };

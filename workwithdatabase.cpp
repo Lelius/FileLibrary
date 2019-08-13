@@ -478,17 +478,3 @@ int WorkWithDatabase::searchMaxInventoryNumber()
     }
     return maxInventoryNumber;
 }
-
-
-QVector<CardInformation> WorkWithDatabase::searchCards(QString searchString){
-    QVector<CardInformation> sci;
-
-    QSqlDatabase db = QSqlDatabase::database("FL");
-    QSqlQuery query(db);
-
-    QString searchRecuest = "%" + searchString + "%";
-
-    query.prepare("SELECT * FROM FileLibrary WHERE ")
-
-    return sci;
-}

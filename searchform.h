@@ -4,8 +4,11 @@
 #include <QWidget>
 #include <QDebug>
 #include <QSqlDatabase>
+#include <QHBoxLayout>
 
 #include "cardinformation.h"
+#include "workwithdatabase.h"
+#include "listform.h"
 
 namespace Ui {
 class SearchForm;
@@ -24,7 +27,7 @@ private slots:
 
 private:
     Ui::SearchForm *ui;
-    QString *searchString;
+    QString searchString;
     QVector<CardInformation> sci;
 };
 

@@ -17,6 +17,17 @@ ListForm::ListForm(QWidget *parent) :
 }
 
 
+ListForm::ListForm(QVector<CardInformation> &sci, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ListForm)
+{
+    ui->setupUi((this));
+
+    sortMethod = INVENTORY_NUMBER_ASC;
+    listInit(sci);
+}
+
+
 ListForm::~ListForm()
 {
     delete ui;
@@ -24,6 +35,12 @@ ListForm::~ListForm()
 
 
 void ListForm::slotListInit()
+{
+    listInit();
+}
+
+
+void ListForm::listInit()
 {
     QSqlDatabase db = QSqlDatabase::database("FL");
     if (!db.isOpen()){
@@ -43,6 +60,48 @@ void ListForm::slotListInit()
     QFileInfo *fileInfo = new QFileInfo(db.databaseName());
     ui->labelListFileName->setText(fileInfo->fileName());
     delete fileInfo;
+
+    ui->tableWidgetList->setRowCount(cci.length());
+    ui->tableWidgetList->setColumnCount(4);
+
+    QStringList list;
+    list.clear();
+    list << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
+    ui->tableWidgetList->setHorizontalHeaderLabels(list);
+    QHeaderView *header = ui->tableWidgetList->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setStyleSheet("color: rgb(0, 0, 127);");
+    QFont font = header->font();
+    font.setPointSize(ui->labelList->fontInfo().pointSize());
+    header->setFont(font);
+
+    ui->tableWidgetList->verticalHeader()->hide();
+    ui->tableWidgetList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    for (int i = 0; i < cci.length(); ++i){
+        ui->tableWidgetList->setItem(i, 0, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
+        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(cci.at(i).getDesignation()));
+        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getName()));
+        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+    }
+
+    connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
+}
+
+
+void ListForm::listInit(QVector<CardInformation> &sci)
+{
+    cci.clear();
+    ui->tableWidgetList->clear();
+
+    cci = sci;
+
+    cci = sortList(cci);
+
+    ui->labelListFileName->clear();
+    ui->labelListFileName->setText("Результат поиска");
 
     ui->tableWidgetList->setRowCount(cci.length());
     ui->tableWidgetList->setColumnCount(4);
