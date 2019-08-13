@@ -28,6 +28,7 @@ void SearchForm::on_pushButtonSearch_clicked()
         return;
     }
 
+    sci.clear();
     searchString = "";
 
     searchString = ui->lineEditSearchText->text();
