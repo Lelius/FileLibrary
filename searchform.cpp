@@ -54,11 +54,21 @@ void SearchForm::on_pushButtonSearch_clicked()
 
     delete aci;
 
-    QWidget *searchWidget = new QWidget();
-    ListForm *searchListForm = new ListForm(sci, this);
+    searchWidget = new SecondSearchForm(this);
+    searchListForm = new ListForm(sci, this);
     QHBoxLayout *boxLayout = new QHBoxLayout;
     boxLayout->addWidget(searchListForm);
     searchWidget->setLayout(boxLayout);
-    searchWidget->setWindowModality(Qt::ApplicationModal);
+    searchWidget->setWindowFlag(Qt::Window);
+    searchWidget->setWindowModality(Qt::WindowModal);
     searchWidget->show();
+
+    connect(searchListForm, &ListForm::signalViewSelectedCard, this, &SearchForm::slotCloseSearchWidget, Qt::UniqueConnection);
+}
+
+
+void SearchForm::slotCloseSearchWidget(CardInformation &ci)
+{
+    searchWidget->close();
+    emit signalViewSearchCard(ci);
 }

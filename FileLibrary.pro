@@ -43,7 +43,8 @@ SOURCES += \
     issuanceofcopiesminiform.cpp \
     workwithdatabase.cpp \
     openfilelibraryform.cpp \
-    searchform.cpp
+    searchform.cpp \
+    secondsearchform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -63,7 +64,8 @@ HEADERS += \
     issuanceofcopiesminiform.h \
     workwithdatabase.h \
     openfilelibraryform.h \
-    searchform.h
+    searchform.h \
+    secondsearchform.h
 
 FORMS += \
         mainwindow.ui \
@@ -77,7 +79,8 @@ FORMS += \
     copyaccountingminiform.ui \
     issuanceofcopiesminiform.ui \
     openfilelibraryform.ui \
-    searchform.ui
+    searchform.ui \
+    secondsearchform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

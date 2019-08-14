@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
 
-    setActionsEnabled(false);
+    setActionsEnabled(false);   //выключает часть меню
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(listForm, &ListForm::signalSetActionsEnabled, this, &MainWindow::setActionsEnabled);
     connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
     connect(ui->actionSearch, &QAction::triggered, this, &MainWindow::searchChangeStackWidget);
+    connect(searchForm, &SearchForm::signalViewSearchCard, this, &MainWindow::slotViewSelectedCard);
 }
 
 
@@ -178,6 +179,7 @@ void MainWindow::slotViewSelectedCard(CardInformation ci)
     cardViewForm = new CardViewForm(&ci, this);
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(4);
+
 }
 
 
