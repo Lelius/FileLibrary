@@ -61,6 +61,9 @@ void SearchForm::on_pushButtonSearch_clicked()
     searchWidget->setLayout(boxLayout);
     searchWidget->setWindowFlag(Qt::Window);
     searchWidget->setWindowModality(Qt::WindowModal);
+    searchWidget->setGeometry(parentWidget()->geometry());
+    searchWidget->move(parentWidget()->pos());
+    searchWidget->setWindowTitle("Поиск");
     searchWidget->show();
 
     connect(searchListForm, &ListForm::signalViewSelectedCard, this, &SearchForm::slotCloseSearchWidget, Qt::UniqueConnection);
