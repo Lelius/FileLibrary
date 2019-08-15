@@ -42,6 +42,7 @@ private slots:
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
 
+
 private:
     Ui::MainWindow *ui;
     int previousIndex;
