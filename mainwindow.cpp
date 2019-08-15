@@ -181,6 +181,8 @@ void MainWindow::slotViewSelectedCard(CardInformation ci)
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(4);
 
+    connect(cardViewForm, &CardViewForm::signalCardViewFormToListForm, this, &MainWindow::listChangeStackWidget);
+
 }
 
 

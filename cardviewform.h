@@ -2,6 +2,9 @@
 #define CARDVIEWFORM_H
 
 #include <QWidget>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QDebug>
 
 #include "cardinformation.h"
 
@@ -22,6 +25,10 @@ public:
 
     CardInformation *getViewci() const;
     void setViewci(CardInformation *value);
+    void keyPressEvent(QKeyEvent *);
+
+signals:
+    void signalCardViewFormToListForm();
 
 private:
     Ui::CardViewForm *ui;

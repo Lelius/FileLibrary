@@ -136,12 +136,25 @@ void CardViewForm::cardViewInit()
     }
 }
 
+
 CardInformation *CardViewForm::getViewci() const
 {
+
     return viewci;
 }
+
 
 void CardViewForm::setViewci(CardInformation *value)
 {
     viewci = value;
+}
+
+
+void CardViewForm::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape){
+        qDebug() << "Esc";
+
+        emit signalCardViewFormToListForm();
+    }
 }
