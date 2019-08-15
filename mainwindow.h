@@ -41,6 +41,7 @@ private slots:
     void openFileLibraryChangeStackWidget();
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
+    void setActionsCardsEnabled(bool);
 
 
 private:

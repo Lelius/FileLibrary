@@ -247,3 +247,11 @@ void MainWindow::setActionsEnabled(bool flag)
     ui->actionDelCard->setEnabled(flag);
     ui->actionSearch->setEnabled(flag);
 }
+
+
+/*void MainWindow::setActionsCardsEnabled(bool value)
+{
+    ui->actionViewCard->setEnabled(value);
+    ui->actionEditCard->setEnabled(value);
+    ui->actionDelCard->setEnabled(value);
+}*/
