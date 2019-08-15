@@ -29,6 +29,7 @@ private slots:
     void slotCardViewChangeStackWidget(CardInformation *saveci);
     void slotViewSelectedCard(CardInformation ci);
     void slotActionOnEditCard();
+    void slotActionOnViewCard();
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();
@@ -40,6 +41,7 @@ private slots:
     void openFileLibraryChangeStackWidget();
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
+    void setActionsCardsEnabled(bool);
 
 private:
     Ui::MainWindow *ui;

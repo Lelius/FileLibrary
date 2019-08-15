@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, listForm, &ListForm::slotListInit);
     connect(ui->actionEditCard, &QAction::triggered, this, &MainWindow::slotActionOnEditCard);
+    connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::slotActionOnViewCard);
     connect(ui->actionCreateNewFileLibrary, &QAction::triggered, this, &MainWindow::newFileLibraryChangeStackWidget);
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
@@ -216,7 +217,28 @@ void MainWindow::slotActionOnEditCard()
 }
 
 
-void MainWindow::setActionsEnabled(bool flag){
+void MainWindow::slotActionOnViewCard()
+{
+    WorkWithDatabase wwd;
+
+    //listForm
+    if (ui->stackedWidget->currentIndex() == 0){
+
+        int inventoryNumber = listForm->getSelectedInventoryNumber();
+
+        previousIndex = ui->stackedWidget->currentIndex();
+        ui->stackedWidget->removeWidget(cardViewForm);
+        delete cardViewForm;
+        CardInformation ci = wwd.searchCard(inventoryNumber);
+        cardViewForm = new CardViewForm(&ci, this);
+        ui->stackedWidget->insertWidget(4, cardViewForm);
+        ui->stackedWidget->setCurrentIndex(4);
+    }
+}
+
+
+void MainWindow::setActionsEnabled(bool flag)
+{
     ui->actionCloseFileLibrary->setEnabled(flag);
     ui->actionBackupFileLibrary->setEnabled(flag);
     ui->actionViewCard->setEnabled(flag);
@@ -225,3 +247,11 @@ void MainWindow::setActionsEnabled(bool flag){
     ui->actionDelCard->setEnabled(flag);
     ui->actionSearch->setEnabled(flag);
 }
+
+
+/*void MainWindow::setActionsCardsEnabled(bool value)
+{
+    ui->actionViewCard->setEnabled(value);
+    ui->actionEditCard->setEnabled(value);
+    ui->actionDelCard->setEnabled(value);
+}*/
