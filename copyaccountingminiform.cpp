@@ -70,3 +70,12 @@ void CopyAccountingMiniForm::on_pushButtonAdd_clicked()
 
     emit signalCopyAccountMiniFormAdd(copyAccounting);
 }
+
+
+void CopyAccountingMiniForm::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+        on_pushButtonBack_clicked();
+    else if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+        on_pushButtonAdd_clicked();
+}

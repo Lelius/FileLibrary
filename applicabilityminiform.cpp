@@ -27,3 +27,12 @@ void ApplicabilityMiniForm::on_pushButtonAdd_clicked()
     a.setDesignation(ui->lineEditDesignation->text());
     emit signalApplicabilityMiniFormAdd(a);
 }
+
+
+void ApplicabilityMiniForm::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+        on_pushButtonBack_clicked();
+    else if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+        on_pushButtonAdd_clicked();
+}

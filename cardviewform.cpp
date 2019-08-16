@@ -153,8 +153,6 @@ void CardViewForm::setViewci(CardInformation *value)
 void CardViewForm::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape){
-        qDebug() << "Esc";
-
         emit signalCardViewFormToListForm();
     }
 }

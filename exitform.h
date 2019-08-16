@@ -2,6 +2,9 @@
 #define EXITFORM_H
 
 #include <QWidget>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QTimer>
 
 namespace Ui {
 class ExitForm;
@@ -20,8 +23,9 @@ signals:
 
 private slots:
     void on_pushButtonYes_clicked();
-
     void on_pushButtonNo_clicked();
+
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::ExitForm *ui;

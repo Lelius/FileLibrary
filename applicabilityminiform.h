@@ -2,6 +2,7 @@
 #define APPLICABILITYMINIFORM_H
 
 #include <QWidget>
+#include <QKeyEvent>
 
 #include "applicabilitycard.h"
 
@@ -23,8 +24,8 @@ signals:
 
 private slots:
     void on_pushButtonBack_clicked();
-
     void on_pushButtonAdd_clicked();
+    void keyPressEvent(QKeyEvent *);
 
 private:
     Ui::ApplicabilityMiniForm *ui;

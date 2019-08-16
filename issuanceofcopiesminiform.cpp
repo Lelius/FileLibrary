@@ -33,3 +33,12 @@ void IssuanceOfCopiesMiniForm::on_pushButtonBack_clicked()
 {
     emit signalIssuanceOfCopiesMiniFormClose();
 }
+
+
+void IssuanceOfCopiesMiniForm::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+        on_pushButtonBack_clicked();
+    else if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+        on_pushButtonAdd_clicked();
+}

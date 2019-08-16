@@ -2,6 +2,7 @@
 #define COPYACCOUNTINGMINIFORM_H
 
 #include <QWidget>
+#include <QKeyEvent>
 
 #include "copyaccounting.h"
 
@@ -23,16 +24,12 @@ signals:
 
 private slots:
     void on_pushButtonBack_clicked();
-
     void toShowDateEdit();
-
     void on_pushButtonReceiptDate_clicked();
-
     void on_pushButtonDateOfWriteOff_clicked();
-
     void on_pushButtonReplacementDate_clicked();
-
     void on_pushButtonAdd_clicked();
+    void keyPressEvent(QKeyEvent *);
 
 private:
     Ui::CopyAccountingMiniForm *ui;

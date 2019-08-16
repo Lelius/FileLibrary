@@ -2,6 +2,7 @@
 #define CHANGEACCOUNTINGMINIFORM_H
 
 #include <QWidget>
+#include <QKeyEvent>
 
 #include "changeaccountingcard.h"
 
@@ -23,8 +24,8 @@ signals:
 
 private slots:
     void on_pushButtonAdd_clicked();
-
     void on_pushButtonBack_clicked();
+    void keyPressEvent(QKeyEvent *);
 
 private:
     Ui::ChangeAccountingMiniForm *ui;
