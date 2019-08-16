@@ -559,6 +559,30 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditInventoryNumber</tabstop>
+  <tabstop>dateEditReceiptDate</tabstop>
+  <tabstop>lineEditDesignation</tabstop>
+  <tabstop>spinBoxA1</tabstop>
+  <tabstop>spinBoxA2</tabstop>
+  <tabstop>spinBoxA3</tabstop>
+  <tabstop>spinBoxA4</tabstop>
+  <tabstop>textEditName</tabstop>
+  <tabstop>textEditComment</tabstop>
+  <tabstop>pushButtonApplicabilityAdd</tabstop>
+  <tabstop>pushButtonApplicabilityDel</tabstop>
+  <tabstop>pushButtonChangeAccountingAdd</tabstop>
+  <tabstop>pushButtonChangeAccountingDel</tabstop>
+  <tabstop>tableWidgetApplicability</tabstop>
+  <tabstop>tableWidgetChangeAccounting</tabstop>
+  <tabstop>pushButtonCopyAccountingAdd</tabstop>
+  <tabstop>pushButtonCopyAccountingDel</tabstop>
+  <tabstop>pushButtonIssuanceOfCopiesAdd</tabstop>
+  <tabstop>pushButtonIssuanceOfCopiesDel</tabstop>
+  <tabstop>tableWidgetCopyAccounting</tabstop>
+  <tabstop>tableWidgetIssuanceOfCopies</tabstop>
+  <tabstop>pushButtonSaveCard</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
