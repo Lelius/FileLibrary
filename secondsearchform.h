@@ -2,6 +2,7 @@
 #define SECONDSEARCHFORM_H
 
 #include <QWidget>
+#include <QKeyEvent>
 
 namespace Ui {
 class SecondSearchForm;
@@ -14,6 +15,9 @@ class SecondSearchForm : public QWidget
 public:
     explicit SecondSearchForm(QWidget *parent = nullptr);
     ~SecondSearchForm();
+
+private slots:
+    void keyPressEvent(QKeyEvent *);
 
 private:
     Ui::SecondSearchForm *ui;
