@@ -295,7 +295,17 @@ void CardEditForm::on_dateEditReceiptDate_dateChanged(const QDate &date)
 
 void CardEditForm::on_lineEditDesignation_textChanged(const QString &arg1)
 {
-    newci->setDesignation(arg1);
+    QString argResult;
+    for (int i = 0; i < arg1.size(); ++i){
+        if (arg1[i] != QChar(','))
+            argResult += arg1[i];
+        else
+            argResult += ".";
+    }
+
+    ui->lineEditDesignation->setText(argResult);
+
+    newci->setDesignation(argResult);
 }
 
 void CardEditForm::on_textEditName_textChanged()
