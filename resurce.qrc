@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/shortcut">
+        <file>256x256.ico</file>
+    </qresource>
+</RCC>
