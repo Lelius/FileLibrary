@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
     connect(ui->actionSearch, &QAction::triggered, this, &MainWindow::searchChangeStackWidget);
     connect(searchForm, &SearchForm::signalViewSearchCard, this, &MainWindow::slotViewSelectedCard);
+    connect(searchForm, &SearchForm::signalToListCardForEsc, this, &MainWindow::listChangeStackWidget);
 }
 
 

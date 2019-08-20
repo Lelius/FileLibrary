@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QHBoxLayout>
+#include <QKeyEvent>
 
 #include "cardinformation.h"
 #include "workwithdatabase.h"
@@ -25,10 +26,13 @@ public:
 
 signals:
     void signalViewSearchCard(CardInformation);
+    void signalToListCardForEsc();
 
 private slots:
     void on_pushButtonSearch_clicked();
     void slotCloseSearchWidget(CardInformation &);
+
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::SearchForm *ui;

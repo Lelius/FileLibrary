@@ -75,3 +75,11 @@ void SearchForm::slotCloseSearchWidget(CardInformation &ci)
     searchWidget->close();
     emit signalViewSearchCard(ci);
 }
+
+void SearchForm::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+        on_pushButtonSearch_clicked();
+    if (event->key() == Qt::Key_Escape)
+        emit signalToListCardForEsc();
+}
