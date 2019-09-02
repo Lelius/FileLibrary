@@ -6,6 +6,7 @@
 #include <QSqlDatabase>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QRect>
 
 #include "cardinformation.h"
 #include "workwithdatabase.h"
@@ -40,6 +41,7 @@ private:
     QVector<CardInformation> sci;
     SecondSearchForm *searchWidget;
     ListForm *searchListForm;
+    QWidget *pparent;
 };
 
 #endif // SEARCHFORM_H

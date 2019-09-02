@@ -9,6 +9,7 @@ SearchForm::SearchForm(QWidget *parent) :
 
     ui->lineEditSearchText->setText("");
     sci.clear();
+    pparent = parent;
 }
 
 
@@ -61,8 +62,7 @@ void SearchForm::on_pushButtonSearch_clicked()
     searchWidget->setLayout(boxLayout);
     searchWidget->setWindowFlag(Qt::Window);
     searchWidget->setWindowModality(Qt::WindowModal);
-    searchWidget->setGeometry(parentWidget()->geometry());
-    searchWidget->move(parentWidget()->pos());
+    searchWidget->setGeometry(pparent->geometry());
     searchWidget->setWindowTitle("Поиск");
     searchWidget->show();
 

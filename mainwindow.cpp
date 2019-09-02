@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
     cardViewForm = new CardViewForm();
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
-    searchForm = new SearchForm();
+    searchForm = new SearchForm(this);
 
     ui->stackedWidget->insertWidget(0, listForm);
     ui->stackedWidget->insertWidget(1, cardEditForm);
