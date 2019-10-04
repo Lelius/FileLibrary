@@ -19,6 +19,9 @@ public:
 
     void cardEditInit();
 
+    int getOldInventoryNumber() const;
+    void setOldInventoryNumber(int value);
+
 signals:
     void signalSaveCard(CardInformation *ci);
 
@@ -74,6 +77,7 @@ private:
     Ui::CardEditForm *ui;
     CardInformation *newci;
     QWidget *newWindow;
+    int oldInventoryNumber;
 };
 
 #endif // CARDEDITFORM_H

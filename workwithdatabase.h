@@ -27,6 +27,7 @@ public:
     bool insertNewCardTablesMiniForm(CardInformation &ci);
     bool editCard(CardInformation &ci);
     bool deleteCard(CardInformation &ci);
+    bool deleteCard(int inventoryNumber);
     void deleteCardTablesMiniForm(CardInformation &ci);
     bool searchForInventoryNumber(int inventoryNumber);
     bool searchForInventoryNumber(CardInformation &ci);

@@ -22,6 +22,8 @@ CardEditForm::CardEditForm(QWidget *parent) :
     newci->setInventoryNumber(wwd.searchMaxInventoryNumber() > 0 ? wwd.searchMaxInventoryNumber() + 1 : 1);
     ui->lineEditInventoryNumber->setText(QString::number(newci->getInventoryNumber()));
 
+    setOldInventoryNumber(0);
+
     newci->setReceiptDate(QDate::currentDate());
     ui->dateEditReceiptDate->setDate(newci->getReceiptDate());
 
@@ -37,6 +39,8 @@ CardEditForm::CardEditForm(CardInformation *ci, QWidget *parent) :
 {
     ui->setupUi(this);
     newci = new CardInformation(*ci);
+
+    setOldInventoryNumber(newci->getInventoryNumber());
 
     cardEditInit();
 
@@ -135,6 +139,12 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
     newci->setIssuanceOfCopies(issuanceOfCopiesCi);
 
     WorkWithDatabase wwd;
+
+    if(getOldInventoryNumber() != 0){
+        if(getOldInventoryNumber() != newci->getInventoryNumber()){
+            wwd.deleteCard(getOldInventoryNumber());
+        }
+    }
 
     wwd.editCard(*newci);
 
@@ -521,4 +531,14 @@ void CardEditForm::on_pushButtonIssuanceOfCopiesDel_clicked()
 
         cardEditInit();
     }
+}
+
+int CardEditForm::getOldInventoryNumber() const
+{
+    return oldInventoryNumber;
+}
+
+void CardEditForm::setOldInventoryNumber(int value)
+{
+    oldInventoryNumber = value;
 }

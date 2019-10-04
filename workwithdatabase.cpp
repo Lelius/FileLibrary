@@ -296,6 +296,13 @@ void WorkWithDatabase::deleteCardTablesMiniForm(CardInformation &ci)
 }
 
 
+bool WorkWithDatabase::deleteCard(int inventoryNumber){
+    CardInformation ci;
+    ci.setInventoryNumber(inventoryNumber);
+    return deleteCard(ci);
+}
+
+
 CardInformation WorkWithDatabase::searchCard(int inventoryNumber)
 {
     CardInformation ci;
