@@ -2,6 +2,7 @@
 #define CARDEDITFORM_H
 
 #include <QWidget>
+#include <QScreen>
 #include "cardinformation.h"
 
 namespace Ui {

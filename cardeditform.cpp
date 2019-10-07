@@ -268,7 +268,25 @@ void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
     QPoint point = QCursor::pos();
-    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+    int pointX = point.x() - newWindow->size().width()/4;
+    int pointY = point.y() - newWindow->size().height()/4;
+
+    newWindow->move(pointX, pointY);
+
+    QScreen *scr = QGuiApplication::primaryScreen();
+    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
+        // - 20 потму что все равно вылазит за границу экрана (старый монитор 4 : 3)
+        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
+    }
+    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
+        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
+    }
+    if (newWindow->x() < 0){
+        newWindow->move(0, newWindow->y());
+    }
+    if (newWindow->y() < 0){
+        newWindow->move(newWindow->x(), 0);
+    }
 
     newWindow->show();
     connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormClose, this, &CardEditForm::slotApplicabilityMiniFormClose);
@@ -360,7 +378,24 @@ void CardEditForm::on_pushButtonChangeAccountingAdd_clicked()
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
     QPoint point = QCursor::pos();
-    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+    int pointX = point.x() - newWindow->size().width()/4;
+    int pointY = point.y() - newWindow->size().height()/4;
+
+    newWindow->move(pointX, pointY);
+
+    QScreen *scr = QGuiApplication::primaryScreen();
+    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
+        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
+    }
+    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
+        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
+    }
+    if (newWindow->x() < 0){
+        newWindow->move(0, newWindow->y());
+    }
+    if (newWindow->y() < 0){
+        newWindow->move(newWindow->x(), 0);
+    }
 
     newWindow->show();
 
@@ -396,7 +431,24 @@ void CardEditForm::on_pushButtonCopyAccountingAdd_clicked()
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
     QPoint point = QCursor::pos();
-    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+    int pointX = point.x() - newWindow->size().width()/4;
+    int pointY = point.y() - newWindow->size().height()/4;
+
+    newWindow->move(pointX, pointY);
+
+    QScreen *scr = QGuiApplication::primaryScreen();
+    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
+        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
+    }
+    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
+        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
+    }
+    if (newWindow->x() < 0){
+        newWindow->move(0, newWindow->y());
+    }
+    if (newWindow->y() < 0){
+        newWindow->move(newWindow->x(), 0);
+    }
 
     newWindow->show();
 
@@ -433,7 +485,24 @@ void CardEditForm::on_pushButtonIssuanceOfCopiesAdd_clicked()
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
     QPoint point = QCursor::pos();
-    newWindow->move(point.x() - newWindow->size().width()/4, point.y() - newWindow->size().height()/4);
+    int pointX = point.x() - newWindow->size().width()/4;
+    int pointY = point.y() - newWindow->size().height()/4;
+
+    newWindow->move(pointX, pointY);
+
+    QScreen *scr = QGuiApplication::primaryScreen();
+    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
+        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
+    }
+    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
+        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
+    }
+    if (newWindow->x() < 0){
+        newWindow->move(0, newWindow->y());
+    }
+    if (newWindow->y() < 0){
+        newWindow->move(newWindow->x(), 0);
+    }
 
     newWindow->show();
 
@@ -514,6 +583,7 @@ void CardEditForm::on_pushButtonCopyAccountingDel_clicked()
     }
 }
 
+
 void CardEditForm::on_pushButtonIssuanceOfCopiesDel_clicked()
 {
     QList<QTableWidgetSelectionRange> listSelected;
@@ -533,6 +603,7 @@ void CardEditForm::on_pushButtonIssuanceOfCopiesDel_clicked()
     }
 }
 
+
 int CardEditForm::getOldInventoryNumber() const
 {
     return oldInventoryNumber;
@@ -542,3 +613,4 @@ void CardEditForm::setOldInventoryNumber(int value)
 {
     oldInventoryNumber = value;
 }
+
