@@ -267,8 +267,18 @@ void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
     newWindow->setLayout(layout);
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
-    QPoint point = QCursor::pos();
     newWindow->show();
+    setPosWindowMiniForm();
+
+    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormClose, this, &CardEditForm::slotApplicabilityMiniFormClose);
+    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormAdd, this, &CardEditForm::slotApplicabilityMiniFormAdd);
+}
+
+
+//позиция миниформы если вышла за границы экрана
+void CardEditForm::setPosWindowMiniForm()
+{
+    QPoint point = QCursor::pos();
 
     int pointX = point.x() - newWindow->size().width()/2;
     int pointY = point.y() - newWindow->size().height()/2;
@@ -290,11 +300,8 @@ void CardEditForm::on_pushButtonApplicabilityAdd_clicked()
     if (newWindow->y() < 0){
         newWindow->move(newWindow->x(), 0);
     }
-
-    //newWindow->show();
-    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormClose, this, &CardEditForm::slotApplicabilityMiniFormClose);
-    connect(mini, &ApplicabilityMiniForm::signalApplicabilityMiniFormAdd, this, &CardEditForm::slotApplicabilityMiniFormAdd);
 }
+
 
 //реакция на нажатие кнопки
 void CardEditForm::slotApplicabilityMiniFormClose()
@@ -380,29 +387,8 @@ void CardEditForm::on_pushButtonChangeAccountingAdd_clicked()
     newWindow->setLayout(layout);
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
-    QPoint point = QCursor::pos();
     newWindow->show();
-
-    int pointX = point.x() - newWindow->size().width()/2;
-    int pointY = point.y() - newWindow->size().height()/2;
-
-    newWindow->move(pointX, pointY);
-
-    QScreen *scr = QGuiApplication::primaryScreen();
-    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
-        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
-    }
-    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
-        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
-    }
-    if ((newWindow->x() - 20) < 0){
-        newWindow->move(20, newWindow->y());
-    }
-    if (newWindow->y() < 0){
-        newWindow->move(newWindow->x(), 0);
-    }
-
-    //newWindow->show();
+    setPosWindowMiniForm();
 
     connect(mini, &ChangeAccountingMiniForm::signalChangeAccountingMiniFormAdd, this, &CardEditForm::slotChangeAccountingMiniFormAdd);
     connect(mini, &ChangeAccountingMiniForm::signalChangeAccountingMiniFormClose, this, &CardEditForm::slotChangeAccountingMiniFormClose);
@@ -435,29 +421,8 @@ void CardEditForm::on_pushButtonCopyAccountingAdd_clicked()
     newWindow->setLayout(layout);
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
-    QPoint point = QCursor::pos();
     newWindow->show();
-
-    int pointX = point.x() - newWindow->size().width()/2;
-    int pointY = point.y() - newWindow->size().height()/2;
-
-    newWindow->move(pointX, pointY);
-
-    QScreen *scr = QGuiApplication::primaryScreen();
-    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
-        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
-    }
-    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
-        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
-    }
-    if ((newWindow->x() - 20) < 0){
-        newWindow->move(20, newWindow->y());
-    }
-    if (newWindow->y() < 0){
-        newWindow->move(newWindow->x(), 0);
-    }
-
-    //newWindow->show();
+    setPosWindowMiniForm();
 
     connect(mini, &CopyAccountingMiniForm::signalCopyAccounteMiniFormClose, this, &CardEditForm::slotCopyAccountingMiniFormClose);
     connect(mini, &CopyAccountingMiniForm::signalCopyAccountMiniFormAdd, this, &CardEditForm::slotCopyAccountingMiniFormAdd);
@@ -491,29 +456,8 @@ void CardEditForm::on_pushButtonIssuanceOfCopiesAdd_clicked()
     newWindow->setLayout(layout);
     newWindow->setWindowModality(Qt::WindowModality::ApplicationModal);
 
-    QPoint point = QCursor::pos();
     newWindow->show();
-
-    int pointX = point.x() - newWindow->size().width()/2;
-    int pointY = point.y() - newWindow->size().height()/2;
-
-    newWindow->move(pointX, pointY);
-
-    QScreen *scr = QGuiApplication::primaryScreen();
-    if ((newWindow->x() + newWindow->width()) > scr->geometry().width()){
-        newWindow->move(newWindow->x() - (newWindow->x() + newWindow->width() - scr->geometry().width()) - 20, newWindow->y());
-    }
-    if ((newWindow->y() + newWindow->height()) > scr->geometry().height()){
-        newWindow->move(newWindow->x(), newWindow->y() - (newWindow->y() + newWindow->height() - scr->geometry().height()));
-    }
-    if ((newWindow->x() - 20) < 0){
-        newWindow->move(20, newWindow->y());
-    }
-    if (newWindow->y() < 0){
-        newWindow->move(newWindow->x(), 0);
-    }
-
-    //newWindow->show();
+    setPosWindowMiniForm();
 
     connect(mini, &IssuanceOfCopiesMiniForm::signalIssuanceOfCopiesMiniFormClose, this, &CardEditForm::slotIssuanceOfCopiesMiniFormClose);
     connect(mini, &IssuanceOfCopiesMiniForm::signalIssuanceOfCopiesMiniFormAdd, this, &CardEditForm::slotIssuanceOfCopiesMiniFormAdd);

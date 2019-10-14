@@ -22,6 +22,7 @@ public:
 
     int getOldInventoryNumber() const;
     void setOldInventoryNumber(int value);
+    void setPosWindowMiniForm();
 
 signals:
     void signalSaveCard(CardInformation *ci);
