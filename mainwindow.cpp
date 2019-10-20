@@ -183,7 +183,7 @@ void MainWindow::slotViewSelectedCard(CardInformation ci)
     ui->stackedWidget->setCurrentIndex(4);
 
     connect(cardViewForm, &CardViewForm::signalCardViewFormToListForm, this, &MainWindow::listChangeStackWidget);
-
+    connect(cardViewForm, &CardViewForm::signalNextOrPreviousCardViewForm, this, &MainWindow::slotViewSelectedCard,Qt::UniqueConnection);
 }
 
 
@@ -204,7 +204,6 @@ void MainWindow::slotActionOnEditCard()
         ui->stackedWidget->insertWidget(1, cardEditForm);
         ui->stackedWidget->setCurrentIndex(1);
         connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
-
     }
 
     //cardViewForm

@@ -452,20 +452,47 @@ bool WorkWithDatabase::searchForInventoryNumber(int inventoryNumber)
     QSqlDatabase db = QSqlDatabase::database("FL");
     QSqlQuery query(db);
 
-    query.prepare("SELECT inventoryNumber FROM FileLybrary WHERE inventoryNumber=:inventoryNumber;");
+    query.prepare("SELECT * FROM FileLibrary WHERE inventoryNumber = :inventoryNumber;");
     query.bindValue(":inventoryNumber", inventoryNumber);
     query.exec();
 
-    QSqlRecord record = query.record();
-    if (record.isEmpty())
-        return false;
-    return true;
+    if (query.first())
+        return true;
+    return false;
 }
 
 
 bool WorkWithDatabase::searchForInventoryNumber(CardInformation &ci)
 {
     return searchForInventoryNumber(ci.getInventoryNumber());
+}
+
+
+CardInformation WorkWithDatabase::searchNextCardFromInventoryNumber(int inventoryNumber)
+{
+    if (inventoryNumber == searchMaxInventoryNumber()){
+        return searchCard(searchMinInventoryNumber());
+    }
+
+    int i = inventoryNumber;
+    while (!searchForInventoryNumber(++i )){
+
+    }
+    return searchCard(i);
+}
+
+
+CardInformation WorkWithDatabase::searchPreviousCardFromInventoryNumber(int inventoryNumber)
+{
+    if (inventoryNumber == searchMinInventoryNumber()){
+        return searchCard(searchMaxInventoryNumber());
+    }
+
+    int i = inventoryNumber;
+    while (!searchForInventoryNumber(--i )){
+
+    }
+    return searchCard(i);
 }
 
 
@@ -484,4 +511,22 @@ int WorkWithDatabase::searchMaxInventoryNumber()
         maxInventoryNumber = query.value(record.indexOf("maxInventoryNumber")).toInt();
     }
     return maxInventoryNumber;
+}
+
+
+int WorkWithDatabase::searchMinInventoryNumber()
+{
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    QSqlQuery query(db);
+
+    int minInventoryNumber = (-1);
+
+    query.prepare("SELECT MIN(inventoryNumber) AS minInventoryNumber FROM FileLibrary;");
+    query.exec();
+
+    QSqlRecord record = query.record();
+    while (query.next()){
+        minInventoryNumber = query.value(record.indexOf("minInventoryNumber")).toInt();
+    }
+    return minInventoryNumber;
 }

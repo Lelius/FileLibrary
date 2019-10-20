@@ -31,9 +31,12 @@ public:
     void deleteCardTablesMiniForm(CardInformation &ci);
     bool searchForInventoryNumber(int inventoryNumber);
     bool searchForInventoryNumber(CardInformation &ci);
+    CardInformation searchNextCardFromInventoryNumber(int inventoryNumber);
+    CardInformation searchPreviousCardFromInventoryNumber(int inventoryNumber);
     CardInformation searchCard(int inventoryNumber);
     QVector<CardInformation> searchCardAll();
     int searchMaxInventoryNumber();
+    int searchMinInventoryNumber();
 };
 
 #endif // WORKWITHDATABASE_H

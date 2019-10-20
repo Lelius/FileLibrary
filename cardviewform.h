@@ -5,8 +5,10 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QString>
 
 #include "cardinformation.h"
+#include "workwithdatabase.h"
 
 namespace Ui {
 class CardViewForm;
@@ -29,6 +31,7 @@ public:
 
 signals:
     void signalCardViewFormToListForm();
+    void signalNextOrPreviousCardViewForm(CardInformation nextorprevci);
 
 private:
     Ui::CardViewForm *ui;
