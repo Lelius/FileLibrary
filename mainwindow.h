@@ -50,6 +50,8 @@ private:
     CardViewForm *cardViewForm;
     ListForm *listForm;
     SearchForm *searchForm;
+
+    QString CONFIGFILENAME = "config.txt";
 };
 
 #endif // MAINWINDOW_H
