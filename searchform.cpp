@@ -35,6 +35,16 @@ void SearchForm::on_pushButtonSearch_clicked()
     searchString = ui->lineEditSearchText->text();
 
     WorkWithDatabase wwd;
+
+    bool numberOk;
+    int numb;
+
+    numb = searchString.toInt(&numberOk, 10);
+    if (numberOk == true && numb > 0) {
+        if (wwd.searchForInventoryNumber(numb) == true)
+            sci.append(wwd.searchCard(numb));
+    }
+
     QVector<CardInformation> *aci = new QVector<CardInformation>();
     *aci = wwd.searchCardAll();
 
