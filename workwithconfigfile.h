@@ -15,6 +15,8 @@ public:
 
     WorkWithConfigFile();
 
+    bool writingConfigFile();
+
     bool openConfigFile();
     QRect getRectMainWindow();
 

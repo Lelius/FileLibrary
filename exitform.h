@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QEvent>
 #include <QTimer>
+#include <QDebug>
 
 namespace Ui {
 class ExitForm;

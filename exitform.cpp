@@ -1,5 +1,6 @@
 #include "exitform.h"
 #include "ui_exitform.h"
+#include "workwithconfigfile.h"
 
 ExitForm::ExitForm(QWidget *parent) :
     QWidget(parent),
@@ -33,8 +34,12 @@ void ExitForm::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Escape)
         emit noExit(0);
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
-             && ui->pushButtonYes->hasFocus() == true)
+             && ui->pushButtonYes->hasFocus() == true) {
+        WorkWithConfigFile wwcf;
+        if (!wwcf.writingConfigFile())
+            qDebug() << "Не записан config.txt";
         QApplication::exit();
+    }
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
              && ui->pushButtonNo->hasFocus() == true)
         emit noExit(0);

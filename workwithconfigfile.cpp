@@ -14,6 +14,27 @@ WorkWithConfigFile::WorkWithConfigFile()
 }
 
 
+bool WorkWithConfigFile::writingConfigFile()
+{
+    if (!file.remove())
+        return false;
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
+        return false;
+
+    QTextStream out(&file);
+    QString line = "MainWindow Rect X = " + QString::number(getRectMainWindow().x()) + "/n";
+    out << line;
+    line = "MainWindow Rect Y = " + QString::number(getRectMainWindow().y()) + "/n";
+    out << line;
+    line = "MainWindow Rect Width = " + QString::number(getRectMainWindow().width()) + "/n";
+    out << line;
+    line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "/n";
+    out << line;
+    file.close();
+    return true;
+}
+
+
 QRect WorkWithConfigFile::getRectMainWindow()
 {
     if (!openConfigFile()) {
@@ -51,6 +72,7 @@ QRect WorkWithConfigFile::getRectMainWindow()
                     rectMainWindow.setHeight(num);
             }
         }
+        file.close();
         return rectMainWindow;
     }
 }
@@ -58,7 +80,9 @@ QRect WorkWithConfigFile::getRectMainWindow()
 
 bool WorkWithConfigFile::openConfigFile()
 {
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (file.isOpen())
+        return true;
+    else if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
         return false;
     return true;
 }
