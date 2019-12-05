@@ -44,7 +44,8 @@ SOURCES += \
     workwithdatabase.cpp \
     openfilelibraryform.cpp \
     searchform.cpp \
-    secondsearchform.cpp
+    secondsearchform.cpp \
+    workwithconfigfile.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -65,7 +66,8 @@ HEADERS += \
     workwithdatabase.h \
     openfilelibraryform.h \
     searchform.h \
-    secondsearchform.h
+    secondsearchform.h \
+    workwithconfigfile.h
 
 FORMS += \
         mainwindow.ui \

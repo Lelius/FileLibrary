@@ -10,6 +10,7 @@
 #include "cardinformation.h"
 #include "listform.h"
 #include "searchform.h"
+#include "workwithconfigfile.h"
 
 namespace Ui {
 class MainWindow;
@@ -51,7 +52,7 @@ private:
     ListForm *listForm;
     SearchForm *searchForm;
 
-    QString CONFIGFILENAME = "config.txt";
+    WorkWithConfigFile *wwcf;
 };
 
 #endif // MAINWINDOW_H

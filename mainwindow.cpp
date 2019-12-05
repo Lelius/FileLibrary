@@ -15,54 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QScreen *scr;
-    QRect rect;
-    QFile file;
-
-    file.setFileName(CONFIGFILENAME);
-
-    //Делаем окно в два раза меньше разрешения рабочего стола
-    scr = QGuiApplication::primaryScreen();
-    rect = scr->geometry();
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        MainWindow::resize(rect.width()/2, rect.height()/2);
-    }
-    else {
-        QTextStream in(&file);
-        while(!in.atEnd()) {
-            QString line = in.readLine();
-            if (line.contains("Window Rect X = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect X = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rect.setX(num);
-            }
-            if (line.contains("Window Rect Y = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Y = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rect.setY(num);
-            }
-            if (line.contains("Window Rect Width = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Width = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rect.setWidth(num);
-            }
-            if (line.contains("Window Rect Height = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Height = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rect.setHeight(num);
-            }
-        }
-        MainWindow::setGeometry(rect);
-    }
+    wwcf = new WorkWithConfigFile();
+    MainWindow::setGeometry(wwcf->getRectMainWindow());
 
     listForm = new ListForm();
     cardEditForm = new CardEditForm();
@@ -116,6 +70,7 @@ MainWindow::~MainWindow()
     delete cardViewForm;
     delete listForm;
     delete searchForm;
+    delete wwcf;
 }
 
 
