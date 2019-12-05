@@ -22,29 +22,29 @@ QRect WorkWithConfigFile::getRectMainWindow()
         QTextStream in(&file);
         while(!in.atEnd()) {
             QString line = in.readLine();
-            if (line.contains("Window Rect X = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect X = ", Qt::CaseInsensitive);
+            if (line.contains("MainWindow Rect X = ", Qt::CaseInsensitive)){
+                QString lineStr = line.remove("MainWindow Rect X = ", Qt::CaseInsensitive);
                 bool intOk = false;
                 int num = lineStr.toInt(&intOk, 10);
                 if (intOk)
                     rectMainWindow.setX(num);
             }
-            if (line.contains("Window Rect Y = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Y = ", Qt::CaseInsensitive);
+            if (line.contains("MainWindow Rect Y = ", Qt::CaseInsensitive)){
+                QString lineStr = line.remove("MainWindow Rect Y = ", Qt::CaseInsensitive);
                 bool intOk = false;
                 int num = lineStr.toInt(&intOk, 10);
                 if (intOk)
                     rectMainWindow.setY(num);
             }
-            if (line.contains("Window Rect Width = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Width = ", Qt::CaseInsensitive);
+            if (line.contains("MainWindow Rect Width = ", Qt::CaseInsensitive)){
+                QString lineStr = line.remove("MainWindow Rect Width = ", Qt::CaseInsensitive);
                 bool intOk = false;
                 int num = lineStr.toInt(&intOk, 10);
                 if (intOk)
                     rectMainWindow.setWidth(num);
             }
-            if (line.contains("Window Rect Height = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("Window Rect Height = ", Qt::CaseInsensitive);
+            if (line.contains("MainWindow Rect Height = ", Qt::CaseInsensitive)){
+                QString lineStr = line.remove("MainWindow Rect Height = ", Qt::CaseInsensitive);
                 bool intOk = false;
                 int num = lineStr.toInt(&intOk, 10);
                 if (intOk)
