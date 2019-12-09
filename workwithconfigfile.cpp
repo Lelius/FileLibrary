@@ -11,70 +11,81 @@ WorkWithConfigFile::WorkWithConfigFile()
     setRectMainWindow(screen->geometry());
     rectMainWindow.setWidth(rectMainWindow.width()/2);
     rectMainWindow.setHeight(rectMainWindow.height()/2);
+
+    //Если есть файл config.txt восстанавливаем из него состояние
+    loadFromConfigFileGeometryMainWindow();
 }
 
 
-bool WorkWithConfigFile::writingConfigFile()
+void WorkWithConfigFile::loadFromConfigFileGeometryMainWindow()
 {
-    if (!file.remove())
-        return false;
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
-        return false;
-
-    QTextStream out(&file);
-    QString line = "MainWindow Rect X = " + QString::number(getRectMainWindow().x()) + "/n";
-    out << line;
-    line = "MainWindow Rect Y = " + QString::number(getRectMainWindow().y()) + "/n";
-    out << line;
-    line = "MainWindow Rect Width = " + QString::number(getRectMainWindow().width()) + "/n";
-    out << line;
-    line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "/n";
-    out << line;
-    file.close();
-    return true;
-}
-
-
-QRect WorkWithConfigFile::getRectMainWindow()
-{
-    if (!openConfigFile()) {
-        return rectMainWindow;
-    } else {
-        QTextStream in(&file);
-        while(!in.atEnd()) {
-            QString line = in.readLine();
-            if (line.contains("MainWindow Rect X = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("MainWindow Rect X = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rectMainWindow.setX(num);
-            }
-            if (line.contains("MainWindow Rect Y = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("MainWindow Rect Y = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rectMainWindow.setY(num);
-            }
-            if (line.contains("MainWindow Rect Width = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("MainWindow Rect Width = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rectMainWindow.setWidth(num);
-            }
-            if (line.contains("MainWindow Rect Height = ", Qt::CaseInsensitive)){
-                QString lineStr = line.remove("MainWindow Rect Height = ", Qt::CaseInsensitive);
-                bool intOk = false;
-                int num = lineStr.toInt(&intOk, 10);
-                if (intOk)
-                    rectMainWindow.setHeight(num);
-            }
-        }
+    if (!file.exists())
+        return;
+    if (file.isOpen())
         file.close();
-        return rectMainWindow;
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        getFromCofigFileRectMainWindow();
+        file.close();
     }
+}
+
+
+//bool WorkWithConfigFile::writingConfigFile()
+//{
+//    if (!file.remove())
+//        return false;
+//    if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
+//        return false;
+
+//    QTextStream out(&file);
+//    QString line = "MainWindow Rect X = " + QString::number(getRectMainWindow().x()) + "/n";
+//    out << line;
+//    line = "MainWindow Rect Y = " + QString::number(getRectMainWindow().y()) + "/n";
+//    out << line;
+//    line = "MainWindow Rect Width = " + QString::number(getRectMainWindow().width()) + "/n";
+//    out << line;
+//    line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "/n";
+//    out << line;
+//    file.close();
+//    return true;
+//}
+
+
+void WorkWithConfigFile::getFromCofigFileRectMainWindow()
+{
+    QTextStream in(&file);
+    while(!in.atEnd()) {
+        QString line = in.readLine();
+        if (line.contains("MainWindow Rect X = ", Qt::CaseInsensitive)){
+            QString lineStr = line.remove("MainWindow Rect X = ", Qt::CaseInsensitive);
+            bool intOk = false;
+            int num = lineStr.toInt(&intOk, 10);
+            if (intOk)
+                rectMainWindow.setX(num);
+        }
+        if (line.contains("MainWindow Rect Y = ", Qt::CaseInsensitive)){
+            QString lineStr = line.remove("MainWindow Rect Y = ", Qt::CaseInsensitive);
+            bool intOk = false;
+            int num = lineStr.toInt(&intOk, 10);
+            if (intOk)
+                rectMainWindow.setY(num);
+        }
+        if (line.contains("MainWindow Rect Width = ", Qt::CaseInsensitive)){
+            QString lineStr = line.remove("MainWindow Rect Width = ", Qt::CaseInsensitive);
+            bool intOk = false;
+            int num = lineStr.toInt(&intOk, 10);
+            if (intOk)
+                rectMainWindow.setWidth(num);
+        }
+        if (line.contains("MainWindow Rect Height = ", Qt::CaseInsensitive)){
+            QString lineStr = line.remove("MainWindow Rect Height = ", Qt::CaseInsensitive);
+            bool intOk = false;
+            int num = lineStr.toInt(&intOk, 10);
+            if (intOk)
+                rectMainWindow.setHeight(num);
+        }
+    }
+
 }
 
 

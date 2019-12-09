@@ -15,10 +15,12 @@ public:
 
     WorkWithConfigFile();
 
+    void loadFromConfigFileGeometryMainWindow();
+
+    void getFromCofigFileRectMainWindow();
     bool writingConfigFile();
 
     bool openConfigFile();
-    QRect getRectMainWindow();
 
     QString getConfigFileName() const;
     void setConfigFileName(const QString &value);

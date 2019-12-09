@@ -249,3 +249,10 @@ void MainWindow::setActionsEnabled(bool flag)
     ui->actionSearch->setEnabled(flag);
 }
 
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    WorkWithConfigFile wwcf;
+
+    event->accept();
+}

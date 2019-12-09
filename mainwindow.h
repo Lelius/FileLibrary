@@ -43,6 +43,8 @@ private slots:
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
 
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::MainWindow *ui;
     int previousIndex;

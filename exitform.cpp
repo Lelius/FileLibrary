@@ -35,10 +35,7 @@ void ExitForm::keyPressEvent(QKeyEvent *event)
         emit noExit(0);
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
              && ui->pushButtonYes->hasFocus() == true) {
-        WorkWithConfigFile wwcf;
-        if (!wwcf.writingConfigFile())
-            qDebug() << "Не записан config.txt";
-        QApplication::exit();
+        QApplication::quit();
     }
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
              && ui->pushButtonNo->hasFocus() == true)
