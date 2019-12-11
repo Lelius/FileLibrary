@@ -252,7 +252,10 @@ void MainWindow::setActionsEnabled(bool flag)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    WorkWithConfigFile wwcf;
+    wwcf->setRectMainWindow(MainWindow::geometry());
+
+    if (!wwcf->writingConfigFile())
+        qDebug() << "Not saving config.txt!";
 
     event->accept();
 }

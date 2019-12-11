@@ -17,6 +17,32 @@ WorkWithConfigFile::WorkWithConfigFile()
 }
 
 
+bool WorkWithConfigFile::writingConfigFile()
+{
+    if (!file.remove()){
+        qDebug() << "Not removing config.txt";
+    }
+    if (!openConfigFileW()){
+        qDebug() << "Not working openConfigFileRW()!";
+        return false;
+    }
+
+    QTextStream out(&file);
+    QString line = "MainWindow Rect X = " + QString::number(getRectMainWindow().x()) + "\n";
+    out << line;
+    line = "MainWindow Rect Y = " + QString::number(getRectMainWindow().y()) + "\n";
+    out << line;
+    line = "MainWindow Rect Width = " + QString::number(getRectMainWindow().width()) + "\n";
+    out << line;
+    line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "\n";
+    out << line;
+
+    if (file.isOpen())
+        file.close();
+    return true;
+}
+
+
 void WorkWithConfigFile::loadFromConfigFileGeometryMainWindow()
 {
     if (!file.exists())
@@ -28,27 +54,6 @@ void WorkWithConfigFile::loadFromConfigFileGeometryMainWindow()
         file.close();
     }
 }
-
-
-//bool WorkWithConfigFile::writingConfigFile()
-//{
-//    if (!file.remove())
-//        return false;
-//    if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
-//        return false;
-
-//    QTextStream out(&file);
-//    QString line = "MainWindow Rect X = " + QString::number(getRectMainWindow().x()) + "/n";
-//    out << line;
-//    line = "MainWindow Rect Y = " + QString::number(getRectMainWindow().y()) + "/n";
-//    out << line;
-//    line = "MainWindow Rect Width = " + QString::number(getRectMainWindow().width()) + "/n";
-//    out << line;
-//    line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "/n";
-//    out << line;
-//    file.close();
-//    return true;
-//}
 
 
 void WorkWithConfigFile::getFromCofigFileRectMainWindow()
@@ -89,11 +94,11 @@ void WorkWithConfigFile::getFromCofigFileRectMainWindow()
 }
 
 
-bool WorkWithConfigFile::openConfigFile()
+bool WorkWithConfigFile::openConfigFileW()
 {
     if (file.isOpen())
-        return true;
-    else if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
+        file.close();
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
     return true;
 }

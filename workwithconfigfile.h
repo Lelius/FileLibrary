@@ -7,6 +7,7 @@
 #include <QGuiApplication>
 #include <QMainWindow>
 #include <QTextStream>
+#include <QDebug>
 
 
 class WorkWithConfigFile
@@ -20,7 +21,7 @@ public:
     void getFromCofigFileRectMainWindow();
     bool writingConfigFile();
 
-    bool openConfigFile();
+    bool openConfigFileW();
 
     QString getConfigFileName() const;
     void setConfigFileName(const QString &value);
