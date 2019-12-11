@@ -243,6 +243,7 @@ void MainWindow::setActionsEnabled(bool flag)
 {
     ui->actionCloseFileLibrary->setEnabled(flag);
     ui->actionBackupFileLibrary->setEnabled(flag);
+    ui->actionListCard_2->setEnabled(flag);
     ui->actionViewCard->setEnabled(flag);
     ui->actionNewCard->setEnabled(flag);
     ui->actionEditCard->setEnabled(flag);
@@ -253,11 +254,6 @@ void MainWindow::setActionsEnabled(bool flag)
 
 void MainWindow::slotCloseProgramm()
 {
-//    wwcf->setRectMainWindow(MainWindow::geometry());
-
-//    if (!wwcf->writingConfigFile())
-//        qDebug() << "Not saving config.txt!";
-
     close();
 }
 
