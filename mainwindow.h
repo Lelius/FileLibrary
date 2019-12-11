@@ -31,6 +31,7 @@ private slots:
     void slotViewSelectedCard(CardInformation ci);
     void slotActionOnEditCard();
     void slotActionOnViewCard();
+    void slotCloseProgramm();
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();

@@ -19,7 +19,7 @@ ExitForm::~ExitForm()
 
 void ExitForm::on_pushButtonYes_clicked()
 {
-    QApplication::exit();
+    emit signalCloseProgramm();
 }
 
 
@@ -35,7 +35,7 @@ void ExitForm::keyPressEvent(QKeyEvent *event)
         emit noExit(0);
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
              && ui->pushButtonYes->hasFocus() == true) {
-        QApplication::quit();
+        emit signalCloseProgramm();
     }
     else if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
              && ui->pushButtonNo->hasFocus() == true)

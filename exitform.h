@@ -21,6 +21,7 @@ public:
 
 signals:
     void noExit(int index);
+    void signalCloseProgramm();
 
 private slots:
     void on_pushButtonYes_clicked();

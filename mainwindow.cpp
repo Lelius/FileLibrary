@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSearch, &QAction::triggered, this, &MainWindow::searchChangeStackWidget);
     connect(searchForm, &SearchForm::signalViewSearchCard, this, &MainWindow::slotViewSelectedCard);
     connect(searchForm, &SearchForm::signalToListCardForEsc, this, &MainWindow::listChangeStackWidget);
+    connect(exitForm, &ExitForm::signalCloseProgramm, this, &MainWindow::slotCloseProgramm);
 }
 
 
@@ -247,6 +248,17 @@ void MainWindow::setActionsEnabled(bool flag)
     ui->actionEditCard->setEnabled(flag);
     ui->actionDelCard->setEnabled(flag);
     ui->actionSearch->setEnabled(flag);
+}
+
+
+void MainWindow::slotCloseProgramm()
+{
+//    wwcf->setRectMainWindow(MainWindow::geometry());
+
+//    if (!wwcf->writingConfigFile())
+//        qDebug() << "Not saving config.txt!";
+
+    close();
 }
 
 
