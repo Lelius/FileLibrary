@@ -12,3 +12,19 @@ SettingsFontAndColorForm::~SettingsFontAndColorForm()
 {
     delete ui;
 }
+
+void SettingsFontAndColorForm::on_pushButtonColorMainWindow_clicked()
+{
+    setColorMainWindow(QColorDialog::getColor());
+    emit changeColorMainWindow(getColorMainWindow());
+}
+
+QColor SettingsFontAndColorForm::getColorMainWindow() const
+{
+    return colorMainWindow;
+}
+
+void SettingsFontAndColorForm::setColorMainWindow(const QColor &value)
+{
+    colorMainWindow = value;
+}

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QScreen>
 #include <QTableWidget>
+#include <QPalette>
 
 #include "cardviewform.h"
 #include "cardeditform.h"
@@ -34,6 +35,7 @@ private slots:
     void slotActionOnEditCard();
     void slotActionOnViewCard();
     void slotCloseProgramm();
+    void slotChangeColorMainMenu(QColor);
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();

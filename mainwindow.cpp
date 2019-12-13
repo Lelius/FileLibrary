@@ -290,3 +290,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     event->accept();
 }
+
+
+void MainWindow::slotChangeColorMainMenu(QColor c){
+    QPalette palette = MainWindow::palette();
+    palette.setBrush(QPalette::Window, QBrush(c, Qt::SolidPattern));
+    MainWindow::setPalette(palette);
+}
