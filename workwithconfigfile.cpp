@@ -11,6 +11,7 @@ WorkWithConfigFile::WorkWithConfigFile()
     setRectMainWindow(screen->geometry());
     rectMainWindow.setWidth(rectMainWindow.width()/2);
     rectMainWindow.setHeight(rectMainWindow.height()/2);
+    windowMaximizedScreenOk = false;
 
     //Если есть файл config.txt восстанавливаем из него состояние
     loadFromConfigFileGeometryMainWindow();
@@ -36,6 +37,9 @@ bool WorkWithConfigFile::writingConfigFile()
     out << line;
     line = "MainWindow Rect Height = " + QString::number(getRectMainWindow().height()) + "\n";
     out << line;
+    line = "MainWindow Maximized Screen = ";
+    QString lineOk = getWindowMaximizedScreenOk() ? "true\n" : "false\n";
+    out << line << lineOk;
 
     if (file.isOpen())
         file.close();
@@ -89,6 +93,16 @@ void WorkWithConfigFile::getFromCofigFileRectMainWindow()
             if (intOk)
                 rectMainWindow.setHeight(num);
         }
+        //full window---------------------------------------------------
+        if (line.contains("MainWindow Maximized Screen = ", Qt::CaseInsensitive)){
+            QString lineStr = line.remove("MainWindow Maximized Screen = ", Qt::CaseInsensitive);
+            if (lineStr == "false")
+                setWindowMaximizedScreenOk(false);
+            else if (lineStr == "true")
+                setWindowMaximizedScreenOk(true);
+            else
+                setWindowMaximizedScreenOk(false);
+        }
     }
 
 }
@@ -125,4 +139,14 @@ QRect WorkWithConfigFile::getRectMainWindow() const
 void WorkWithConfigFile::setRectMainWindow(const QRect &value)
 {
     rectMainWindow = value;
+}
+
+bool WorkWithConfigFile::getWindowMaximizedScreenOk() const
+{
+    return windowMaximizedScreenOk;
+}
+
+void WorkWithConfigFile::setWindowMaximizedScreenOk(bool value)
+{
+    windowMaximizedScreenOk = value;
 }

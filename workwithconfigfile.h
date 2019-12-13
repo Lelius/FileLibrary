@@ -9,7 +9,6 @@
 #include <QTextStream>
 #include <QDebug>
 
-
 class WorkWithConfigFile
 {
 public:
@@ -29,6 +28,9 @@ public:
     QRect getRectMainWindow() const;
     void setRectMainWindow(const QRect &value);
 
+    bool getWindowMaximizedScreenOk() const;
+    void setWindowMaximizedScreenOk(bool value);
+
 private:
 
     QScreen *screen;
@@ -36,6 +38,7 @@ private:
     QString configFileName;
 
     QRect rectMainWindow;
+    bool windowMaximizedScreenOk;
 };
 
 #endif // WORKWITHCONFIGFILE_H

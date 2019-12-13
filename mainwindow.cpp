@@ -17,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     wwcf = new WorkWithConfigFile();
     MainWindow::setGeometry(wwcf->getRectMainWindow());
+    if (wwcf->getWindowMaximizedScreenOk() == true && MainWindow::windowState().testFlag(Qt::WindowMaximized) == false)
+        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
+    if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
+        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
+
 
     listForm = new ListForm();
     cardEditForm = new CardEditForm();
@@ -261,6 +266,7 @@ void MainWindow::slotCloseProgramm()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     wwcf->setRectMainWindow(MainWindow::geometry());
+    wwcf->setWindowMaximizedScreenOk(MainWindow::windowState().testFlag(Qt::WindowMaximized));
 
     if (!wwcf->writingConfigFile())
         qDebug() << "Not saving config.txt!";
