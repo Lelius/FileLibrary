@@ -11,6 +11,8 @@
 #include "listform.h"
 #include "searchform.h"
 #include "workwithconfigfile.h"
+#include "settingsfontandcolorform.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -44,6 +46,7 @@ private slots:
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
     void setProgramConfiguration();
+    void settingFontAndColorChangeStackWidget();
 
     void closeEvent(QCloseEvent *event);
 
@@ -55,6 +58,7 @@ private:
     CardViewForm *cardViewForm;
     ListForm *listForm;
     SearchForm *searchForm;
+    SettingsFontAndColorForm *settingsFontAndColorForm;
 
     WorkWithConfigFile *wwcf;
 };

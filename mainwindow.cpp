@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     cardViewForm = new CardViewForm();
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
     searchForm = new SearchForm(this);
+    settingsFontAndColorForm = new SettingsFontAndColorForm(this);
 
     wwcf = new WorkWithConfigFile();
     setProgramConfiguration();
@@ -33,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->insertWidget(5, openFileLibraryForm);
     ui->stackedWidget->insertWidget(6, searchForm);
+    ui->stackedWidget->insertWidget(7, settingsFontAndColorForm);
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
 
@@ -61,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(searchForm, &SearchForm::signalViewSearchCard, this, &MainWindow::slotViewSelectedCard);
     connect(searchForm, &SearchForm::signalToListCardForEsc, this, &MainWindow::listChangeStackWidget);
     connect(exitForm, &ExitForm::signalCloseProgramm, this, &MainWindow::slotCloseProgramm);
+    connect(ui->actionSettings, &QAction::triggered, this, &MainWindow::settingFontAndColorChangeStackWidget);
 }
 
 
@@ -84,6 +87,13 @@ void MainWindow::setProgramConfiguration()
     if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
         MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
 
+}
+
+
+void MainWindow::settingFontAndColorChangeStackWidget()
+{
+    previousIndex = ui->stackedWidget->currentIndex();
+    slotChangeStackWidget(7);
 }
 
 

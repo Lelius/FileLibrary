@@ -45,7 +45,8 @@ SOURCES += \
     openfilelibraryform.cpp \
     searchform.cpp \
     secondsearchform.cpp \
-    workwithconfigfile.cpp
+    workwithconfigfile.cpp \
+    settingsfontandcolorform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,7 +68,8 @@ HEADERS += \
     openfilelibraryform.h \
     searchform.h \
     secondsearchform.h \
-    workwithconfigfile.h
+    workwithconfigfile.h \
+    settingsfontandcolorform.h
 
 FORMS += \
         mainwindow.ui \
@@ -82,7 +84,8 @@ FORMS += \
     issuanceofcopiesminiform.ui \
     openfilelibraryform.ui \
     searchform.ui \
-    secondsearchform.ui
+    secondsearchform.ui \
+    settingsfontandcolorform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
