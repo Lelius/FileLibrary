@@ -15,14 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    wwcf = new WorkWithConfigFile();
-    MainWindow::setGeometry(wwcf->getRectMainWindow());
-    if (wwcf->getWindowMaximizedScreenOk() == true && MainWindow::windowState().testFlag(Qt::WindowMaximized) == false)
-        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
-    if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
-        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
-
-
     listForm = new ListForm();
     cardEditForm = new CardEditForm();
     ExitForm *exitForm = new ExitForm(this);
@@ -30,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     cardViewForm = new CardViewForm();
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
     searchForm = new SearchForm(this);
+
+    wwcf = new WorkWithConfigFile();
+    setProgramConfiguration();
 
     ui->stackedWidget->insertWidget(0, listForm);
     ui->stackedWidget->insertWidget(1, cardEditForm);
@@ -77,6 +72,17 @@ MainWindow::~MainWindow()
     delete listForm;
     delete searchForm;
     delete wwcf;
+}
+
+
+void MainWindow::setProgramConfiguration()
+{
+    MainWindow::setGeometry(wwcf->getRectMainWindow());
+
+    if (wwcf->getWindowMaximizedScreenOk() == true && MainWindow::windowState().testFlag(Qt::WindowMaximized) == false)
+        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
+    if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
+        MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
 }
 
 

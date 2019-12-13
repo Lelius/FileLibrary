@@ -43,6 +43,7 @@ private slots:
     void openFileLibraryChangeStackWidget();
     void searchChangeStackWidget();
     void setActionsEnabled(bool);
+    void setProgramConfiguration();
 
     void closeEvent(QCloseEvent *event);
 
