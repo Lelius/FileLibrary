@@ -93,10 +93,17 @@
     <addaction name="actionListCard_2"/>
     <addaction name="actionViewCard"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Инструменты</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
    <addaction name="menuBarFileLibrary"/>
    <addaction name="menuBarView"/>
    <addaction name="menuBarCardRedactor"/>
    <addaction name="menuBarSearch"/>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -241,6 +248,11 @@
   <action name="action_4">
    <property name="text">
     <string>Поиск по дате</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Настройки</string>
    </property>
   </action>
  </widget>

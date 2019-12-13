@@ -39,6 +39,8 @@ private:
 
     QRect rectMainWindow;
     bool windowMaximizedScreenOk;
+
+
 };
 
 #endif // WORKWITHCONFIGFILE_H

@@ -83,6 +83,7 @@ void MainWindow::setProgramConfiguration()
         MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
     if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
         MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
+
 }
 
 
