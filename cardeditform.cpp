@@ -1,6 +1,7 @@
 #include <QDate>
 #include <QIntValidator>
 #include <QVector>
+#include <QMessageBox>
 
 #include "cardeditform.h"
 #include "ui_cardeditform.h"
@@ -59,6 +60,22 @@ void CardEditForm::on_pushButtonSaveCard_clicked()
     if (!db.isOpen()){
         qDebug() << "База данных отсутствует";
         return;
+    }
+
+    //Проверка на наличие уже существующей карточки
+    WorkWithDatabase wwd1;
+    if (wwd1.searchForInventoryNumber(newci->getInventoryNumber())){
+
+        QMessageBox mB;
+        mB.setWindowTitle("Внимание!");
+        mB.setText("Карточка под этим номером уже существует!\nПерезаписать?");
+        QPushButton *buttonNo = mB.addButton(tr("Нет!"), QMessageBox::NoRole);
+        mB.addButton(tr("Да!"), QMessageBox::YesRole);
+        mB.setDefaultButton(buttonNo);
+
+        mB.exec();
+        if (mB.clickedButton() == buttonNo)
+            return;
     }
 
     newci->setInventoryNumber(ui->lineEditInventoryNumber->text().toInt());
