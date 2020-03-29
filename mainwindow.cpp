@@ -16,10 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     listForm = new ListForm();
-    cardEditForm = new CardEditForm();
+    cardEditForm = new CardEditForm(this);
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
-    cardViewForm = new CardViewForm();
+    cardViewForm = new CardViewForm(this);
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
     searchForm = new SearchForm(this);
 
