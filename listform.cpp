@@ -1,8 +1,67 @@
+#include <algorithm>
+
 #include "listform.h"
 #include "ui_listform.h"
 #include "cardinformation.h"
 #include "workwithdatabase.h"
 #include "mainwindow.h"
+
+
+struct sort_InventoryNumberUp {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (x.getInventoryNumber() < y.getInventoryNumber());
+    }
+} sortInventoryNumberUp;
+
+
+struct sort_InventoryNumberDown {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (x.getInventoryNumber() > y.getInventoryNumber());
+    }
+} sortInventoryNumberDown;
+
+
+struct sort_ListByDesignationUp {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (QString::compare(x.getDesignation(), y.getDesignation(), Qt::CaseInsensitive) < 0);
+    }
+} sortListByDesignationUp;
+
+
+struct sort_ListByDesignationDown {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (QString::compare(x.getDesignation(), y.getDesignation(), Qt::CaseInsensitive) > 0);
+    }
+} sortListByDesignationDown;
+
+
+struct sort_ListByNameUp {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (QString::compare(x.getName(), y.getName(), Qt::CaseInsensitive) < 0);
+    }
+} sortListByNameUp;
+
+
+struct sort_ListByNameDown {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (QString::compare(x.getName(), y.getName(), Qt::CaseInsensitive) > 0);
+    }
+} sortListByNameDown;
+
+
+struct sort_ListByReceiptDateUp {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (x.getReceiptDate() < y.getReceiptDate());
+    }
+} sortListByReceiptDateUp;
+
+
+struct sort_ListByReceiptDateDown {
+    bool operator() (const CardInformation &x, const CardInformation &y){
+        return (x.getReceiptDate() > y.getReceiptDate());
+    }
+} sortListByReceiptDateDown;
+
 
 
 ListForm::ListForm(QWidget *parent) :
@@ -203,34 +262,12 @@ QVector<CardInformation> ListForm::sortList(QVector<CardInformation> cci){
 
 QVector<CardInformation> ListForm::sortListByReceiptDate(QVector<CardInformation> cci){
 
-    int x = 1;
-
     if (sortMethod == DATE_ASC){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (cci[i].getReceiptDate() > cci[i + 1].getReceiptDate()){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByReceiptDateUp);
     }
 
     else if (sortMethod == DATE_DES){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (cci[i].getReceiptDate() < cci[i + 1].getReceiptDate()){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByReceiptDateDown);
     }
 
     return cci;
@@ -239,33 +276,11 @@ QVector<CardInformation> ListForm::sortListByReceiptDate(QVector<CardInformation
 
 QVector<CardInformation> ListForm::sortListByName(QVector<CardInformation> cci){
 
-    int x = 1;
-
     if (sortMethod == NAME_ASC){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (QString::compare(cci[i].getName(), cci[i + 1].getName(), Qt::CaseInsensitive) > 0){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByNameUp);
     }
     else if (sortMethod == NAME_DES){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (QString::compare(cci[i].getName(), cci[i + 1].getName(), Qt::CaseInsensitive) < 0){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByNameDown);
     }
 
     return cci;
@@ -274,33 +289,11 @@ QVector<CardInformation> ListForm::sortListByName(QVector<CardInformation> cci){
 
 QVector<CardInformation> ListForm::sortListByDesignation(QVector<CardInformation> cci){
 
-    int x = 1;
-
     if (sortMethod == DESIGNATION_ASC){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (QString::compare(cci[i].getDesignation(), cci[i + 1].getDesignation(), Qt::CaseInsensitive) > 0){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByDesignationUp);
     }
     else if (sortMethod == DESIGNATION_DES){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (QString::compare(cci[i].getDesignation(), cci[i + 1].getDesignation(), Qt::CaseInsensitive) < 0){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortListByDesignationDown);
     }
 
     return cci;
@@ -309,34 +302,12 @@ QVector<CardInformation> ListForm::sortListByDesignation(QVector<CardInformation
 
 QVector<CardInformation> ListForm::sortListByInventoryNumber(QVector<CardInformation> cci){
 
-    int x = 1;
-
     if (sortMethod == INVENTORY_NUMBER_ASC){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (cci[i].getInventoryNumber() > cci[i + 1].getInventoryNumber()){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortInventoryNumberUp);
     }
 
     else if (sortMethod == INVENTORY_NUMBER_DES){
-        while (x == 1){
-            x = 0;
-            for (int i = 0; i < cci.length() - 1; ++i){
-                if (cci[i].getInventoryNumber() < cci[i + 1].getInventoryNumber()){
-                    CardInformation v = cci[i];
-                    cci[i] = cci[i + 1];
-                    cci[i + 1] = v;
-                    x = 1;
-                }
-            }
-        }
+        std::sort(cci.begin(), cci.end(), sortInventoryNumberDown);
     }
 
     return cci;
