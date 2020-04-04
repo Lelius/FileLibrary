@@ -8,6 +8,9 @@
 #include "workwithdatabase.h"
 #include "openfilelibraryform.h"
 
+//BUG проблемы при создании нового файла БД, после первой записи все останавливается
+
+//FIXME после закрытия файла БД в окне остается старый виджет, сделать хотя бы очистку
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

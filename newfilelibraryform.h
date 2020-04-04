@@ -18,11 +18,13 @@ public:
     ~NewFileLibraryForm();
 
 signals:
-    void signalStatusBarOutput(QString str, int timeOutput);
+    void signalStatusBarOutput(QString str, int timeOutput); //NOTE: после перехода на QMessageBox в этой форме не используется
     void signalCardEditChangeStackWidget();
 
 private slots:
     void on_lineEditNameFileLibrary_returnPressed();
+
+    void myMessageBoxOk(const QString &);
 
 private:
     Ui::NewFileLibraryForm *ui;

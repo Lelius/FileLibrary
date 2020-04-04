@@ -4,6 +4,7 @@
 
 #include <QTimer>
 #include <QDebug>
+#include <QMessageBox>
 
 NewFileLibraryForm::NewFileLibraryForm(QWidget *parent) :
     QWidget(parent),
@@ -37,25 +38,25 @@ void NewFileLibraryForm::on_lineEditNameFileLibrary_returnPressed()
     else
         qDebug() << "Не корректно!";
 
+    //TODO разобраться с нижней строкой окна NewFileLibraryForm
     if(str != strResult) {
-        emit signalStatusBarOutput("Не корректное имя", 5000);
-        ui->lineEditNameFileLibrary->clear();
-        ui->lineEditNameFileLibrary->setCursorPosition(0);
+
+        myMessageBoxOk("Некорректные символы! Использовать можно только буквы и цифры не более двадцати символов!");
 
     } else if (str.length() >20) {
-        emit signalStatusBarOutput("Не более 20 символов", 5000);
-        ui->lineEditNameFileLibrary->clear();
-        ui->lineEditNameFileLibrary->setCursorPosition(0);
+
+        myMessageBoxOk("Слишком длинное имя! Использовать можно только буквы и цифры не более двадцати символов!");
 
     } else {
+
         nameNewFileLibrary = str + ".db";
         QFile *file = new QFile(nameNewFileLibrary);
         QFileInfo *fileInfo = new QFileInfo(nameNewFileLibrary);
 
         if ((fileInfo->exists() && fileInfo->isFile())) {
-            emit signalStatusBarOutput("Такой файл уже есть", 5000);
-            ui->lineEditNameFileLibrary->clear();
-            ui->lineEditNameFileLibrary->setCursorPosition(0);
+
+            myMessageBoxOk("Такой файл уже есть!");
+
         }
 
         else {
@@ -64,15 +65,19 @@ void NewFileLibraryForm::on_lineEditNameFileLibrary_returnPressed()
 
             WorkWithDatabase wwd;
             if (!wwd.openDatabase(nameNewFileLibrary))
-                qDebug() << "Создание: не открылась база данных";
+                myMessageBoxOk("Создание: не открылся файл базы данных!");
             if (!wwd.createNewDatabase())
-                qDebug() << "Создание: не создалась таблица";
+                myMessageBoxOk("Создание: не создалась таблица в базе данных!");
 
-            emit signalStatusBarOutput("Новая картотека создана", 5000);
-            ui->lineEditNameFileLibrary->clear();
-            ui->lineEditNameFileLibrary->setCursorPosition(0);
+            myMessageBoxOk("Новая картотека " + nameNewFileLibrary + " успешно создана.");
 
             emit signalCardEditChangeStackWidget();
         }
     }
+}
+
+
+void NewFileLibraryForm::myMessageBoxOk(const QString &str)
+{
+    QMessageBox::warning(this,"Внимание! ",str , "Понятно.");
 }
