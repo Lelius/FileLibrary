@@ -38,7 +38,6 @@ void NewFileLibraryForm::on_lineEditNameFileLibrary_returnPressed()
     else
         qDebug() << "Не корректно!";
 
-    //TODO разобраться с нижней строкой окна NewFileLibraryForm
     if(str != strResult) {
 
         myMessageBoxOk("Некорректные символы! Использовать можно только буквы и цифры не более двадцати символов!");
@@ -71,6 +70,7 @@ void NewFileLibraryForm::on_lineEditNameFileLibrary_returnPressed()
 
             myMessageBoxOk("Новая картотека " + nameNewFileLibrary + " успешно создана.");
 
+            emit signalSetActionsEnabled(true);
             emit signalCardEditChangeStackWidget();
         }
     }

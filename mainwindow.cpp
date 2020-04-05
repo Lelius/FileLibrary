@@ -8,8 +8,6 @@
 #include "workwithdatabase.h"
 #include "openfilelibraryform.h"
 
-//BUG проблемы при создании нового файла БД, после первой записи все останавливается
-
 //FIXME после закрытия файла БД в окне остается старый виджет, сделать хотя бы очистку
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -50,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(exitForm, &ExitForm::noExit, this, &MainWindow::exitBackChangeStackWidget);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalStatusBarOutput, this, &MainWindow::slotStatusBarOutput);
     connect(newFileLibraryForm, &NewFileLibraryForm::signalCardEditChangeStackWidget, this, &MainWindow::cardEditChangeStackWidget);
+    connect(newFileLibraryForm, &NewFileLibraryForm::signalSetActionsEnabled, this, &MainWindow::setActionsEnabled);
     connect(ui->actionOpenFileLibrary, &QAction::triggered, this, &MainWindow::openFileLibraryChangeStackWidget);
     connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardViewChangeStackWidget);
     connect(ui->actionNewCard, &QAction::triggered, this, &MainWindow::cardNewChangeStackWidget);
