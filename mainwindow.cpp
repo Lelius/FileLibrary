@@ -8,11 +8,10 @@
 #include "workwithdatabase.h"
 #include "openfilelibraryform.h"
 
-//FIXME после закрытия файла БД в окне остается старый виджет, сделать хотя бы очистку
-
 //TODO резервное копирование (по расписанию?)
 //TODO внятная работа с файлами при создании и открытии БД
 //TODO группировка карточек, работа с группой
+//TODO редактирование и сортировка миниформ
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -67,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(searchForm, &SearchForm::signalViewSearchCard, this, &MainWindow::slotViewSelectedCard);
     connect(searchForm, &SearchForm::signalToListCardForEsc, this, &MainWindow::listChangeStackWidget);
     connect(exitForm, &ExitForm::signalCloseProgramm, this, &MainWindow::slotCloseProgramm);
+    connect(listForm, &ListForm::signalChangeStackWidget, this, &MainWindow::slotChangeStackWidget);
 }
 
 

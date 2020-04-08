@@ -338,6 +338,8 @@ void ListForm::slotDelCard()
 
 void ListForm::slotCloseFileLibrary()
 {
+    emit signalChangeStackWidget(0);
+
     WorkWithDatabase wwd;
     wwd.removeDatabase();
     ui->tableWidgetList->clear();

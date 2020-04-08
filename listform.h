@@ -49,6 +49,7 @@ signals:
     void signalEditCurrentCardInList();
     void signalViewSelectedCard(CardInformation &ci);
     void signalSetActionsEnabled(bool flag);
+    void signalChangeStackWidget(int index);
 
 private slots:
     void on_tableWidgetList_cellActivated(int row, int column);
