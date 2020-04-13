@@ -14,7 +14,7 @@ WorkWithConfigFile::WorkWithConfigFile()
     windowMaximizedScreenOk = false;
 
     //Если есть файл config.txt восстанавливаем из него состояние
-    loadFromConfigFileGeometryMainWindow();
+    loadFromConfigFileMainWindow();
 }
 
 
@@ -40,6 +40,8 @@ bool WorkWithConfigFile::writingConfigFile()
     line = "MainWindow Maximized Screen = ";
     QString lineOk = getWindowMaximizedScreenOk() ? "true\n" : "false\n";
     out << line << lineOk;
+    line = "Last DatabaseName = " + getLastDatabaseName();
+    out << line;
 
     if (file.isOpen())
         file.close();
@@ -47,20 +49,20 @@ bool WorkWithConfigFile::writingConfigFile()
 }
 
 
-void WorkWithConfigFile::loadFromConfigFileGeometryMainWindow()
+void WorkWithConfigFile::loadFromConfigFileMainWindow()
 {
     if (!file.exists())
         return;
     if (file.isOpen())
         file.close();
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        getFromCofigFileRectMainWindow();
+        getFromCofigFileMainWindow();
         file.close();
     }
 }
 
 
-void WorkWithConfigFile::getFromCofigFileRectMainWindow()
+void WorkWithConfigFile::getFromCofigFileMainWindow()
 {
     QTextStream in(&file);
     while(!in.atEnd()) {
@@ -93,6 +95,7 @@ void WorkWithConfigFile::getFromCofigFileRectMainWindow()
             if (intOk)
                 rectMainWindow.setHeight(num);
         }
+
         //full window---------------------------------------------------
         if (line.contains("MainWindow Maximized Screen = ", Qt::CaseInsensitive)){
             QString lineStr = line.remove("MainWindow Maximized Screen = ", Qt::CaseInsensitive);
@@ -102,6 +105,11 @@ void WorkWithConfigFile::getFromCofigFileRectMainWindow()
                 setWindowMaximizedScreenOk(true);
             else
                 setWindowMaximizedScreenOk(false);
+        }
+
+        //path to last file database
+        if (line.contains("Last DatabaseName = ", Qt::CaseInsensitive)){
+            setLastDatabaseName(line.remove("Last DatabaseName = ", Qt::CaseInsensitive));
         }
     }
 
@@ -149,4 +157,14 @@ bool WorkWithConfigFile::getWindowMaximizedScreenOk() const
 void WorkWithConfigFile::setWindowMaximizedScreenOk(bool value)
 {
     windowMaximizedScreenOk = value;
+}
+
+QString WorkWithConfigFile::getLastDatabaseName() const
+{
+    return lastDatabaseName;
+}
+
+void WorkWithConfigFile::setLastDatabaseName(const QString &value)
+{
+    lastDatabaseName = value;
 }

@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     OpenFileLibraryForm *openFileLibraryForm = new OpenFileLibraryForm(this);
     searchForm = new SearchForm(this);
 
+    setActionsEnabled(false);   //выключает часть меню
+
+    //читаем параметры конфигурации из config.txt
     wwcf = new WorkWithConfigFile();
     setProgramConfiguration();
 
@@ -39,8 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->insertWidget(6, searchForm);
     ui->stackedWidget->setCurrentIndex(0);
     previousIndex = 0;
-
-    setActionsEnabled(false);   //выключает часть меню
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exitChangeStackWidget);
     connect(ui->actionListCard_2, &QAction::triggered, this, &MainWindow::listChangeStackWidget);
@@ -89,6 +90,21 @@ void MainWindow::setProgramConfiguration()
         MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
     if (wwcf->getWindowMaximizedScreenOk() == false && MainWindow::windowState().testFlag(Qt::WindowMaximized) == true)
         MainWindow::setWindowState(MainWindow::windowState() ^ Qt::WindowMaximized);
+
+    if (wwcf->getLastDatabaseName() != "no"){
+
+        WorkWithDatabase wwd;
+        wwd.removeDatabase();
+
+        QString pathLastDatabaseName = wwcf->getLastDatabaseName();
+        wwd.openDatabase(pathLastDatabaseName);
+
+        delete listForm;
+        listForm = new ListForm(this);
+
+        setActionsEnabled(true);
+    }
+
 }
 
 
@@ -279,6 +295,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     wwcf->setRectMainWindow(MainWindow::geometry());
     wwcf->setWindowMaximizedScreenOk(MainWindow::windowState().testFlag(Qt::WindowMaximized));
+
+    QSqlDatabase db = QSqlDatabase::database("FL");
+    if (db.isOpen()){
+        wwcf->setLastDatabaseName(db.databaseName());
+    }
+    else {
+        wwcf->setLastDatabaseName("no");
+    }
 
     if (!wwcf->writingConfigFile())
         qDebug() << "Not saving config.txt!";

@@ -15,9 +15,9 @@ public:
 
     WorkWithConfigFile();
 
-    void loadFromConfigFileGeometryMainWindow();
+    void loadFromConfigFileMainWindow();
 
-    void getFromCofigFileRectMainWindow();
+    void getFromCofigFileMainWindow();
     bool writingConfigFile();
 
     bool openConfigFileW();
@@ -31,6 +31,9 @@ public:
     bool getWindowMaximizedScreenOk() const;
     void setWindowMaximizedScreenOk(bool value);
 
+    QString getLastDatabaseName() const;
+    void setLastDatabaseName(const QString &value);
+
 private:
 
     QScreen *screen;
@@ -39,6 +42,7 @@ private:
 
     QRect rectMainWindow;
     bool windowMaximizedScreenOk;
+    QString lastDatabaseName;
 };
 
 #endif // WORKWITHCONFIGFILE_H
