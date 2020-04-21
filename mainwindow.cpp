@@ -110,6 +110,7 @@ void MainWindow::setProgramConfiguration()
 
 void MainWindow::searchChangeStackWidget(){
     previousIndex = ui->stackedWidget->currentIndex();
+    ui->actionDelCard->setEnabled(false);
     slotChangeStackWidget(6);
 }
 
