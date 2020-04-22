@@ -12,6 +12,7 @@
 //TODO внятная работа с файлами при создании и открытии БД
 //TODO группировка карточек, работа с группой
 //TODO редактирование и сортировка миниформ
+//TODO внятное удаление карточек
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -59,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListChangeStackedWidget, this, &MainWindow::listChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
-    connect(ui->actionDelCard, &QAction::triggered, listForm, &ListForm::slotDelCard);
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
     connect(listForm, &ListForm::signalSetActionsEnabled, this, &MainWindow::setActionsEnabled);
     connect(listForm, &ListForm::signalViewSelectedCard, this, &MainWindow::slotViewSelectedCard);
@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(searchForm, &SearchForm::signalToListCardForEsc, this, &MainWindow::listChangeStackWidget);
     connect(exitForm, &ExitForm::signalCloseProgramm, this, &MainWindow::slotCloseProgramm);
     connect(listForm, &ListForm::signalChangeStackWidget, this, &MainWindow::slotChangeStackWidget);
+    connect(ui->actionDelCard, &QAction::triggered, this, &MainWindow::slotDelCard);
+    connect(this, &MainWindow::signalListDelCard, listForm, &ListForm::slotListDelCard);
 }
 
 
@@ -79,6 +81,24 @@ MainWindow::~MainWindow()
     delete listForm;
     delete searchForm;
     delete wwcf;
+}
+
+
+void MainWindow::slotDelCard()
+{
+    switch(ui->stackedWidget->currentIndex()){
+        case 0:
+            emit signalListDelCard();
+            break;
+        case 4:
+            emit signalViewDelCard();
+            break;
+        case 1:
+            emit signalEditDelCard();
+            break;
+        default:
+            return;
+    }
 }
 
 

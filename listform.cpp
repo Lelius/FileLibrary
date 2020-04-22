@@ -314,7 +314,7 @@ QVector<CardInformation> ListForm::sortListByInventoryNumber(QVector<CardInforma
 }
 
 
-void ListForm::slotDelCard()
+void ListForm::slotListDelCard()
 {
     WorkWithDatabase wwd;
 

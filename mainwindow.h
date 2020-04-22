@@ -24,6 +24,11 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+    void signalListDelCard();
+    void signalViewDelCard();
+    void signalEditDelCard();
+
 private slots:
     void slotChangeStackWidget(int index);
     void slotStatusBarOutput(QString str, int timeOutput);
@@ -32,6 +37,7 @@ private slots:
     void slotActionOnEditCard();
     void slotActionOnViewCard();
     void slotCloseProgramm();
+    void slotDelCard();
 
     void cardEditChangeStackWidget();
     void listChangeStackWidget();

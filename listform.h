@@ -31,7 +31,7 @@ public:
     void slotListInit();
     void listInit();
     void listInit(QVector<CardInformation> &);
-    void slotDelCard();
+    void slotListDelCard();
     void slotCloseFileLibrary();
     int getSelectedInventoryNumber();
     QVector<CardInformation> sortList(QVector<CardInformation>);

@@ -25,6 +25,7 @@ CardViewForm::CardViewForm(CardInformation *ci, QWidget *parent) :
 
 CardViewForm::~CardViewForm()
 {
+    delete viewci;
     delete ui;
 }
 
