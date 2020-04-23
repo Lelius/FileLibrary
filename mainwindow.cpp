@@ -86,15 +86,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotDelCard()
 {
+    WorkWithDatabase wwd;
     switch(ui->stackedWidget->currentIndex()){
         case 0:
             emit signalListDelCard();
             break;
-        case 4:
-            emit signalViewDelCard();
+        case 4:{
+            wwd.deleteCard(*cardViewForm->getViewci());
+            CardInformation ci = wwd.searchPreviousCardFromInventoryNumber(cardViewForm->getViewci()->getInventoryNumber());
+            slotCardViewChangeStackWidget(&ci);
+        }
             break;
         case 1:
-            emit signalEditDelCard();
+            cardNewChangeStackWidget();     //не удаляет карточку, а создает новый объект
             break;
         default:
             return;

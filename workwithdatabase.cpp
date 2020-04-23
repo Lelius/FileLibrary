@@ -470,7 +470,7 @@ bool WorkWithDatabase::searchForInventoryNumber(CardInformation &ci)
 
 CardInformation WorkWithDatabase::searchNextCardFromInventoryNumber(int inventoryNumber)
 {
-    if (inventoryNumber == searchMaxInventoryNumber()){
+    if (inventoryNumber >= searchMaxInventoryNumber()){
         return searchCard(searchMinInventoryNumber());
     }
 
@@ -484,7 +484,7 @@ CardInformation WorkWithDatabase::searchNextCardFromInventoryNumber(int inventor
 
 CardInformation WorkWithDatabase::searchPreviousCardFromInventoryNumber(int inventoryNumber)
 {
-    if (inventoryNumber == searchMinInventoryNumber()){
+    if (inventoryNumber <= searchMinInventoryNumber()){
         return searchCard(searchMaxInventoryNumber());
     }
 

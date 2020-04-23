@@ -26,8 +26,6 @@ public:
 
 signals:
     void signalListDelCard();
-    void signalViewDelCard();
-    void signalEditDelCard();
 
 private slots:
     void slotChangeStackWidget(int index);

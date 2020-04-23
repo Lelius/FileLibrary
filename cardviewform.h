@@ -24,7 +24,6 @@ public:
     ~CardViewForm();
 
     void cardViewInit();
-
     CardInformation *getViewci() const;
     void setViewci(CardInformation *value);
     void keyPressEvent(QKeyEvent *);
