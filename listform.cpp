@@ -360,7 +360,7 @@ void ListForm::on_tableWidgetList_cellActivated(int row, int column)
 
     WorkWithDatabase wwd;
     CardInformation ci = wwd.searchCard(inventoryNumber);
-    emit signalViewSelectedCard(ci);
+    emit signalViewSelectedCard(&ci);
 }
 
 

@@ -80,7 +80,7 @@ void SearchForm::on_pushButtonSearch_clicked()
 }
 
 
-void SearchForm::slotCloseSearchWidget(CardInformation &ci)
+void SearchForm::slotCloseSearchWidget(CardInformation *ci)
 {
     searchWidget->close();
     emit signalViewSearchCard(ci);

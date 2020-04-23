@@ -12,7 +12,6 @@
 //TODO внятная работа с файлами при создании и открытии БД
 //TODO группировка карточек, работа с группой
 //TODO редактирование и сортировка миниформ
-//TODO внятное удаление карточек
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -57,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionOpenFileLibrary, &QAction::triggered, this, &MainWindow::openFileLibraryChangeStackWidget);
     connect(ui->actionViewCard, &QAction::triggered, this, &MainWindow::cardViewChangeStackWidget);
     connect(ui->actionNewCard, &QAction::triggered, this, &MainWindow::cardNewChangeStackWidget);
-    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
+    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotViewSelectedCard);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListChangeStackedWidget, this, &MainWindow::listChangeStackWidget);
     connect(openFileLibraryForm, &OpenFileLibraryForm::signalListInit, listForm, &ListForm::slotListInit);
     connect(ui->actionCloseFileLibrary, &QAction::triggered, listForm, &ListForm::slotCloseFileLibrary);
@@ -94,12 +93,12 @@ void MainWindow::slotDelCard()
         case 4:{
             wwd.deleteCard(*cardViewForm->getViewci());
             CardInformation ci = wwd.searchPreviousCardFromInventoryNumber(cardViewForm->getViewci()->getInventoryNumber());
-            slotCardViewChangeStackWidget(&ci);
+            slotViewSelectedCard(&ci);
         }
             break;
         case 1:
             cardNewChangeStackWidget();     //не удаляет карточку, а создает новый объект
-            break;
+            break;                          //(очищает поля формы)
         default:
             return;
     }
@@ -154,17 +153,6 @@ void MainWindow::slotStatusBarOutput(QString str, int timeOutput)
 }
 
 
-void MainWindow::slotCardViewChangeStackWidget(CardInformation *saveci)
-{
-    previousIndex = ui->stackedWidget->currentIndex();
-    ui->stackedWidget->removeWidget(cardViewForm);
-    delete cardViewForm;
-    cardViewForm = new CardViewForm(saveci);
-    ui->stackedWidget->insertWidget(4, cardViewForm);
-    slotChangeStackWidget(4);
-}
-
-
 void MainWindow::cardEditChangeStackWidget()
 {
     previousIndex = ui->stackedWidget->currentIndex();
@@ -208,8 +196,9 @@ void MainWindow::newFileLibraryChangeStackWidget()
 
 void MainWindow::cardViewChangeStackWidget()
 {
-    previousIndex = ui->stackedWidget->currentIndex();
-    slotChangeStackWidget(4);
+    WorkWithDatabase wwd;
+    CardInformation ci = wwd.searchCard(wwd.searchMinInventoryNumber());
+    slotViewSelectedCard(&ci);
 }
 
 
@@ -219,7 +208,7 @@ void MainWindow::cardNewChangeStackWidget()
     ui->stackedWidget->removeWidget(cardEditForm);
     delete cardEditForm;
     cardEditForm = new CardEditForm(this);
-    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
+    connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotViewSelectedCard);
     ui->stackedWidget->insertWidget(1, cardEditForm);
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -232,12 +221,12 @@ void MainWindow::openFileLibraryChangeStackWidget()
 }
 
 
-void MainWindow::slotViewSelectedCard(CardInformation ci)
+void MainWindow::slotViewSelectedCard(CardInformation *ci)
 {
     previousIndex = ui->stackedWidget->currentIndex();
     ui->stackedWidget->removeWidget(cardViewForm);
     delete cardViewForm;
-    cardViewForm = new CardViewForm(&ci, this);
+    cardViewForm = new CardViewForm(ci, this);
     ui->stackedWidget->insertWidget(4, cardViewForm);
     ui->stackedWidget->setCurrentIndex(4);
 
@@ -262,7 +251,7 @@ void MainWindow::slotActionOnEditCard()
         cardEditForm = new CardEditForm(&ci, this);
         ui->stackedWidget->insertWidget(1, cardEditForm);
         ui->stackedWidget->setCurrentIndex(1);
-        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
+        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotViewSelectedCard);
     }
 
     //cardViewForm
@@ -273,7 +262,7 @@ void MainWindow::slotActionOnEditCard()
         cardEditForm = new CardEditForm(cardViewForm->getViewci(), this);
         ui->stackedWidget->insertWidget(1, cardEditForm);
         ui->stackedWidget->setCurrentIndex(1);
-        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotCardViewChangeStackWidget);
+        connect(cardEditForm, &CardEditForm::signalSaveCard, this, &MainWindow::slotViewSelectedCard);
     }
 }
 

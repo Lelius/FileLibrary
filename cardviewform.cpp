@@ -153,6 +153,7 @@ void CardViewForm::setViewci(CardInformation *value)
 void CardViewForm::keyPressEvent(QKeyEvent *event)
 {
     WorkWithDatabase *wwd = new WorkWithDatabase();
+    CardInformation *ci;
     qDebug() << event->key();
     if (event->key() == Qt::Key_Escape){
         qDebug() << "Esc";
@@ -160,11 +161,13 @@ void CardViewForm::keyPressEvent(QKeyEvent *event)
     }
     if (event->key() == Qt::Key_Plus){
         qDebug() << "+";
-        emit signalNextOrPreviousCardViewForm(wwd->searchNextCardFromInventoryNumber(getViewci()->getInventoryNumber()));
+        ci = new CardInformation(wwd->searchNextCardFromInventoryNumber(getViewci()->getInventoryNumber()));
+        emit signalNextOrPreviousCardViewForm(ci);
     }
     if (event->key() == Qt::Key_Minus){
         qDebug() << "-";
-        emit signalNextOrPreviousCardViewForm(wwd->searchPreviousCardFromInventoryNumber(getViewci()->getInventoryNumber()));
+        ci = new CardInformation(wwd->searchPreviousCardFromInventoryNumber(getViewci()->getInventoryNumber()));
+        emit signalNextOrPreviousCardViewForm(ci);
     }
     delete wwd;
 }

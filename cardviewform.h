@@ -30,7 +30,7 @@ public:
 
 signals:
     void signalCardViewFormToListForm();
-    void signalNextOrPreviousCardViewForm(CardInformation nextorprevci);
+    void signalNextOrPreviousCardViewForm(CardInformation *nextorprevci);
 
 private:
     Ui::CardViewForm *ui;

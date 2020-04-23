@@ -30,8 +30,7 @@ signals:
 private slots:
     void slotChangeStackWidget(int index);
     void slotStatusBarOutput(QString str, int timeOutput);
-    void slotCardViewChangeStackWidget(CardInformation *saveci);
-    void slotViewSelectedCard(CardInformation ci);
+    void slotViewSelectedCard(CardInformation *ci);
     void slotActionOnEditCard();
     void slotActionOnViewCard();
     void slotCloseProgramm();

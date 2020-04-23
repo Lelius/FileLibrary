@@ -26,12 +26,12 @@ public:
     ~SearchForm();
 
 signals:
-    void signalViewSearchCard(CardInformation);
+    void signalViewSearchCard(CardInformation *);
     void signalToListCardForEsc();
 
 private slots:
     void on_pushButtonSearch_clicked();
-    void slotCloseSearchWidget(CardInformation &);
+    void slotCloseSearchWidget(CardInformation *);
 
     void keyPressEvent(QKeyEvent *event);
 

@@ -47,7 +47,7 @@ public:
 
 signals:
     void signalEditCurrentCardInList();
-    void signalViewSelectedCard(CardInformation &ci);
+    void signalViewSelectedCard(CardInformation *ci);
     void signalSetActionsEnabled(bool flag);
     void signalChangeStackWidget(int index);
 
