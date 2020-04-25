@@ -1,3 +1,11 @@
+#define INVENTORY_NUMBER_COL 0
+#define DESIGNATION_COL 1
+#define NAME_COL 2
+#define DATE_COL 3
+#define GROUP_COL 4
+#define NUMBER_OF_COLUMNS 5
+
+
 #include <algorithm>
 
 #include "listform.h"
@@ -120,34 +128,7 @@ void ListForm::listInit()
     ui->labelListFileName->setText(fileInfo->fileName());
     delete fileInfo;
 
-    ui->tableWidgetList->setRowCount(cci.length());
-    ui->tableWidgetList->setColumnCount(5);
-
-    QStringList list;
-    list.clear();
-    list << "Группа" << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
-    ui->tableWidgetList->setHorizontalHeaderLabels(list);
-    QHeaderView *header = ui->tableWidgetList->horizontalHeader();
-    header->setSectionResizeMode(QHeaderView::Stretch);
-    header->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    header->setStyleSheet("color: rgb(0, 0, 127);");
-    QFont font = header->font();
-    font.setPointSize(ui->labelList->fontInfo().pointSize());
-    header->setFont(font);
-
-    ui->tableWidgetList->verticalHeader()->hide();
-    ui->tableWidgetList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidgetList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
-
-    for (int i = 0; i < cci.length(); ++i){
-        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
-        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getDesignation()));
-        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getName()));
-        ui->tableWidgetList->setItem(i, 4, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
-    }
-
-    connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
+    listInitTable();
 }
 
 
@@ -163,16 +144,23 @@ void ListForm::listInit(QVector<CardInformation> &sci)
     ui->labelListFileName->clear();
     ui->labelListFileName->setText("Результат поиска");
 
+    listInitTable();
+}
+
+
+void ListForm::listInitTable()
+{
     ui->tableWidgetList->setRowCount(cci.length());
-    ui->tableWidgetList->setColumnCount(5);
+    ui->tableWidgetList->setColumnCount(NUMBER_OF_COLUMNS);
 
     QStringList list;
     list.clear();
-    list << "Группа" << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления";
+    list << "Инвентарный номер" << "Обозначение" << "Наименование" << "Дата поступления" << "Группа";
     ui->tableWidgetList->setHorizontalHeaderLabels(list);
     QHeaderView *header = ui->tableWidgetList->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
-    header->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    header->setSectionResizeMode(INVENTORY_NUMBER_COL, QHeaderView::ResizeToContents);
+    header->setSectionResizeMode(GROUP_COL, QHeaderView::ResizeToContents);
     header->setStyleSheet("color: rgb(0, 0, 127);");
     QFont font = header->font();
     font.setPointSize(ui->labelList->fontInfo().pointSize());
@@ -184,10 +172,10 @@ void ListForm::listInit(QVector<CardInformation> &sci)
     ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
 
     for (int i = 0; i < cci.length(); ++i){
-        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
-        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getDesignation()));
-        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getName()));
-        ui->tableWidgetList->setItem(i, 4, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+        ui->tableWidgetList->setItem(i, INVENTORY_NUMBER_COL, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
+        ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
+        ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
+        ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 
     connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
@@ -196,25 +184,25 @@ void ListForm::listInit(QVector<CardInformation> &sci)
 
 void ListForm::slotHeaderSectionClicked(int logicalIndex){
 
-    if (logicalIndex == 1){
+    if (logicalIndex == INVENTORY_NUMBER_COL){
         if (sortMethod == INVENTORY_NUMBER_ASC)
             sortMethod = INVENTORY_NUMBER_DES;
         else
             sortMethod = INVENTORY_NUMBER_ASC;
     }
-    else if (logicalIndex == 2){
+    else if (logicalIndex == DESIGNATION_COL){
         if (sortMethod == DESIGNATION_ASC)
             sortMethod = DESIGNATION_DES;
         else
             sortMethod = DESIGNATION_ASC;
     }
-    else if (logicalIndex == 3){
+    else if (logicalIndex == NAME_COL){
         if (sortMethod == NAME_ASC)
             sortMethod = NAME_DES;
         else
             sortMethod = NAME_ASC;
     }
-    else if (logicalIndex == 4){
+    else if (logicalIndex == DATE_COL){
         if (sortMethod == DATE_ASC)
             sortMethod = DATE_DES;
         else
@@ -239,10 +227,10 @@ void ListForm::reinitList(){
     ui->tableWidgetList->setSelectionMode(QAbstractItemView::SingleSelection);
 
     for (int i = 0; i < cci.length(); ++i){
-        ui->tableWidgetList->setItem(i, 1, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
-        ui->tableWidgetList->setItem(i, 2, new QTableWidgetItem(cci.at(i).getDesignation()));
-        ui->tableWidgetList->setItem(i, 3, new QTableWidgetItem(cci.at(i).getName()));
-        ui->tableWidgetList->setItem(i, 4, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+        ui->tableWidgetList->setItem(i, INVENTORY_NUMBER_COL, new QTableWidgetItem(QString::number(cci.at(i).getInventoryNumber())));
+        ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
+        ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
+        ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
     }
 }
 
@@ -327,7 +315,7 @@ void ListForm::slotListDelCard()
         foreach(QTableWidgetSelectionRange r, listSelected){
             for (int i = r.topRow(); i <= r.bottomRow(); ++i){
                 CardInformation ci;
-                QTableWidgetItem *it = ui->tableWidgetList->item(i, 0);
+                QTableWidgetItem *it = ui->tableWidgetList->item(i, INVENTORY_NUMBER_COL);
                 ci.setInventoryNumber(it->text().toInt());
                 wwd.deleteCard(ci);
             }
@@ -356,7 +344,7 @@ void ListForm::slotCloseFileLibrary()
 void ListForm::on_tableWidgetList_cellActivated(int row, int column)
 {
     QTableWidgetItem *item = new QTableWidgetItem();
-    item = ui->tableWidgetList->item(row, 1);
+    item = ui->tableWidgetList->item(row, INVENTORY_NUMBER_COL);
     int inventoryNumber = item->text().toInt();
     qDebug() << inventoryNumber;
 
@@ -377,7 +365,7 @@ int ListForm::getSelectedInventoryNumber()
         int inventoryNumber = 1;
         foreach(QTableWidgetSelectionRange r, listSelected){
             for (int i = r.topRow(); i <= r.bottomRow(); ++i){
-                QTableWidgetItem *it = ui->tableWidgetList->item(i, 1);
+                QTableWidgetItem *it = ui->tableWidgetList->item(i, INVENTORY_NUMBER_COL);
                 inventoryNumber = it->text().toInt();
             }
         }
