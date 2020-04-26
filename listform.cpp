@@ -1,9 +1,11 @@
+#define NUMBER_OF_COLUMNS 5
+
 #define INVENTORY_NUMBER_COL 0
 #define DESIGNATION_COL 1
 #define NAME_COL 2
 #define DATE_COL 3
 #define GROUP_COL 4
-#define NUMBER_OF_COLUMNS 5
+
 
 
 #include <algorithm>
@@ -176,6 +178,7 @@ void ListForm::listInitTable()
         ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
         ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
         ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+        listInitTableGroupCheckBox(i);
     }
 
     connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
@@ -231,7 +234,21 @@ void ListForm::reinitList(){
         ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
         ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
         ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
+        listInitTableGroupCheckBox(i);
     }
+}
+
+
+void ListForm::listInitTableGroupCheckBox(int i)
+{
+    QCheckBox *checkBox = new QCheckBox(this);
+    QHBoxLayout *qHBL = new QHBoxLayout();
+    QWidget *widget = new QWidget(this);
+
+    //checkBox->setCheckState(Qt::Checked);
+    qHBL->addWidget(checkBox, 0, Qt::AlignHCenter);
+    widget->setLayout(qHBL);
+    ui->tableWidgetList->setCellWidget(i,GROUP_COL, widget);
 }
 
 

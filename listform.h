@@ -5,6 +5,7 @@
 #include <QList>
 #include <QVector>
 #include <QFileInfo>
+#include <QCheckBox>
 
 #include "cardinformation.h"
 
@@ -41,6 +42,7 @@ public:
     QVector<CardInformation> sortListByName(QVector<CardInformation>);
     QVector<CardInformation> sortListByReceiptDate(QVector<CardInformation>);
     void reinitList();
+    void listInitTableGroupCheckBox(int);
 
 public:
 
