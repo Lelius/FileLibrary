@@ -11,6 +11,7 @@
 #include "listform.h"
 #include "searchform.h"
 #include "workwithconfigfile.h"
+#include "groupcard.h"
 
 namespace Ui {
 class MainWindow;
@@ -53,6 +54,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     int previousIndex;
+
+    GroupCard *groupCard;
 
     CardEditForm *cardEditForm;
     CardViewForm *cardViewForm;

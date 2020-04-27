@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    groupCard = new GroupCard(this);
+
     listForm = new ListForm();
     cardEditForm = new CardEditForm(this);
     ExitForm *exitForm = new ExitForm(this);

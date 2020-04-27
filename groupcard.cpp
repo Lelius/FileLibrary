@@ -7,23 +7,17 @@ GroupCard::GroupCard(QObject *parent) : QObject(parent)
 }
 
 
-GroupCard::GroupCard(const QMap<int, CardInformation> &mapIn, QObject *parent) : QObject(parent)
+GroupCard::GroupCard(QMap<int, CardInformation> &mapIn, QObject *parent) : QObject(parent)
 {
-    QMap<int, CardInformation> *map = new QMap<int, CardInformation>;
-    QMap<int, CardInformation>::const_iterator i = mapIn.constBegin();
-    while (i != mapIn.constEnd()){
-        map->insert(i.key(), i.value());
-        i++;
-    }
-    setGroupCard(map);
+    setGroupCard(mapIn);
 }
 
 
 GroupCard::GroupCard(const QVector<CardInformation> &ci, QObject *parent) : QObject(parent)
 {
-    QMap<int, CardInformation> *map = new QMap<int, CardInformation>;
+    QMap<int, CardInformation> map = getGroupCard();
     for (int i = 0; i < ci.length(); i++){
-        map->insert(ci[i].getInventoryNumber(), ci[i]);
+        map.insert(ci[i].getInventoryNumber(), ci[i]);
     }
     setGroupCard(map);
 }
@@ -32,12 +26,44 @@ GroupCard::GroupCard(const QVector<CardInformation> &ci, QObject *parent) : QObj
 
 
 
-QMap<int, CardInformation> *GroupCard::getGroupCard() const
+QMap<int, CardInformation> GroupCard::getGroupCard() const
 {
     return groupCard;
 }
 
-void GroupCard::setGroupCard(QMap<int, CardInformation> *value)
+void GroupCard::setGroupCard(QMap<int, CardInformation> &value)
 {
     groupCard = value;
+}
+
+
+void GroupCard::clearGroupCard()
+{
+    QMap<int, CardInformation> map = getGroupCard();
+    map.clear();
+    setGroupCard(map);
+}
+
+
+bool GroupCard::containsInGroupCard(int) //NEXT: продолжить здесь
+{
+
+}
+
+
+bool GroupCard::containsInGroupCard(CardInformation)
+{
+
+}
+
+
+void GroupCard::addGroupCard(int inventoryNumber)
+{
+
+}
+
+
+void GroupCard::addGroupCard(CardInformation ci)
+{
+
 }
