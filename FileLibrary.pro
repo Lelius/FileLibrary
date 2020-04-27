@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    groupcard.cpp \
         main.cpp \
         mainwindow.cpp \
     listform.cpp \
@@ -48,6 +49,7 @@ SOURCES += \
     workwithconfigfile.cpp
 
 HEADERS += \
+    groupcard.h \
         mainwindow.h \
     listform.h \
     cardeditform.h \

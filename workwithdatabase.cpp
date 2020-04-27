@@ -218,43 +218,6 @@ bool WorkWithDatabase::editCard(CardInformation &ci)
         qDebug() << "Ошибка при вставке карточки";
         return false;
     }
-
-    /*deleteCardTablesMiniForm(ci);
-
-    query.prepare("UPDATE FileLibrary "
-                  "SET inventoryNumber = :inventoryNumber, "
-                  "receiptDate = :receiptDate, designation = :designation, "
-                  "name = :name, comment = :comment, format1 = :format1, "
-                  "format2 = :format2, format3 = :format3, format4 = :format4, "
-                  "applicability = :applicability, changeAccounting = :changeAccounting, "
-                  "copyAccounting = :copyAccounting, issuanceOfCopies = :issuanceOfCopies "
-                  "WHERE inventoryNumber = '" + QString::number(ci.getInventoryNumber()) + "';");
-
-    query.bindValue(":inventoryNumber",ci.getInventoryNumber());
-    query.bindValue(":receiptDate", ci.getReceiptDate().toString("dd.MM.yyyy"));
-    query.bindValue(":designation", ci.getDesignation());
-    query.bindValue(":name", ci.getName());
-    query.bindValue(":comment", ci.getComment());
-    query.bindValue(":format1", ci.getKitFormat("А1"));
-    query.bindValue(":format2", ci.getKitFormat("А2"));
-    query.bindValue(":format3", ci.getKitFormat("А3"));
-    query.bindValue(":format4", ci.getKitFormat("А4"));
-    query.bindValue(":applicability", "applicability" + QString::number(ci.getInventoryNumber()));
-    query.bindValue(":changeAccounting", "changeAccounting" + QString::number(ci.getInventoryNumber()));
-    query.bindValue(":copyAccounting", "copyAccounting" + QString::number(ci.getInventoryNumber()));
-    query.bindValue(":issuanceOfCopies", "issuanceOfCopies" + QString::number(ci.getInventoryNumber()));
-
-    if (!query.exec()){
-        qDebug() << query.lastError().text();
-        qDebug() << "Замена в таблице не удалась!";
-        return false;
-    }
-
-    if(!insertNewCardTablesMiniForm(ci)){
-        qDebug() << "Замена таблиц миниформ не удалась";
-        return false;
-    }*/
-
     return true;
 }
 
