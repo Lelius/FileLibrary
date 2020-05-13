@@ -90,7 +90,30 @@ ListForm::ListForm(QVector<CardInformation> &sci, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ListForm)
 {
-    ui->setupUi((this));
+    ui->setupUi(this);
+
+    sortMethod = INVENTORY_NUMBER_ASC;
+    listInit(sci);
+}
+
+ListForm::ListForm(GroupCard &gC, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ListForm),
+    groupCard(&gC)
+{
+    ui->setupUi(this);
+
+    sortMethod = INVENTORY_NUMBER_ASC;
+
+    slotListInit();
+}
+
+ListForm::ListForm(GroupCard &gC, QVector<CardInformation> &sci, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ListForm),
+    groupCard(&gC)
+{
+    ui->setupUi(this);
 
     sortMethod = INVENTORY_NUMBER_ASC;
     listInit(sci);

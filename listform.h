@@ -8,6 +8,8 @@
 #include <QCheckBox>
 
 #include "cardinformation.h"
+#include "groupcard.h"
+
 
 namespace Ui {
 class ListForm;
@@ -20,6 +22,8 @@ class ListForm : public QWidget
 public:
     explicit ListForm(QWidget *parent = nullptr);
     explicit ListForm(QVector<CardInformation> &, QWidget *parent = nullptr);
+    explicit ListForm(GroupCard &, QWidget *parent = nullptr);
+    explicit ListForm(GroupCard &, QVector<CardInformation> &, QWidget *parent = nullptr);
     ~ListForm();
 
     enum SORT_METHOD {INVENTORY_NUMBER_ASC, INVENTORY_NUMBER_DES,
@@ -61,6 +65,7 @@ private slots:
 private:
 
     Ui::ListForm *ui;
+    GroupCard groupCard;
 };
 
 #endif // LISTFORM_H
