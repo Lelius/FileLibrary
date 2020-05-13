@@ -96,10 +96,10 @@ ListForm::ListForm(QVector<CardInformation> &sci, QWidget *parent) :
     listInit(sci);
 }
 
-ListForm::ListForm(GroupCard &gC, QWidget *parent) :
+ListForm::ListForm(GroupCard *gC, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ListForm),
-    groupCard(&gC)
+    groupCard(gC)
 {
     ui->setupUi(this);
 
@@ -108,10 +108,10 @@ ListForm::ListForm(GroupCard &gC, QWidget *parent) :
     slotListInit();
 }
 
-ListForm::ListForm(GroupCard &gC, QVector<CardInformation> &sci, QWidget *parent) :
+ListForm::ListForm(GroupCard *gC, QVector<CardInformation> &sci, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ListForm),
-    groupCard(&gC)
+    groupCard(gC)
 {
     ui->setupUi(this);
 

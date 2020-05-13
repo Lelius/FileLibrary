@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     groupCard = new GroupCard(this);
 
-    listForm = new ListForm();
+    listForm = new ListForm(groupCard, this);
     cardEditForm = new CardEditForm(this);
     ExitForm *exitForm = new ExitForm(this);
     NewFileLibraryForm *newFileLibraryForm = new NewFileLibraryForm(this);
@@ -133,7 +133,7 @@ void MainWindow::setProgramConfiguration()
         wwd.openDatabase(pathLastDatabaseName);
 
         delete listForm;
-        listForm = new ListForm(this);
+        listForm = new ListForm(groupCard, this);
 
         setActionsEnabled(true);
     }
