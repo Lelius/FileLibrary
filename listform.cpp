@@ -241,14 +241,20 @@ void ListForm::reinitList(){
 
 void ListForm::listInitTableGroupCheckBox(int i)
 {
-    QCheckBox *checkBox = new QCheckBox(this);
-    QHBoxLayout *qHBL = new QHBoxLayout();
-    QWidget *widget = new QWidget(this);
+//    QCheckBox *checkBox = new QCheckBox(this);
+//    QHBoxLayout *qHBL = new QHBoxLayout();
+//    QWidget *widget = new QWidget(this);
+    QTableWidgetItem *tableWidgetItem = new QTableWidgetItem;
 
     //checkBox->setCheckState(Qt::Checked);
-    qHBL->addWidget(checkBox, 0, Qt::AlignHCenter);
-    widget->setLayout(qHBL);
-    ui->tableWidgetList->setCellWidget(i,GROUP_COL, widget);
+//    qHBL->addWidget(checkBox, 0, Qt::AlignHCenter);
+//    widget->setLayout(qHBL);
+//    ui->tableWidgetList->setCellWidget(i,GROUP_COL, widget);
+
+    tableWidgetItem->setFlags(tableWidgetItem->flags() | Qt::ItemIsUserCheckable);
+    tableWidgetItem->setCheckState(Qt::Unchecked);
+    ui->tableWidgetList->setItem(i, GROUP_COL,tableWidgetItem);
+
 }
 
 
