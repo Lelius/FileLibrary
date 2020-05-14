@@ -418,3 +418,19 @@ int ListForm::getSelectedInventoryNumber()
 
     return wwd.searchMaxInventoryNumber();
 }
+
+void ListForm::on_tableWidgetList_itemChanged(QTableWidgetItem *itemChanged)
+{
+    if (itemChanged->column() == GROUP_COL){
+        QTableWidgetItem *i = ui->tableWidgetList->item(itemChanged->row(), INVENTORY_NUMBER_COL);
+
+        int inventoryNumber = i->text().toInt();
+
+        if (itemChanged->checkState() == Qt::Checked){
+            groupCard->addGroupCard(inventoryNumber);
+        } else if (itemChanged->checkState() == Qt::Unchecked){
+            groupCard->removeGroupCard(inventoryNumber);
+        } else
+            qDebug() << "Что-то непонятное при проверке checked.";
+    }
+}

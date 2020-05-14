@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QFileInfo>
 #include <QCheckBox>
+#include <QTableWidgetItem>
 
 #include "cardinformation.h"
 #include "groupcard.h"
@@ -61,6 +62,8 @@ signals:
 private slots:
     void on_tableWidgetList_cellActivated(int row, int column);
     void slotHeaderSectionClicked(int logicalIndex);
+
+    void on_tableWidgetList_itemChanged(QTableWidgetItem *item);
 
 private:
 
