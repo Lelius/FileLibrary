@@ -201,7 +201,7 @@ void ListForm::listInitTable()
         ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
         ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
         ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
-        listInitTableGroupCheckBox(i);
+        listInitTableGroupCheckBox(i, cci.at(i).getInventoryNumber());
     }
 
     connect(header, &QHeaderView::sectionClicked, this, &ListForm::slotHeaderSectionClicked, Qt::UniqueConnection);
@@ -257,27 +257,25 @@ void ListForm::reinitList(){
         ui->tableWidgetList->setItem(i, DESIGNATION_COL, new QTableWidgetItem(cci.at(i).getDesignation()));
         ui->tableWidgetList->setItem(i, NAME_COL, new QTableWidgetItem(cci.at(i).getName()));
         ui->tableWidgetList->setItem(i, DATE_COL, new QTableWidgetItem(cci.at(i).getReceiptDate().toString("dd.MM.yyyy")));
-        listInitTableGroupCheckBox(i);
+        listInitTableGroupCheckBox(i, cci.at(i).getInventoryNumber());
     }
 }
 
 
-void ListForm::listInitTableGroupCheckBox(int i)
+void ListForm::listInitTableGroupCheckBox(int i, int inventoryNumber)
 {
-//    QCheckBox *checkBox = new QCheckBox(this);
-//    QHBoxLayout *qHBL = new QHBoxLayout();
-//    QWidget *widget = new QWidget(this);
-    QTableWidgetItem *tableWidgetItem = new QTableWidgetItem;
+    QTableWidgetItem *item = new QTableWidgetItem;
 
-    //checkBox->setCheckState(Qt::Checked);
-//    qHBL->addWidget(checkBox, 0, Qt::AlignHCenter);
-//    widget->setLayout(qHBL);
-//    ui->tableWidgetList->setCellWidget(i,GROUP_COL, widget);
+    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 
-    tableWidgetItem->setFlags(tableWidgetItem->flags() | Qt::ItemIsUserCheckable);
-    tableWidgetItem->setCheckState(Qt::Unchecked);
-    ui->tableWidgetList->setItem(i, GROUP_COL,tableWidgetItem);
 
+    if (groupCard->containsInGroupCard(inventoryNumber)) {
+        item->setCheckState(Qt::Checked);
+    } else {
+        item->setCheckState(Qt::Unchecked);
+    }
+
+    ui->tableWidgetList->setItem(i, GROUP_COL,item);
 }
 
 

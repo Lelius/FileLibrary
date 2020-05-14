@@ -46,7 +46,7 @@ public:
     QVector<CardInformation> sortListByName(QVector<CardInformation>);
     QVector<CardInformation> sortListByReceiptDate(QVector<CardInformation>);
     void reinitList();
-    void listInitTableGroupCheckBox(int);
+    void listInitTableGroupCheckBox(int, int);
 
 public:
 
